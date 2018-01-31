@@ -1,0 +1,16 @@
+"""Tests for our `carme init` subcommand."""
+
+from subprocess import PIPE, Popen as popen
+from unittest import TestCase
+import os
+
+
+
+class TestAddConfig(TestCase):
+    def test_returns_adding_config_gcp(self):
+      output = popen(['carme', 'init', 'gcp', '--force','|','carme', 'add_config', 'jupyter'], stdout=PIPE).communicate()[0]
+      self.assertTrue('Adding configuration for gcp to launch.yaml.' in output.decode('UTF-8'))
+
+#    def test_returns_adding_config(self):
+#        output = popen(['carme', 'add_config', 'jupyter'], stdout=PIPE).communicate()[0]
+#        self.assertTrue('Adding configuration for jupyter to launch.yaml.' in output.decode('UTF-8'))

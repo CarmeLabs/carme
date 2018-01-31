@@ -1,0 +1,45 @@
+#Start of Jupyterhub Configuration
+jup_rebuild_config: true
+jup_proxy:                    #Jup_proxy is used to setup ssl.
+  https:
+    hosts:
+      - yoururl.yourdomain.com
+    letsencrypt:
+      contactEmail: you@yourdomain.com
+jup_namespace: carme     #Generally the namespace and releasename should be the same.
+jup_releasename: carme
+jup_fixed_ip:               #Set as reserved IP address.
+jup_set_fixed_ip: false
+jup_helm_repo: https://jupyterhub.github.io/helm-chart/
+jup_version: v0.6.0-9701a90
+jup_config_init: https://raw.githubusercontent.com/jupyterhub/zero-to-jupyterhub-k8s/master/jupyterhub/values.yaml
+jup_github_auth:
+  type: github
+  github:
+    clientId: "********************"
+    clientSecret: "***************************"
+    callbackUrl: "http://******************/hub/oauth_callback"
+jup_google_auth:
+  type: google
+  google:
+    clientId: "******************.apps.googleusercontent.com"
+    clientSecret: "********************"
+    callbackUrl: "http://******************/hub/oauth_callback"
+    hostedDomain: "*****************.edu" #Your University URL
+    loginService: "***************"   #Your University name
+jup_dummy_auth:
+  type: dummy
+  dummy:
+    password: "carme"
+jup_admin:
+  access: true
+  users: ['youradmin']
+jup_singleuser:
+  image:
+    name: jupyterhub/k8s-singleuser-sample
+    tag: v0.5.0
+jup_prePuller:
+  enabled: false
+jup_rbac:
+  enabled: false
+#End of Jupyterhub Configuration

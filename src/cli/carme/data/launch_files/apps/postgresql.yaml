@@ -1,0 +1,5 @@
+postgre_host: host
+postgre_database: database
+postgre_user: user
+postgre_port: 5432
+postgre_password: password
