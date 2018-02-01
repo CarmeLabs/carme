@@ -1,10 +1,10 @@
 package:
-  name: artisan
+  name: carme
   version: v
 
 source:
   git_rev:
-  git_url:
+  git_url: https://github.com/carmelabs/carme.git
 
 requirements:
   build:
@@ -20,5 +20,5 @@ test:
 
 about:
   home:
-  license:
+  license: MIT
   license_file:

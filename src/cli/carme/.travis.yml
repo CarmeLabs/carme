@@ -1,4 +1,0 @@
-#run travis encrypt --add deploy.password
-deploy:
-  provider: pypi
-  user: "Your username"
