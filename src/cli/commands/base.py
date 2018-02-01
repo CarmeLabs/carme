@@ -4,7 +4,6 @@ from shutil import copyfile
 import ruamel.yaml
 import subprocess
 from shutil import copyfile
-from .apps.jupyter import *
 
 
 class Base(object):
@@ -71,6 +70,7 @@ class Base(object):
         with open(file, 'r') as yaml:
             kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
         return kwargs
+
 
     def run(self):
         raise NotImplementedError('You must implement the run() method yourself!')

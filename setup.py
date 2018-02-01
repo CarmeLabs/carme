@@ -6,11 +6,11 @@ from codecs import open
 from os.path import abspath, dirname, join
 from subprocess import call
 from setuptools import Command, find_packages, setup
-from carme import __version__
+from src import __version__
 
 this_dir = abspath(dirname(__file__))
 
-with open(join(this_dir, 'README.rst'), encoding='utf-8') as file:
+with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
 
 class RunTests(Command):
@@ -32,7 +32,7 @@ class RunTests(Command):
 
 setup(
     name = 'carme',
-    version = '0.0.7',
+    version = '0.0.1',
     description = 'An opinionated AI stack built for Kubernetes by default',
     long_description = long_description,
     url = 'https://github.com/carme/carme',

@@ -9,3 +9,7 @@ build
 *checkpoint*
 /tests/tmp/*
 *.notes
+.directory
+*.swp
+.vscode
+.idea

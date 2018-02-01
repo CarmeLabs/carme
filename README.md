@@ -1,9 +1,9 @@
 # Carme
-The *C*ontainerized *A*nalytics *R*untime and *M*anagement *E*ngine
+The **C**ontainerized **A**nalytics **R**untime and **M**anagement **E**ngine
 
 
 ### Installing CLI in Development Mode
-`pip install -e src/cli`
+`pip install -e src`
 
 ### Running Tests
-'python src/cli/setup.py test'
+'python src/setup.py test'
