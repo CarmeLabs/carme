@@ -6,4 +6,4 @@ The **C**ontainerized **A**nalytics **R**untime and **M**anagement **E**ngine
 `pip install -e src`
 
 ### Running Tests
-'python src/setup.py test'
+`python src/setup.py test`
