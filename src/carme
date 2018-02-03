@@ -1,2 +1,3 @@
 #!/bin/sh
-python3 cli/cli.py $@
+BASEDIR=$(dirname "$0")
+python3 "$BASEDIR"/cli/cli.py
