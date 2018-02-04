@@ -54,7 +54,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'carme=carme.cli:main'
+            'carme=src.cli.cli:main'
         ],
     },
     cmdclass = {'test': RunTests},

@@ -25,55 +25,38 @@ Help:
 
 from inspect import getmembers, isclass
 from docopt import docopt
-# from . import __version__ as VERSION # This is broken for some reason
-#from os.path import abspath, dirname, join, isfile
-#import os
-#from subprocess import PIPE, Popen as popen
-#from unittest import TestCase
+from . import __version__ as VERSION
+from os.path import abspath, dirname, join, isfile
+import os
+from subprocess import PIPE, Popen as popen
+from unittest import TestCase
+
+def run(command):
+    print(command)
+    input=command.split()
+    if input[0]!="kubel":
+        input.insert(0,"kubel")
+    return popen(input, stdout=PIPE).communicate()[0]
 
 def main():
     """Main CLI entrypoint."""
-    import commands
-    options = docopt(__doc__, version='0.0.1') # Hard coded because importing version is broken
-    print(options.items())
+    #print(__doc__)
+    options = docopt(__doc__, version=VERSION)
+    cli(options)
 
+def cli(options):
+    import src.cli.commands as kc
+    """Main CLI entrypoint."""
     # Here we'll try to dynamically match the command the user is trying to run
     # with a pre-defined command class we've already created.
     for (k, v) in options.items():
-        if hasattr(commands, k) and v:
-            module = getattr(commands, k)
-            cmds = getmembers(module, isclass)
-            command = [command[1] for command in cmds if command[0] != 'Base'][0]
+          if hasattr(kc, k) and v:
+            module = getattr(kc, k)
+            kc = getmembers(module, isclass)
+            print("kc",kc)
+            command = [command[1] for command in kc if command[0] != 'Base'][0]
             command = command(options)
             command.run()
 
-main() # Don't forget to actually run main!
-
-# def runit(command):
-#     print(command)
-#     input=command.split()
-#     if input[0]!="carme":
-#         input.insert(0,"carme")
-#     return popen(input, stdout=PIPE).communicate()[0]
-#
-# def main():
-#     """Main CLI entrypoint."""
-#     #print(__doc__)
-#     options = docopt(__doc__, version=VERSION)
-#     cli(options)
-#
-# def cli(options):
-#     import carme.commands as kc
-#     """Main CLI entrypoint."""
-#     # Here we'll try to dynamically match the command the user is trying to run
-#     # with a pre-defined command class we've already created.
-#     for (k, v) in options.items():
-#           if hasattr(kc, k) and v:
-#             module = getattr(kc, k)
-#             kc = getmembers(module, isclass)
-#             print("kc",kc)
-#             command = [command[1] for command in kc if command[0] != 'Base'][0]
-#             print("command",command)
-#             command = command(options)
-#             print("command2",command)
-#             command.run()
+if __name__ == "__main__":
+    main() # Don't forget to actually run main!
