@@ -11,7 +11,7 @@ cd carme-env
 source bin/activate
 git clone https://github.com/carmelabs/carme.git
 cd carme
-pip install -f requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Installing CLI in Development Mode
