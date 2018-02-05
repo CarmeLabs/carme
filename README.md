@@ -9,13 +9,17 @@ Then run the following commands in a terminal:
 python3 -m venv carme-env
 cd carme-env
 source bin/activate
+pip install --upgrade pip
 git clone https://github.com/carmelabs/carme.git
 cd carme
 pip install -r requirements.txt
 ```
 
 ### Installing CLI in Development Mode
-`pip install -e src`
+```
+cd ..  # (should be in carme-env)
+pip install -e carme
+```
 
 ### Running Tests
-`python src/setup.py test`
+`python carme/setup.py test`
