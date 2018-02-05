@@ -23,15 +23,19 @@ class New(Base):
             self.project_dir = os.getcwd() + '/' + self.project_name
         else:
             logging.error('carme: Project name not supplied. See carme --help')
-
-        # Create new project structure
-        logging.info('Creating new project structure for ' + self.project_name)
-        os.mkdir(self.project_dir)
-        os.chdir(self.project_dir)
-        os.mkdir('dags')
-        os.mkdir('data')
-        os.mkdir('docker')
-        copyfile(self.docker_dir + '/docker-compose.yaml', self.project_dir + '/docker/docker-compose.yaml')
-        f= open('config.yaml','w+')
-        f.writelines('project_name: ' + self.project_name + '\n')
-        f.writelines('packages:')
+        
+        if(os.path.isdir(self.project_dir)):
+            logging.error('carme: Project already exists with give name: ' + self.project_name)
+        else:
+            # Create new project structure
+            logging.info('Creating new project structure for ' + self.project_name)
+            os.mkdir(self.project_dir)
+            os.chdir(self.project_dir)
+            os.mkdir('dags')
+            os.mkdir('data')
+            os.mkdir('docker')
+            os.mkdir('notebooks')
+            copyfile(self.docker_dir + '/docker-compose.yaml', self.project_dir + '/docker/docker-compose.yaml')
+            f= open('config.yaml','w+')
+            f.writelines('project_name: ' + self.project_name + '\n')
+            f.writelines('packages:')
