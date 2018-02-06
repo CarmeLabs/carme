@@ -22,10 +22,10 @@ class New(Base):
             self.project_name = self.options['<project>']
             self.project_dir = os.getcwd() + '/' + self.project_name
         else:
-            logging.error('carme: Project name not supplied. See carme --help')
+            logging.error('Project name not supplied. See carme --help')
         
         if(os.path.isdir(self.project_dir)):
-            logging.error('carme: Project already exists with give name: ' + self.project_name)
+            logging.error('Project already exists with give name: ' + self.project_name)
         else:
             # Create new project structure
             logging.info('Creating new project structure for ' + self.project_name)
