@@ -1,6 +1,18 @@
 # Carme
 The **C**ontainerized **A**nalytics **R**untime and **M**anagement **E**ngine
 
+## About
+Carme: A Framework for Data Artisans
+
+Carme is framework which enables data scientists to create and deploy data applications.  Carme attempts to take the pain out projects by facilitating common tasks relevant to the majority of analytics teams, such as:
+- Jupyter, Jupyterlab, and Jupyterhub setup in a container-based environment.
+- Simplified version control for data and models for increased reproducibility.
+- Directed acyclic graph (DAG) creation, monitoring, and deployment for data pipelines.
+- Setup of cluster and GPU infrastructure for scaling analyses.
+- Starter notebooks for best-of-class deep learning analyses.
+
+Carme can improve workflows for individuals, teams, as well as data science classrooms.
+
 ## Installation Instructions
 
 ### Install Python
