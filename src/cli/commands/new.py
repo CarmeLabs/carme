@@ -6,6 +6,8 @@ from .base import Base
 import os
 from shutil import copyfile
 import logging
+import subprocess
+
 
 class New(Base):
     def run(self):
@@ -25,7 +27,7 @@ class New(Base):
             logging.error('Project name not supplied. See carme --help')
         
         if(os.path.isdir(self.project_dir)):
-            logging.error('Project folder ' + self.project_name + ' already exists.')
+            logging.error('Project folder ' + self.project_name + ' already exists')
         else:
             # Create new project structure
             logging.info('Creating new project structure for ' + self.project_name)
@@ -39,3 +41,13 @@ class New(Base):
             f= open('config.yaml','w+')
             f.writelines('project_name: ' + self.project_name + '\n')
             f.writelines('packages:')
+
+            # Run git initial functions if possible
+            logging.info("Attempting to initialize git repository")
+            try:
+                subprocess.Popen(["git", "init"], cwd=self.project_dir)
+                subprocess.Popen(["git", "add", "."], cwd=self.project_dir)
+                subprocess.Popen(["git", "commit", "-m", "Init"], cwd=self.project_dir)
+                logging.info("Sucessfull initialized git repository")
+            except OSError:
+                logging.error("git not found")
