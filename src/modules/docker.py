@@ -4,6 +4,7 @@ import os
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from subprocess import call
+from yamltools import folder_merge_yaml
 
 client = docker.from_env()
 
@@ -42,19 +43,13 @@ def carme_start(path: str):
     Starts a Docker stack named 'carme' from the compositor compose file of fo the the current project.
     Generally this should be the only function called from this file unless you are doing something more complicated. 
 
-    @param path: path to the project's compose file directory
+    @param path: path to the project's compose file 
     @return: boolean value of success status
     """
-    if not os.path.exists(path) or not os.path.isdir(path):
+    if not os.path.exists(path) or os.path.isdir(path):
         return False
 
-    files = [f for f in os.listdir(path) if os.path.isfile(path, f)]
-    yaml = YAML()
-    for f in files:
-        merge = yaml.load()
-    
-    tmp = NamedTemporaryFile()
-    yaml.dump(merged, tmp)
+    file = folder_merge_yaml(path)
     
 @check
 def carme_stop():

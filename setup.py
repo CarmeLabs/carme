@@ -7,12 +7,14 @@ from os.path import abspath, dirname, join
 from subprocess import call
 from setuptools import Command, find_packages, setup
 from src import __version__
+from unittest import TestLoader
 
 this_dir = abspath(dirname(__file__))
 
 with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
 
+'''
 class RunTests(Command):
     """Run all tests."""
     description = 'run tests'
@@ -28,7 +30,10 @@ class RunTests(Command):
         """Run all tests!"""
         errno = call(['py.test', '--cov=carme', '--cov-report=term-missing'])
         raise SystemExit(errno)
+'''
 
+def test_suite():
+    return TestLoader().discover('tests')
 
 setup(
     name = 'carme',
@@ -57,5 +62,6 @@ setup(
             'carme=src.cli.cli:main'
         ],
     },
-    cmdclass = {'test': RunTests},
+    # cmdclass = {'test': RunTests},
+    test_suite = 'setup.test_suite'
 )

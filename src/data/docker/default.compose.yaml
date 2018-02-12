@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik/traefik
+    deploy:
+      labels:
+        - traefik.port=9000
+        - traefik.frontend.rule=PathPrefixStrip:/traefik
+
+  jupyter:
+    image: jupyter/minimal-notebook
+    volumes:
+      # TODO CHANGE THIS
+      - .pip-cache:<pip install path>
+    deploy:
+      labels:
+        - traefik.port=8888
+        - traefik.frontend.rule=PathPrefixStrip:/jupyter
+
+networks:
