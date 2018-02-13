@@ -32,3 +32,10 @@
 - [ ] Finish docker wrapper
 - [x] Conda install documentation
 - [ ] Build out the `serve` command
+
+# Week 2/13
+- [ ] Carme `pip` cli command - Dan 
+- [x] Fix tests - Everyone 
+- [ ] Finish yaml merging - Steve
+- [ ] Continue to work on jupyter token task - David
+- [ ] Start building out starter examples - Jason
