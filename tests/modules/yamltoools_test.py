@@ -46,7 +46,7 @@ class TestMergeYaml(TestCase):
         self.file1 = tf1.name
         self.file2 = tf2.name
 
-    def run(self):
+    def test_merge_yaml(self):
         yamltools.merge_yaml(self.file1, self.file2)
 
 class TestFolderMergeYaml(TestCase):

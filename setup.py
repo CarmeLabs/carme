@@ -63,5 +63,5 @@ setup(
         ],
     },
     # cmdclass = {'test': RunTests},
-    test_suite = 'setup.test_suite'
+    test_suite = 'tests',
 )

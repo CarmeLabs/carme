@@ -13,3 +13,5 @@ class TestNew(TestCase):
     def test_returns_adding_config_azure(self):
         output = popen(['carme', 'new', 'test'], stdout=PIPE).communicate()[0]
         self.assertTrue('Creating new project structure for' in output.decode('UTF-8'))
+    def teardown(self):
+        shutil.rmtree('test')
