@@ -6,6 +6,8 @@ Usage:
   carme -v | --version
   carme hello
   carme new <project>
+  carme cluster <command> [--echo]
+  carme server <command> [--echo]
 
 Options:
   -h --help                         Show this screen.

@@ -5,7 +5,6 @@ import ruamel.yaml
 import subprocess
 from shutil import copyfile
 
-
 class Base(object):
     """A base command."""
 
@@ -16,7 +15,7 @@ class Base(object):
         self.launch_dir=self.base_dir+'/data/launch_files'
         self.notebooks_dir=self.base_dir+'/data/notebooks'
         self.cwd=os.getcwd()
-        self.launch_file = self.cwd+'/launch.yaml'
+        self.launch_file = self.cwd+'/config.yaml'
         self.launch_config = {}
         self.cluster_commands = {}
         self.app_commands = {}
@@ -24,11 +23,10 @@ class Base(object):
     def message(self, mess):
             print('Adding configuration for '+mess+' to launch.yaml.')
 
-
     def append_launch_file(self, app):
         app_config=self.launch_dir+'/apps/'+app+'.yaml'
         if os.path.isfile(app_config):
-            print('Adding configuration for '+app+' to launch.yaml.')
+            print('Adding configuration for '+app+' to config.yaml.')
             config=self.load_yaml(app_config)
             ruamel.yaml.round_trip_dump(config, open(self.launch_file, 'a'))
             self.launch_config=self.load_yaml(self.launch_file)
@@ -70,7 +68,6 @@ class Base(object):
         with open(file, 'r') as yaml:
             kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
         return kwargs
-
 
     def run(self):
         raise NotImplementedError('You must implement the run() method yourself!')
