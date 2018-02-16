@@ -8,7 +8,7 @@ Carme is framework which enables data scientists to create and deploy data appli
 - Directed acyclic graph (DAG) creation, monitoring, and deployment for data pipelines.
 - Setup of cluster and GPU infrastructure for scaling analyses.
 - Starter notebooks for best-of-class deep learning analyses.
-- Dash data application deployment.
+- Dash and Bokeh data application deployment.
 
 Carme can improve workflows for individuals, teams, as well as data science classrooms.
 
