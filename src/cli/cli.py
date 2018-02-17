@@ -8,6 +8,8 @@ Usage:
   carme new <project>
   carme cluster <command> [--echo]
   carme server <command> [--echo]
+  carme save <message>
+  carme connect
 
 Options:
   -h --help                         Show this screen.
@@ -56,7 +58,7 @@ def cli(options):
             module = getattr(kc, k)
             kc = getmembers(module, isclass)
             print("kc",kc)
-            command = [command[1] for command in kc if command[0] != 'Base'][0]
+            command = [command[1] for command in kc if (command[0] != 'Base' and command[0] != 'Git')][0] # Hack to not map to Git
             command = command(options)
             command.run()
 
