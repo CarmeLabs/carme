@@ -13,8 +13,15 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     @return: path to the file containing the merged YAML
     """
 
-    if not os.path.exists(file1) or not os.path.exists(file2):
-        raise FileNotFoundError
+    if not os.path.exists(file1):
+        raise FileNotFoundError(file1)
+    elif not os.path.isfile(file1):
+        raise IsADirectoryError(file1)
+
+    if not os.path.exists(file2):
+        raise FileNotFoundError(file2)
+    elif not os.path.isfile(file2):
+        raise IsADirectoryError(file2)
 
     outfile = None;
     if outpath is not None:
@@ -26,8 +33,8 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     f1_yaml = yaml.load(file1)
     f2_yaml = yaml.load(file2)
 
-    yaml.round_trip_dump(f1_yaml, outfile)
-    yaml.round_trip_dump(f2_yaml, outfile)
+    yaml.dump(f1_yaml, outfile)
+    yaml.dump(f2_yaml, outfile)
 
     return outfile.name
 
@@ -41,16 +48,18 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     @return: path to the file containing the merged YAML
     """
 
-    if not os.path.exists(folderpath) or not os.isdir(folderpath):
-        raise FileNotFoundError
+    if not os.path.exists(folderpath):
+        raise FileNotFoundError(folderpath)
+    if not os.path.isdir(folderpath):
+        raise Exception(folderpath + " is not a directory")
 
-    outfile = None;
+    outfile = None
     if outpath is not None:
         outfile = open(outpath)
     else:
         outfile = NamedTemporaryFile()
     
-    files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))
+    files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
     
     for file in files:
         outfile = merge_yaml(outfile, file)

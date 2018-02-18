@@ -2,7 +2,7 @@
 
 from subprocess import PIPE, Popen as popen
 from unittest import TestCase
-from carme import __version__ as VERSION
+from src import __version__ as VERSION
 
 class TestHelp(TestCase):
     def test_returns_usage_information(self):
