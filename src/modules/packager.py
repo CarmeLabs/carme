@@ -18,7 +18,7 @@ PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cac
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-class Package:
+class Packager:
     """
     Object for managing a package
     """
@@ -59,7 +59,7 @@ class Package:
         Installs a package into the project folder.
         """
         if self.project_path is None:
-            logging.error("Invalid project path")
+            logging.error("Invalid project path.")
             raise Exception
 
         if self.unzipped_path is None and self.zip_path is None:
@@ -79,7 +79,7 @@ class Package:
         for f in files:
             os.makedirs(os.path.dirname(f), exist_ok=True)
             copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f)
-
+                     
     def remove(self):
         """
         Removes a package from the project folder.
@@ -88,7 +88,7 @@ class Package:
         files = self._conflict_check()
         for f in files:
             os.remove(f)
-        logging.info("You may need to restore backed up files")
+        logging.info("You may need to restore backed up files.")
 
     def update(self):
         # TODO see note in download

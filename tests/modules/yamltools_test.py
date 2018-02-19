@@ -6,6 +6,10 @@ from unittest import TestCase
 
 from src.modules import yamltools
 
+# set up logging
+FORMAT = 'carme: [%(levelname)s] %(message)s'
+logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
+
 class TestMergeYaml(TestCase):
     file1 = None
     file2 = None
@@ -46,10 +50,7 @@ class TestMergeYaml(TestCase):
         self.yaml.dump(y2, self.file2)
 
     def test_merge_yaml(self):
-        FORMAT = 'carme: [%(levelname)s] %(message)s'
-        logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
-
-        file = yamltools.merge_yaml(self.file1.name, self.file2.name)
+        merged_file = yamltools.merge_yaml(self.file1.name, self.file2.name)
 
         expected_string = """
         version: '3'
@@ -72,14 +73,14 @@ class TestMergeYaml(TestCase):
             net1:
                 external: true
         """
-        merged_yaml = self.yaml.load(os.path.abspath(file))
+        merged_yaml = self.yaml.load(os.path.abspath(merged_file))
         expected_yaml = self.yaml.load(expected_string)
         logging.debug(merged_yaml)
         self.assertTrue(merged_yaml == expected_yaml)
 
     def tearDown(self):
-        self.file1.close
-        self.file2.close
+        self.file1.close()
+        self.file2.close()
 
 class TestFolderMergeYaml(TestCase):
     def test_folder_merge_yaml(self):

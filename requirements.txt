@@ -1,5 +1,7 @@
+-e git+https://rushsteve1@github.com/carmelabs/carme.git@d380da9246d193b026b8efa593a3829dea16a3fb#egg=carme
 certifi==2018.1.18
 chardet==3.0.4
+decorator==4.2.1
 docker==3.0.0
 docker-pycreds==0.2.1
 docopt==0.6.1
@@ -9,4 +11,5 @@ requests==2.18.4
 ruamel.yaml==0.15.35
 six==1.11.0
 urllib3==1.22
+validators==0.12.1
 websocket-client==0.46.0

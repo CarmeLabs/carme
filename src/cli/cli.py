@@ -10,6 +10,8 @@ Usage:
   carme server <command> [--echo]
   carme save <message>
   carme connect
+  carme git (init|commit|add|remote_add|push)
+  carme package (install|remove|download) <package> <project> [--echo]
 
 Options:
   -h --help                         Show this screen.
