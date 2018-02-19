@@ -5,8 +5,16 @@ from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from subprocess import call
 from yamltools import folder_merge_yaml
+import logging
 
+# Setup docker client
 client = docker.from_env()
+
+# Set up logger
+FORMAT = 'carme: [%(levelname)s] %(message)s'
+logging.basicConfig(level=logging.INFO, format=FORMAT)
+
+#TODO improve logging and error handling
 
 def permcheck(func):
     """Decorator to check if Docker is installed, and if the user has permissions for it."""
