@@ -14,8 +14,6 @@ client = docker.from_env()
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-#TODO improve logging and error handling
-
 def permcheck(func):
     """Decorator to check if Docker is installed, and if the user has permissions for it."""
     def inner():
@@ -27,10 +25,11 @@ def permcheck(func):
                 if os.access(p, os.X_OK):
                     func()
                 else:
-                    print("You do not have permisison to manage Docker")
+                    logging.error("You do not have permisison to manage Docker")
+                    raise PermissionError
             else:
-                print("Docker binary not found on PATH")
-                exit(1)
+                loggint.error("Docker binary not found on PATH")
+                raise FileNotFoundError
     return inner
 
 def check(func);
@@ -40,9 +39,11 @@ def check(func);
         if client.info()['Swarm'] is not "inactive":
             func()
         else:
-            # It might be a good idea to just call init() here but for debu purposes I left it as an error
-            print("Docker not in swarm mode")
-            exit(1)
+            # It might be a good idea to just call init() here but for debug purposes I left it as an error
+            logging.warning("Docker not in swarm mode. Would you like to enable swarm mode? (y/n) [n]")
+            answer = input().lower()
+            if answer == 'y' or answer == 'yes':
+                swarm_init()
     return inner
 
 @check
@@ -64,7 +65,7 @@ def carme_stop():
     return stack_remove("carme")
 
 @permcheck
-def init():
+def swarm_init():
     """
     Equivalent to 'swarm init'
 
@@ -73,7 +74,8 @@ def init():
     try:
         client.swarm.init(name="carme")
         return True
-    except:
+    except Exception as err:
+        loggint.error(err)
         return False
 
 @check
@@ -107,13 +109,15 @@ def service_remove(service_id: str):
     try:
         client.service.get(service_id).remove()
         return True
-    except:
+    except Exception as err:
+        logging.error(err)
         return False
 @check
 def stack_start(name: str, compose_file: str):
     """Deploys a stack. Due to limitations of the Docker SDK this calls the actual Docker CLI."""
     proc = call(["docker", "stack", "deploy", "-f", compose_file, name])
     if proc.returncode is not 0:
+        logging.error("`docker stack deploy` exited with non-zero exit code.")
         return False
     return True
     
@@ -121,5 +125,6 @@ def stack_remove(name: str):
     """Removes a stack. Due to limitations of the Docker SDK this calls the actual Docker CLI."""
     proc = call(["docker", "stack", "rm", name])
     if proc.returncode is not 0:
+        logging.error("`docker stack remove` exited with non-zero exit code.")
         return False
     return True
