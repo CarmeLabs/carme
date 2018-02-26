@@ -10,7 +10,7 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     @param file1: the path to the first YAML file
     @param file2: the path to the second YAML file
     @param outpath: (optional) the path to the desired output file. Defaults to None in which case a temporary file is used.
-    @return: path to the file containing the merged YAML
+    @return: file object containing the merged YAML
     """
 
     if not os.path.exists(file1):
@@ -36,7 +36,7 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     yaml.dump(f1_yaml, outfile)
     yaml.dump(f2_yaml, outfile)
 
-    return outfile.name
+    return outfile
 
 def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     """
@@ -45,7 +45,7 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     @param folderpath: path to the folder containing the YAML files to merge
     @param pattern: (optional) a pattern the file has to match. Default '*.compose.yaml'
     @param outpath: (optional) the path to the desired output file. Defaults to None in which case a temporary file is used.
-    @return: path to the file containing the merged YAML
+    @return: file object containing the merged YAML
     """
 
     if not os.path.exists(folderpath):
@@ -64,4 +64,4 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     for file in files:
         outfile = merge_yaml(outfile, file)
 
-    return outfile.name
+    return outfile
