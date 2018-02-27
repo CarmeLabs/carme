@@ -59,7 +59,7 @@ def cli(options):
           if hasattr(kc, k) and v:
             module = getattr(kc, k)
             kc = getmembers(module, isclass)
-            print("kc",kc)
+#            print("kc",kc)
             command = [command[1] for command in kc if (command[0] != 'Base' and command[0] != 'Git')][0] # Hack to not map to Git
             command = command(options)
             command.run()

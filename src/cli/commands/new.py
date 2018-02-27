@@ -19,7 +19,7 @@ class New(Base):
         # Create new project directory structure
         logging.info('Creating new project structure for ' + self.project_name)
         try:
-            os.mkdir('dags')
+            os.mkdir('apps')
             os.mkdir('data')
             os.mkdir('docker')
             os.mkdir('docker/pip-cache')
@@ -27,7 +27,7 @@ class New(Base):
             copyfile(self.docker_dir + '/docker-compose.yaml', self.project_dir + '/docker/docker-compose.yaml')
             f= open('config.yaml','w+')
             f.writelines('project_name: ' + self.project_name + '\n')
-            f.writelines('packages:')
+            #f.writelines('packages:') Invalid
         except:
             logging.error("Error creating the project structure")
             logging.error(sys.exc_info()[0])
@@ -35,11 +35,8 @@ class New(Base):
 
     def run(self):
         # Get this scripts dir
-        self.base_dir=os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-        self.docker_dir=os.path.dirname(self.base_dir)+'/data/docker'
-        self.cwd=os.getcwd()
         self.git = Git()
-        
+
         if(self.options['<project>'] == '.'):
             self.project_dir = self.cwd
             self.project_name = input("Please enter project name: ")
