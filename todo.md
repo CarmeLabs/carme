@@ -39,3 +39,11 @@
 - [ ] Finish yaml merging - Steve
 - [ ] Continue to work on jupyter token task - David
 - [ ] Start building out starter examples - Jason
+
+# Week 2/27
+- [ ] Debug `carme save` using https - Dan
+- [ ] Write unit tests - Dan
+- [ ] Move git module/suppress output - Dan
+- [ ] Unit tests for package system - Steve 
+- [ ] CLI Cluster command development - Jason 
+- [ ] Work on cloud platform integration - John
