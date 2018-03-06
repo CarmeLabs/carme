@@ -36,14 +36,24 @@
 # Week 2/13
 - [ ] Carme `pip` cli command - Dan 
 - [x] Fix tests - Everyone 
-- [ ] Finish yaml merging - Steve
+- [x] Finish yaml merging - Steve
 - [ ] Continue to work on jupyter token task - David
 - [ ] Start building out starter examples - Jason
 
 # Week 2/27
-- [ ] Debug `carme save` using https - Dan
+- [x] Debug `carme save` using https - Dan
 - [ ] Write unit tests - Dan
-- [ ] Move git module/suppress output - Dan
+- [x] Move git module/suppress output - Dan
 - [ ] Unit tests for package system - Steve 
 - [ ] CLI Cluster command development - Jason 
-- [ ] Work on cloud platform integration - John
+- [x] Work on cloud platform integration - John
+
+# Week 3/3
+- [ ] Write unit tests - Dan
+- [ ] Finish git wrapper - Dan
+- [ ] Unit tests for package system - Steve 
+- [ ] click integration - Steve 
+- [ ] CLI Cloud command development - Jason 
+- [ ] Twitter JSON Test - John 
+- [ ] Twitter Download Test
+
