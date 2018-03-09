@@ -8,9 +8,8 @@ Usage:
   carme new <project>
   carme cluster <command> [--echo]
   carme server <command> [--echo]
-  carme save <message>
+  carme save [message]
   carme connect
-  carme git (init|commit|add|remote_add|push)
   carme package (install|remove|download) <package> <project> [--echo]
 
 Options:

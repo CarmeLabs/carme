@@ -8,7 +8,8 @@ import sys
 from shutil import copyfile
 import logging
 import subprocess
-from .git import Git
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/../modules")
+from gitwrapper import Git
 
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'
