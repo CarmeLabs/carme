@@ -50,10 +50,17 @@
 
 # Week 3/3
 - [ ] Write unit tests - Dan
-- [ ] Finish git wrapper - Dan
+- [x] Finish git wrapper - Dan
 - [ ] Unit tests for package system - Steve 
-- [ ] click integration - Steve 
-- [ ] CLI Cloud command development - Jason 
-- [ ] Twitter JSON Test - John 
-- [ ] Twitter Download Test
+- [x] click integration - Steve 
+- [x] CLI Cloud command development - Jason 
+- [x] Twitter JSON Test - John 
+- [x] Twitter Download Test
+
+# Week 3/20
+- [ ] Work on Jupyter integration with Ubuntu Server - Jason
+- [ ] Complete unit tests - Dan
+- [ ] Work on SSH support for git - Dan
+- [ ] Click integration - Steve
+- [ ] Fix Airflow timeout error - John
 
