@@ -48,7 +48,7 @@ class New(Base):
         else:
             if(self.options['<project>']):
                 self.project_name = self.options['<project>']
-                self.project_dir = os.getcwd() + '/' + self.project_name
+                self.project_dir = os.path.join(os.getcwd(), self.project_name)
             else:
                 logging.error('Project name not supplied. See carme --help')
             if(os.path.isdir(self.project_dir)):

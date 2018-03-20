@@ -1,7 +1,14 @@
-import os
+import os,sys
+import logging
 from glob import glob
 from ruamel.yaml import YAML
-from tempfile import NamedTemporaryFile
+from tempfile import NamedTemporaryFile, gettempdir
+from random import randint
+from pathlib import Path
+
+# set up logging
+FORMAT = 'carme: [%(levelname)s] %(message)s'
+logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
 
 def merge_yaml(file1:str, file2:str, outpath=None):
     """
@@ -10,8 +17,10 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     @param file1: the path to the first YAML file
     @param file2: the path to the second YAML file
     @param outpath: (optional) the path to the desired output file. Defaults to None in which case a temporary file is used.
-    @return: file object containing the merged YAML
+    @return: path to file containing the merged YAML
     """
+
+    logging.debug("Merging " + file1 + " with " + file2)
 
     if not os.path.exists(file1):
         raise FileNotFoundError(file1)
@@ -23,20 +32,23 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     elif not os.path.isfile(file2):
         raise IsADirectoryError(file2)
 
-    outfile = None;
-    if outpath is not None:
-        outfile = open(outpath)
-    else:
-        outfile = NamedTemporaryFile()
+    if outpath is None:
+        # Ideally would be a NamedTemporaryFile but it needs to outlive the function
+        outpath = os.path.join(gettempdir(), "carme-merge"+ str(randint(0, 9999)) + ".yaml")
 
-    yaml = YAML()
-    f1_yaml = yaml.load(file1)
-    f2_yaml = yaml.load(file2)
+    with open(outpath, 'w') as outfile:
+        logging.debug("Outputting to " + outfile.name)
 
-    yaml.dump(f1_yaml, outfile)
-    yaml.dump(f2_yaml, outfile)
+        # Docker actually doesn't mind duplicate keys in compose files so we are going to abuse that a bit
+        # Hopefully if they every change that it will be after docker stack supports multiple files
+        with open(file1, 'r') as f1:
+            outfile.write(f1.read())
 
-    return outfile
+        with open(file2, 'r') as f2:
+            outfile.write(f2.read())
+
+    # get the path, close the file, and return
+    return outpath
 
 def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     """
@@ -53,15 +65,14 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     if not os.path.isdir(folderpath):
         raise Exception(folderpath + " is not a directory")
 
-    outfile = None
-    if outpath is not None:
-        outfile = open(outpath)
-    else:
-        outfile = NamedTemporaryFile()
-    
-    files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
-    
-    for file in files:
-        outfile = merge_yaml(outfile, file)
+    if outpath is None:
+        # Ideally would be a NamedTemporaryFile but it needs to outlive the function
+        outpath = os.path.join(gettempdir(), "carme-folder-merge"+str(randint(0, 9999))+".yaml")
 
-    return outfile
+    with open(outpath, 'w') as outfile:
+        files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
+        
+        for file in files:
+            outfile = merge_yaml(outfile.name, file)
+
+    return outpath

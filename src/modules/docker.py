@@ -58,7 +58,8 @@ def carme_start(path: str):
     if not os.path.exists(path) or os.path.isdir(path):
         return False
 
-    file = folder_merge_yaml(path)
+    outfile = folder_merge_yaml(path)
+    stack_start("carme", outfile)
     
 @check
 def carme_stop():
