@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook:latest
+FROM jupyter/scipy-notebook:latest
 LABEL maintainer "Carmelabs"
 ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -7,10 +7,15 @@ ENV LC_CTYPE en_US.UTF-8
 ENV LC_MESSAGES en_US.UTF-8
 USER root
 COPY config/* /tmp/config/
+
 RUN apt-get update && cat /tmp/config/packages.txt | xargs apt-get install -y --allow-downgrades --no-install-recommends
-#         && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
-#         && locale-gen \
-#         && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
 USER jovyan
-RUN cd /tmp/config && /opt/conda/bin/conda env create environment.yml
-RUN /opt/conda/bin/conda clean -ya
+
+#Solution 1
+#RUN conda config --add channels fastai && conda config --add channels pytorch  && conda config --add channels peterjc123
+#RUN conda install --yes --file /tmp/config/requirements_conda.txt
+#RUN pip install -r /tmp/config/requirements_pip.txt
+
+#Potential Solution 2
+RUN cd /tmp/config && /opt/conda/bin/conda env create -f /tmp/config/environment-cpu.yml
+RUN /opt/conda/bin/conda clean -ya && /bin/bash -c "source activate fastai-cpu && python -m ipykernel install --user --name fastai-cpu --display-name 'Python3 (fast-ai)'"

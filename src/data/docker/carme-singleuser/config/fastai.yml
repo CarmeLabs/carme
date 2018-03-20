@@ -1,4 +1,4 @@
-name: carme
+name: fastai
 channels:
 - fastai
 - pytorch
