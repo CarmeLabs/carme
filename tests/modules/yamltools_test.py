@@ -17,7 +17,7 @@ yaml = YAML()
 class TestMergeYaml(TestCase):
     file1 = None
     file2 = None
-    merged_file = None
+    expected_string = None
     def setUp(self):
         y1 = """
         version: '3'
@@ -47,47 +47,30 @@ class TestMergeYaml(TestCase):
             net1:
                 external: true
         """
-        self.file1 = NamedTemporaryFile()
-        self.file2 = NamedTemporaryFile()
+        self.file1 = NamedTemporaryFile(mode='w')
+        self.file2 = NamedTemporaryFile(mode='w')
 
-        yaml.dump(y1, self.file1)
-        yaml.dump(y2, self.file2)
+        self.file1.write(y1)
+        self.file2.write(y2)
+
+        self.expected_string = y1 + y2
 
     def test_merge_yaml(self):
-        self.merged_file = merge_yaml(self.file1.name, self.file2.name)
+        merged_file = merge_yaml(self.file1.name, self.file2.name)
 
-        expected_string = """
-        version: '3'
-        services:
-            svc1:
-                image: hello-world
-                deploy:
-                    labels:
-                        - label1=100
-            svc2:
-                image: hello-world-other
-                volumes:
-                    - vol1:/hello
-                deploy:
-                    labels:
-                        - label1=100
-        volumes:
-            vol1:
-        networks:
-            net1:
-                external: true
-        """
-        merged_yaml = yaml.load(self.merged_file)
-        expected_yaml = yaml.load(expected_string)
-        with open('output.yaml', 'w') as f:
-            yaml.dump(merged_yaml, f)
-        self.assertTrue(merged_yaml == expected_yaml)
+        with open(merged_file, 'r') as merged:
+            print(merged.read())
+            self.assertTrue(merged.read() == self.expected_string)
+
 
     def tearDown(self):
         self.file1.close()
         self.file2.close()
-        self.merged_file.close()
 
 class TestFolderMergeYaml(TestCase):
+    def setUp(self):
+        pass
     def test_folder_merge_yaml(self):
+        pass
+    def tearDown(self):
         pass

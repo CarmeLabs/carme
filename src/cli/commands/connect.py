@@ -5,10 +5,9 @@ Connects to the github repo
 import click
 import os
 import sys
-import validators
 import logging
 import subprocess
-from ...modules.git import Git
+from ...modules.gitwrapper import Git
 
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'

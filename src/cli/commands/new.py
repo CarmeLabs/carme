@@ -8,8 +8,13 @@ import sys
 from shutil import copyfile
 import logging
 import subprocess
+<<<<<<< HEAD
 from ...modules.git import Git
 from .base import DOCKER_DIR
+=======
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/../modules")
+from gitwrapper import Git
+>>>>>>> master
 
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'
@@ -39,7 +44,6 @@ def new(project_dir):
             logging.error("Error creating the project structure")
             logging.error(sys.exc_info()[0])
 
-
     def run():
         os.mkdir(project_dir)
         os.chdir(project_dir)
@@ -48,6 +52,6 @@ def new(project_dir):
             git.init(project_dir)
         except Exception as err:
             logging.error(err)
-    
+
     # call run
     run()
