@@ -18,9 +18,6 @@ class Git():
     Commands supported: git init, git add, git commit, git push, git remote add
     """
 
-    def __init__(self):
-        pass
-
     @staticmethod
     def init(project_dir):
         """
@@ -83,7 +80,7 @@ class Git():
             subprocess.Popen(["git", "add", "."], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git add")
-     
+
     @staticmethod
     def remote_add(project_dir, repo_url):
         """
@@ -129,7 +126,7 @@ class Git():
             stdout=subprocess.PIPE)
             out, err = process.communicate()
             # Validate before parsing
-            if str(out):
+            if not str(out):
                 raise ValueError("Git URL not set, run `carme connect` to set URL")
             if str(out).find("https://") == -1:
                 raise ValueError("Git URL not valid, ensure the validation of the URL set")

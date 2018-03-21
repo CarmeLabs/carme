@@ -2,14 +2,10 @@
 Saves the project
 '''
 
-from .base import Base
 import os
-import sys
-from shutil import copyfile
 import logging
-import subprocess
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/../modules")
-from gitwrapper import Git
+from .base import Base
+from ...modules.gitwrapper import Git
 
 
 # Set up logger
@@ -17,12 +13,29 @@ FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 class Save(Base):
+    """
+    CLI command for saving to a github repository
+
+    Attributes:
+        git (object): Wrapper for git commands
+        base_dir (str): Directory to the file
+        cwd (str): Current working directory of the instance
+        message (str): Commit message
+
+    """
+
     def run(self):
-        # Get this scripts dir
-        self.base_dir=os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-        self.cwd=os.getcwd()
+        """
+        Saves the project by pushing to a remote repository
+
+        Throws
+        -------
+        Exception if error occurs when running git add/commit/push
+        """
+        self.base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+        self.cwd = os.getcwd()
         self.git = Git()
-        if(self.options['message']):
+        if self.options['message']:
             self.message = self.options['message']
         else:
             logging.info("No save message provided, defaulting to: Update")
