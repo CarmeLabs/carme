@@ -2,10 +2,12 @@
 Carme git commands
 '''
 
+import os
 import logging
 import subprocess
 import getpass
-from subprocess import DEVNULL
+from subprocess import DEVNULL, Popen
+
 
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'
@@ -30,11 +32,14 @@ class Git():
 
         Throws
         -------
+        ValueError if project_dir isn't valid
         Exception if error occurs when running `git init`
         """
 
+        if project_dir == "" or not os.path.exists(project_dir):
+            raise ValueError("Invalid directory")
         try:
-            subprocess.Popen(["git", "init"], cwd=project_dir, stdout=DEVNULL)
+            Popen(["git", "init"], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git init")
 
@@ -53,11 +58,14 @@ class Git():
 
         Throws
         -------
+        ValueError if project_dir isn't valid
         Exception if error occurs when running `git commit`
         """
 
+        if project_dir == "" or not os.path.exists(project_dir):
+            raise ValueError("Invalid directory")
         try:
-            subprocess.Popen(["git", "commit", "-m", message], cwd=project_dir, stdout=DEVNULL)
+            Popen(["git", "commit", "-m", message], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git commit")
 
@@ -73,11 +81,14 @@ class Git():
 
         Throws
         -------
+        ValueError if project_dir isn't valid
         Exception if error occurs when running `git add`
         """
-
+        
+        if project_dir == "" or not os.path.exists(project_dir):
+            raise ValueError("Invalid directory")
         try:
-            subprocess.Popen(["git", "add", "."], cwd=project_dir, stdout=DEVNULL)
+            Popen(["git", "add", "."], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git add")
 
@@ -96,11 +107,14 @@ class Git():
 
         Throws
         -------
+        ValueError if project_dir isn't valid
         Exception if error occurs when running `git remote add`
         """
 
+        if project_dir == "" or not os.path.exists(project_dir):
+            raise ValueError("Invalid directory")
         try:
-            subprocess.Popen(["git", "remote", "add", "origin", repo_url], \
+            Popen(["git", "remote", "add", "origin", repo_url], \
             cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git remote add")
@@ -117,12 +131,15 @@ class Git():
 
         Throws
         -------
+        ValueError if project_dir isn't valid
         ValueError if the git URL is invalid
         Exception if error occurs when running `git remote add`
         """
 
+        if project_dir == "" or not os.path.exists(project_dir):
+            raise ValueError("Invalid directory")
         try:
-            process = subprocess.Popen(['git', 'config', '--get', 'remote.origin.url'], \
+            process = Popen(['git', 'config', '--get', 'remote.origin.url'], \
             stdout=subprocess.PIPE)
             out, err = process.communicate()
             # Validate before parsing
@@ -136,6 +153,6 @@ class Git():
             user = input('Username: ')
             password = getpass.getpass('Pasword: ')
             uri = ("https://"+user+":"+password+"@"+url).strip()
-            subprocess.Popen(["git", "push", "-u", uri], cwd=project_dir, stdout=DEVNULL)
+            Popen(["git", "push", "-u", uri], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git push")
