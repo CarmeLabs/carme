@@ -1,26 +1,58 @@
-"""Tests for our `carme new` subcommand."""
+""" Test suite for `carme new command` """
 
-from subprocess import PIPE, Popen as popen
-import unittest
+import logging
+import os, sys
+import shutil
 from unittest import TestCase
-from shutil import rmtree
-import os
+from mock import patch, Mock
+from src.cli.commands.new import New
 
-# TODO improve the CLI or these tests to match each other
+# set up logging
+FORMAT = 'carme: [%(levelname)s] %(message)s'
+logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
 
-class TestNew(TestCase):
+class TestCliRun(TestCase):
     def setUp(self):
-        #popen(['pip', 'install', '-e', 'carme'])
-        pass
-
-    def test_new_no_name(self):
-        output = popen(['carme', 'new'], stdout=PIPE).communicate()[0]
-        #self.assertTrue('carme: Project name not supplied. See carme --help' in output.decode('UTF-8'))
-
-    def test_new_name_provided(self):
-        output = popen(['carme', 'new', '/tmp/carme-test'], stdout=PIPE).communicate()[0]
-        #self.assertTrue('Creating new project structure for' in output.decode('UTF-8'))
-
+        os.mkdir("tmp_test_dir")
+        os.chdir("./tmp_test_dir")
+        self.open_patcher = patch('src.cli.commands.new.open')
+        self.mock_open = self.open_patcher.start()
+        self.copy_file_patcher = patch('src.cli.commands.new.copyfile')
+        self.mock_copyfile = self.copy_file_patcher.start()
+        self.base_patcher = patch('src.cli.commands.new.Base')
+        self.mock_base = self.base_patcher.start()
+        self.input_patcher = patch('src.cli.commands.new.input')
+        self.mock_input = self.input_patcher.start()
+        self.mock_input.return_value = {"<project>": "tmp_test_dir"}
+        self.ospath_patcher = patch('src.cli.commands.new.os.path.join')
+        self.mock_ospath = self.ospath_patcher.start()
+        self.mock_ospath.return_value = "./tmp_test_dir"
+        self.logging_patcher = patch('src.cli.commands.new.logging')
+        self.mock_logging = self.logging_patcher.start()
+        self.New = New(self.mock_base)
+        self.New.project_name = ""
+        self.New.project_dir = ""
+        self.New.data_dir = ""
+        self.New.docker_dir = ""
+        self.New.cwd = ""
+        self.mock_rv = Mock()
+    
     def tearDown(self):
-        # rmtree('/tmp/carme-test')
-        pass
+        os.chdir("..")
+        shutil.rmtree("./tmp_test_dir")
+
+    def test_new_create_structure(self):
+        self.New.create_structure()
+        self.assertTrue(os.path.exists("./apps"))
+        self.assertTrue(os.path.exists("./data"))
+        self.assertTrue(os.path.exists("./docker/pip-cache"))
+        self.assertTrue(os.path.exists("./notebooks"))
+
+    def test_new_run(self):
+        self.New.run()
+        os.chdir("..")
+        self.assertTrue(os.path.exists("./tmp_test_dir"))
+        self.assertTrue(os.path.exists("./tmp_test_dir/apps"))
+        self.assertTrue(os.path.exists("./tmp_test_dir/data"))
+        self.assertTrue(os.path.exists("./tmp_test_dir/docker/pip-cache"))
+        self.assertTrue(os.path.exists("./tmp_test_dir/notebooks"))

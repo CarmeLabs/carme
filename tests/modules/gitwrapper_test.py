@@ -1,3 +1,5 @@
+""" Test suite for the gitwrapper module"""
+
 import logging
 import os, sys
 from unittest import TestCase
