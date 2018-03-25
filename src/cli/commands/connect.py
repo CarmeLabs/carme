@@ -7,6 +7,7 @@ import os
 import sys
 import logging
 import subprocess
+import validators
 from ...modules.gitwrapper import Git
 
 # Set up logger
