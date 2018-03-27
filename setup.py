@@ -8,6 +8,7 @@ from subprocess import call
 from setuptools import Command, find_packages, setup
 from src import __version__
 from unittest import TestLoader
+from pip.req import parse_requirements
 
 this_dir = abspath(dirname(__file__))
 
@@ -52,14 +53,14 @@ setup(
         ],
     keywords='kubernetes analytics jupyterhub airflow',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=['ruamel.yaml','docopt'],
+    install_requires=["docker", "click", "ruamel.yaml", "validators", "gitconfig"],
     include_package_data=True,
     extras_require = {
         'test': ['coverage', 'pytest', 'pytest-cov'],
     },
     entry_points={
         'console_scripts': [
-            'carme=src.cli.cli:main'
+            'carme=src.cli.cli:carme'
         ],
     },
     # cmdclass = {'test': RunTests},

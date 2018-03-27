@@ -47,18 +47,27 @@ class TestMergeYaml(TestCase):
             net1:
                 external: true
         """
-        self.file1 = NamedTemporaryFile(mode='w')
-        self.file2 = NamedTemporaryFile(mode='w')
-
-        self.file1.write(y1)
-        self.file2.write(y2)
-
+        with NamedTemporaryFile(delete=False, mode="w") as f:
+            f.write(y1)
+            self.file1 = f.name
+            
+        with NamedTemporaryFile(delete=False, mode="w") as f:
+            f.write(y2)
+            self.file2 = f.name
+            
         self.expected_string = y1 + y2
+        self.expected_string = self.expected_string.strip()
 
     def test_merge_yaml(self):
-        merged_file = merge_yaml(self.file1.name, self.file2.name)
+        merged_file = merge_yaml(self.file1, self.file2)
+        
+        print("=== Expected ===")
+        print(self.expected_string)
+        
+        print(merged_file)
 
         with open(merged_file, 'r') as merged:
+            print("=== Actual ===")
             print(merged.read())
             self.assertTrue(merged.read() == self.expected_string)
 

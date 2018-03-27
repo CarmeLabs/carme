@@ -2,21 +2,43 @@
 Manage project packages
 """
 
-from .base import Base
-from .modules.packager import Packager
 import logging
+import click
+from ...modules.packager import Packager
+from .base import get_project_root
 
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-class Package(Base):
-    def install(self, package_path, project_dir):
-        logging.info("Installing package from: " + package_path)
-        Packager(package_path, project_dir).install()
-        
-    def remove(self, package_path, project_dir):
-        Packager(package_path, project_dir).install()
+@click.group()
+def package():
+    """
+    Manage packages on the project.
+    """
+    pass
 
-    def download(self, package_path, project_dir):
-        Packager(package_path, project_dir).install()
+@package.command()
+@click.argument('package_path')
+def install(package_path):
+    """
+    Install a package into the project.
+    """
+    logging.info("Installing package from: " + package_path)
+    Packager(package_path, get_project_root()).install()
+
+@package.command()
+@click.argument('package_path')
+def remove(package_path):
+    """
+    Remove a package from the project.
+    """
+    Packager(package_path, get_project_root()).install()
+
+@package.command()
+@click.argument('package_path')
+def download(package_path):
+    """
+    Download a package and cache it.
+    """
+    Packager(package_path, get_project_root()).install()

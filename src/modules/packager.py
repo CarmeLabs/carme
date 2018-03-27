@@ -3,13 +3,13 @@ Module for managing packages. Provides facilites for installing, removing and up
 """
 
 import os, sys
-import validators
+from urllib.request import urlretrieve
 import mimetypes
 import logging
-from urllib import retrieve
 from zipfile import ZipFile
 from shutil import copyfile
 from tempfile import mkdtemp
+import validators
 
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
@@ -34,52 +34,57 @@ class Packager:
         @param package_path: The local path or URL to the package to be installed. Can be to either a folder or a zip archive.
         @param project_path: The local path to the project that the package is going to be installed into.
         """
+
+        if project_path is None:
+            logging.error("Not in a Carme project.")
+            exit(1)
+
+        self.project_path = project_path
         absp = os.path.abspath(package_path)
+
         # If package_path was a valid URL then download it
-        if validators.url.url(package_path):
+        if validators.url(package_path):
             self.download_URL = package_path
 
         # If the absoulte path of package_path exists as a...
         elif os.path.exists(absp):
-            # folder
+            # Folder
             if os.path.isdir(absp):
                 self.unzipped_path = absp
 
             # Zip file
-            elif os.path.isfile(absp) && mimetypes.guess_type(absp) == "application/zip":
+            elif os.path.isfile(absp) and mimetypes.guess_type(absp)[0] == "application/zip":
                 self.zip_path = absp
 
         # Otherwise it was an error and log it
         else:
-            logging.error("Invalid file path or URL: " + package_path)
-            raise Exception
+            raise Exception("Invalid file path or URL: " + package_path)
 
     def install(self):
         """
         Installs a package into the project folder.
         """
         if self.project_path is None:
-            logging.error("Invalid project path.")
-            raise Exception
+            raise Exception("Invalid project path.")
 
         if self.unzipped_path is None and self.zip_path is None:
             self.download()
 
         if self.unzipped_path is None:
             self._unzip()
-    
+
         # Get file conflicts, warn about them, and backup files
         inters = self._conflict_check()
         for i in inters:
-            logging.warning("File '" + "' already exists. Backing up and proceeding.")
+            logging.warning("File '" + i + "' already exists. Backing up and proceeding.")
             os.rename(i, i + ".bak")
 
         # Copy all the files making directories as necessary
-        files = self.list_files(self.unzipped_path)
+        files = self._files_list(self.unzipped_path)
         for f in files:
             os.makedirs(os.path.dirname(f), exist_ok=True)
-            copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f)
-                     
+            copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
+
     def remove(self):
         """
         Removes a package from the project folder.
@@ -91,6 +96,9 @@ class Packager:
         logging.info("You may need to restore backed up files.")
 
     def update(self):
+        """
+        Updates a package
+        """
         # TODO see note in download
         pass
 
@@ -109,13 +117,12 @@ class Packager:
             self.zip_path = cache_path
         else:
             try:
-                if mimetypes.guess_type(self.download_URL) == "application/zip":
-                    retrieve(self.download_URL, cachepath) 
+                if mimetypes.guess_type(self.download_URL)[0] == "application/zip":
+                    urlretrieve(self.download_URL, cache_path)
                     self.zip_path = cache_path
                 else:
-                    logging.error("URL provided is not a zip file: " + self.download_path)
-                    raise Exception
-            except Exception as err
+                    raise Exception("URL provided is not a zip file: " + self.download_URL)
+            except Exception as err:
                 logging.error("Error downloading package file")
                 raise err
 
@@ -127,7 +134,7 @@ class Packager:
         self.unzipped_path = mkdtemp()
         zf.extractall(path=self.unzipped_path)
 
-    def _confilct_check(self):
+    def _conflict_check(self):
         """
         Checks for any file conflicts between the package and project.
         """
@@ -143,12 +150,18 @@ class Packager:
         @param path: The path to the directory.
         @param absolute: (optional) If True returns a list absolute paths instead.
         """
+
+        ignored = [".git", "carme-config.yaml", ".gitignore"]
+
         if not os.path.exists(path) or not os.path.isdir(path):
             return []
         file_set = set()
-        for dir_, _, files in os.walk(path):
+        for root, dirs, files in os.walk(path, topdown=True):
+            dirs[:] = [d for d in dirs if d not in ignored]
             for f in files:
-                rel_dir = os.path.relpath(dir_, path)
+                if f in ignored:
+                    continue
+                rel_dir = os.path.relpath(root, path)
                 rel_file = os.path.join(rel_dir, f)
                 if not absolute:
                     file_set.add(rel_file)
