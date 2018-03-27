@@ -5,7 +5,7 @@ Creates a new project
 import os
 import logging
 import click
-
+from shutil import copyfile
 from ...modules.gitwrapper import Git
 from .base import DOCKER_DIR
 
