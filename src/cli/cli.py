@@ -1,5 +1,5 @@
 import click
-from .commands import new, save, package
+from .commands import new, save, package, connect
 
 @click.group()
 @click.version_option()
@@ -18,3 +18,4 @@ def hello():
 carme.add_command(new)
 carme.add_command(save)
 carme.add_command(package)
+carme.add_command(connect)
