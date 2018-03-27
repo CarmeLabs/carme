@@ -2,7 +2,7 @@ import os,sys
 import logging
 from glob import glob
 from ruamel.yaml import YAML
-from tempfile import NamedTemporaryFile, gettempdir
+from tempfile import NamedTemporaryFile
 from random import randint
 from pathlib import Path
 
@@ -32,23 +32,20 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     elif not os.path.isfile(file2):
         raise IsADirectoryError(file2)
 
-    if outpath is None:
-        # Ideally would be a NamedTemporaryFile but it needs to outlive the function
-        outpath = os.path.join(gettempdir(), "carme-merge"+ str(randint(0, 9999)) + ".yaml")
-
-    with open(outpath, 'w') as outfile:
+    with NamedTemporaryFile(delete=False, mode="w+") as outfile:
         logging.debug("Outputting to " + outfile.name)
 
         # Docker actually doesn't mind duplicate keys in compose files so we are going to abuse that a bit
         # Hopefully if they every change that it will be after docker stack supports multiple files
+        outtext = ""
         with open(file1, 'r') as f1:
-            outfile.write(f1.read())
+            outtext += f1.read()
+            with open(file2, 'r') as f2:
+                outtext += f2.read()
+                outfile.write(outtext.strip())
 
-        with open(file2, 'r') as f2:
-            outfile.write(f2.read())
-
-    # get the path, close the file, and return
-    return outpath
+        # get the path, close the file, and return
+        return outfile.name
 
 def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     """
@@ -65,14 +62,11 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     if not os.path.isdir(folderpath):
         raise Exception(folderpath + " is not a directory")
 
-    if outpath is None:
-        # Ideally would be a NamedTemporaryFile but it needs to outlive the function
-        outpath = os.path.join(gettempdir(), "carme-folder-merge"+str(randint(0, 9999))+".yaml")
-
-    with open(outpath, 'w') as outfile:
+    with NamedTemporaryFile(delete=False, mode="w") as outfile:
         files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
         
         for file in files:
             outfile = merge_yaml(outfile.name, file)
-
-    return outpath
+            
+        # get the path, close the file, and return
+        return outfile.name
