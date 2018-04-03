@@ -59,8 +59,14 @@
 
 # Week 3/20
 - [ ] Work on Jupyter integration with Ubuntu Server - Jason
-- [ ] Complete unit tests - Dan
+- [x] Complete unit tests - Dan
 - [ ] Work on SSH support for git - Dan
-- [ ] Click integration - Steve
+- [x] Click integration - Steve
 - [ ] Fix Airflow timeout error - John
 
+# Week 3/27
+- [ ] Work on Jupyter integration with Ubuntu Server - Jason
+- [ ] Fix unit tests - Dan
+- [ ] Work on SSH support - Dan
+- [ ] Fix Airflow timeout error - John
+- [ ] Build out serve command - Steven
