@@ -2,9 +2,13 @@
 
 import logging
 import sys
+import os
+import shutil
 from unittest import TestCase
-from mock import patch, Mock
-from src.cli.commands.connect import Connect
+from src.cli.commands.connect import connect
+from src.cli.commands.new import new
+from click.testing import CliRunner
+
 
 # set up logging
 FORMAT = 'carme: [%(levelname)s] %(message)s'
@@ -12,22 +16,22 @@ logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
 
 class TestCliConnect(TestCase):
     def setUp(self):
-        self.base_patcher = patch('src.cli.commands.connect.Base')
-        self.mock_base = self.base_patcher.start()
-        self.input_patcher = patch('src.cli.commands.connect.input')
-        self.mock_input = self.input_patcher.start()
-        self.mock_input.return_value = ""
-        self.logging_patcher = patch('src.cli.commands.connect.logging')
-        self.mock_logging = self.logging_patcher.start()
-        self.Connect = Connect(self.mock_base)
-        self.mock_rv = Mock()
+        os.mkdir("tmp_test_dir")
+        os.chdir("./tmp_test_dir")
+        self.connect = connect
+        self.new = new
+    
+    def tearDown(self):
+        os.chdir("..")
+        os.chdir("..")
+        shutil.rmtree("./tmp_test_dir")
 
     def test_connect_run(self):
-        self.Connect.run()
-        self.mock_input.return_value = "invalid_url"
-        self.Connect.run()
-        self.mock_input.return_value = "https://valid"
-        self.connect_patcher = patch('src.cli.commands.connect.Git.remote_add')
-        self.mock_connect = self.connect_patcher.start()
-        self.Connect.run()
-        self.assertTrue(self.mock_connect.called)
+        runner = CliRunner()
+        runner.invoke(self.new, ['tmp_test_dir'])
+        result = runner.invoke(self.connect, input='https://goodurl.com')
+        assert result.exit_code == 0
+        assert not result.exception
+        result = runner.invoke(self.connect, input='bad_url')
+        assert result.exit_code == 0
+        assert not result.exception
