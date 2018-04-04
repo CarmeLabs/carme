@@ -1,6 +1,5 @@
 assert-exists==0.0.44
 caller-module==0.0.48
--e git+https://rushsteve1@github.com/CarmeLabs/carme.git@bd0ddba2411c7c4ca732b0f4ed105345876fdb3b#egg=carme
 certifi==2018.1.18
 chardet==3.0.4
 click==6.7

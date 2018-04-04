@@ -1,5 +1,5 @@
 import click
-from .commands import new, save, package, connect
+from .commands import new, save, package, connect, lab
 
 @click.group()
 @click.version_option()
@@ -15,6 +15,7 @@ def hello():
 
 # commands from external files ie the commands folder must be manually
 # imported then added to the group.
+carme.add_command(lab)
 carme.add_command(new)
 carme.add_command(save)
 carme.add_command(package)
