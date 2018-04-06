@@ -12,8 +12,9 @@ from .base import bash_command, get_project_root, setup_logger
 setup_logger()
 
 @click.command()
-@click.option('--background', is_flag=False)
 @click.option('--image', default="carme/jupyter:latest", help='The Jupyter docker image to be launched.')
+@click.option('--background', is_flag=True, default=False, help='Run docker container in the background.')
+
 def lab(image, background):
     """
     Launch JupyterLab (using docker).
