@@ -5,7 +5,7 @@ Creates a new project
 import os
 import logging
 import click
-from shutil import copyfile
+from shutil import copyfile, copytree
 from ...modules.gitwrapper import Git
 from .base import DOCKER_DIR
 
@@ -15,7 +15,8 @@ logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 @click.command()
 @click.argument('project_dir', type=click.Path())
-def new(project_dir):
+@click.option('--image', default="base", help='The Jupyter docker image.')
+def new(project_dir, image):
     """
     Creates a new carme project in project_dir or the given folder.
     """
@@ -38,9 +39,11 @@ def new(project_dir):
         os.mkdir('apps')
         os.mkdir('data')
         os.mkdir('docker')
+        #os.mkdir('docker/'+image)
         os.mkdir('docker/pip-cache')
         os.mkdir('notebooks')
         copyfile(os.path.join(DOCKER_DIR, 'docker-compose.yaml'), os.path.join(project_dir, 'docker/docker-compose.yaml'))
+        copytree(os.path.join(DOCKER_DIR,image), os.path.join(project_dir, 'docker/'+image))
         f = open('carme-config.yaml','w+')
         f.writelines('project_name: ' + project_name + '\n')
         #f.writelines('packages:') Invalid
