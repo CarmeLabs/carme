@@ -1,4 +1,4 @@
-name: fastai
+name: base
 channels:
 - fastai
 - pytorch
@@ -86,9 +86,10 @@ dependencies:
   #- terminado
 - testpath
 - tk
-- tornado
+- tornado<5
 - tqdm
 - traitlets
+- twitter
 - wcwidth
 - wheel
 - widgetsnbextension
@@ -98,25 +99,18 @@ dependencies:
 - bcolz
 - prompt_toolkit
 - pip:
-  - apache-airflow[crypto,celery,postgres,hive,jdbc]
-  - celery[redis]
-  - Cython
   - torchvision>=0.1.9
   - opencv-python
   - isoweek
-  - ndg-httpsclient
   - pandas_summary
-  - pyasn1
-  - pyOpenSSL
   - torchtext
-  - twitter
-  - ruamel.yaml
   - graphviz
   - sklearn_pandas
   - feather-format
   - jupyter_contrib_nbextensions
   - plotnine
   - awscli
+  - ruamel.yaml
   - kaggle-cli
   - ipywidgets
   - jupyter_contrib_nbextensions
