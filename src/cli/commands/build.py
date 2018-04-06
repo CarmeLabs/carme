@@ -1,5 +1,5 @@
 '''
-Builds images
+Builds images.
 '''
 
 import os
@@ -12,12 +12,12 @@ from .base import bash_command, get_project_root, setup_logger, load_yaml
 setup_logger()
 
 @click.command()
-#TBD Build all images in the docker
+#TBD Build all images in the docker repository. 
 #TBD Build and push.
 
 def build():
     """
-    Launch Jupyter lab.
+    Build project docker images.
     """
     ROOT_DIR=get_project_root()
     kwargs=load_yaml(os.path.join(ROOT_DIR, 'carme-config.yaml'))

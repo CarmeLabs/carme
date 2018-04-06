@@ -15,6 +15,9 @@ logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 @click.command()
 def connect():
+    """
+    Connects to the github repo.
+    """
     # Get this scripts dir
     cwd=os.getcwd()
     git = Git()

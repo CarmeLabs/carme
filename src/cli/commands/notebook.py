@@ -15,7 +15,7 @@ setup_logger()
 @click.option('--image', default="carme/jupyter:latest", help='The Jupyter docker image.')
 def notebook(image):
     """
-    Launch Jupyter lab.
+    Launch Jupyter Notebook (using docker).
     """
     cwd=os.getcwd()
 
