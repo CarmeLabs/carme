@@ -7,11 +7,10 @@ import logging
 import click
 from shutil import copyfile, copytree
 from ...modules.gitwrapper import Git
-from .base import DOCKER_DIR
+from .base import DOCKER_DIR, setup_logger
 
 # Set up logger
-FORMAT = 'carme: [%(levelname)s] %(message)s'
-logging.basicConfig(level=logging.INFO, format=FORMAT)
+setup_logger()
 
 @click.command()
 @click.argument('project_dir', type=click.Path())
@@ -44,9 +43,9 @@ def new(project_dir, image):
         copyfile(os.path.join(DOCKER_DIR, 'docker-compose.yaml'), os.path.join(project_dir, 'docker/docker-compose.yaml'))
         copytree(os.path.join(DOCKER_DIR,image), os.path.join(project_dir, 'docker/'+image))
         os.rename(os.path.join(project_dir, 'docker/'+image),os.path.join(project_dir, 'docker/jupyter'))
-        f = open('carme-config.yaml','w+')
-        f.writelines('project_name: ' + project_name + '\n')
-        #f.writelines('packages:') Invalid
+        with open('carme-config.yaml','w+') as f:
+            f.writelines('project_name: ' + project_name + '\n')
+            f.writelines('jupyter_image: carme/' + image + '\n')
 
     except Exception as err:
         logging.error("Error creating the project structure")
