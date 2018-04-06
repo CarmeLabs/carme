@@ -22,5 +22,5 @@ def build():
     ROOT_DIR=get_project_root()
     kwargs=load_yaml(os.path.join(ROOT_DIR, 'carme-config.yaml'))
     print(kwargs['jupyter_image'])
-    cmd='docker build -t '+kwargs['jupyter_image']+':latest -t carme/'+kwargs['project_name']+':latest '+os.path.join(ROOT_DIR, 'docker/jupyter')
+    cmd='docker build -t '+kwargs['jupyter_image']+':latest -t carme/'+kwargs['project_name']+':latest -t carme/jupyter:latest '+os.path.join(ROOT_DIR, 'docker/jupyter')
     bash_command("Building Jupyter",cmd)

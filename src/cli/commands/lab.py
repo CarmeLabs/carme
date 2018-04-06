@@ -1,29 +1,22 @@
 '''
-Creates a new project
+Launches an instance of JupyterLab.
 '''
 
 import os
 import logging
 import click
 from shutil import copyfile
-from ...modules.gitwrapper import Git
-from .base import bash_command, get_project_root
+from .base import bash_command, get_project_root, setup_logger
 
 # Set up logger
-FORMAT = 'carme: [%(levelname)s] %(message)s'
-logging.basicConfig(level=logging.INFO, format=FORMAT)
+setup_logger()
 
 @click.command()
-#@click.argument('ima', type=click.Path())
-
-def lab(image='carme/singleuser:latest'):
+@click.option('--image', default="carme/jupyter:latest", help='The Jupyter docker image to be launched.')
+def lab(image):
     """
-    Launch Jupyter lab.
+    Launch JupyterLab.
     """
     cwd=os.getcwd()
-
-    cmd='docker run -p 8888:8888  -v '+ cwd+ ':/home/jovyan/work '+image+' start.sh jupyter lab'
-
-    bash_command("Launching Jupyterlab",cmd)
-
-    #print("cmd", cmd)
+    cmd='docker run -ti --rm -p 8888:8888  -v '+ cwd+ ':/home/jovyan/work '+image+' start.sh jupyter lab'
+    bash_command("Launching JupyterLab", cmd)
