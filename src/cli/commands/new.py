@@ -39,11 +39,11 @@ def new(project_dir, image):
         os.mkdir('apps')
         os.mkdir('data')
         os.mkdir('docker')
-        #os.mkdir('docker/'+image)
         os.mkdir('docker/pip-cache')
         os.mkdir('notebooks')
         copyfile(os.path.join(DOCKER_DIR, 'docker-compose.yaml'), os.path.join(project_dir, 'docker/docker-compose.yaml'))
         copytree(os.path.join(DOCKER_DIR,image), os.path.join(project_dir, 'docker/'+image))
+        os.rename(os.path.join(project_dir, 'docker/'+image),os.path.join(project_dir, 'docker/jupyter'))
         f = open('carme-config.yaml','w+')
         f.writelines('project_name: ' + project_name + '\n')
         #f.writelines('packages:') Invalid
