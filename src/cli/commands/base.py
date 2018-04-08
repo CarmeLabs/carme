@@ -56,3 +56,19 @@ def load_yaml(file):
     except subprocess.CalledProcessError as e:
         print("error")
     return(e.output.decode("utf-8"))
+
+def append_config(carme_config,file):
+    if os.path.isfile(file):
+        print('Adding configuration to carme-config.yaml.')
+        kwargs=load_yaml(file)
+        ruamel.yaml.round_trip_dump(kwargs, open(carme_config, 'a'))
+        kwargs=load_yaml(carme_config)
+    else:
+        print('The configuration for the application ', app, 'is not available.' )
+
+def update_config(carme_config,key,value):
+    kwargs=load_yaml(carme_config)
+    kwargs[key]=value
+    ruamel.yaml.round_trip_dump(kwargs, open(carme_config, 'w'))
+    kwargs=load_yaml(carme_config)
+    return kwargs

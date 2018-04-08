@@ -1,7 +1,7 @@
-def azure_commands(self):
+def azure_commands(lc):
     """This functions creates a variety of commands to augment the configuration of Kubernetes on the Google cloud platform.
     """
-    lc=self.launch_config
+
     commands={}
     commands['login']="az login"
     commands['login_sa']="echo 'Service account login not yet available for Azure'"
