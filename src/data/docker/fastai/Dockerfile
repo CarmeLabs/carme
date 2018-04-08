@@ -12,10 +12,10 @@ RUN apt-get update && cat /tmp/config/packages.txt | xargs apt-get install -y --
 USER jovyan
 
 #Solution 1
-#RUN conda config --add channels fastai && conda config --add channels pytorch  && conda config --add channels peterjc123
-#RUN conda install --yes --file /tmp/config/requirements_conda.txt
-#RUN pip install -r /tmp/config/requirements_pip.txt
+RUN conda config --add channels fastai && conda config --add channels pytorch  && conda config --add channels peterjc123
+RUN conda install --yes --file /tmp/config/conda-requirements.txt
+RUN pip install -r /tmp/config/pip-requirements.txt
 
 #Potential Solution 2
-RUN cd /tmp/config && /opt/conda/bin/conda env create -f /tmp/config/environment-cpu.yml
-RUN /opt/conda/bin/conda clean -ya && /bin/bash -c "source activate fastai-cpu && python -m ipykernel install --user --name fastai-cpu --display-name 'Python3 (fast-ai)'"
+#RUN cd /tmp/config && /opt/conda/bin/conda env create -f /tmp/config/environment-cpu.yml
+#RUN /opt/conda/bin/conda clean -ya && /bin/bash -c "source activate fastai-cpu && python -m ipykernel install --user --name fastai-cpu --display-name 'Python3 (fast-ai)'"
