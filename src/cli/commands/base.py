@@ -44,6 +44,10 @@ def bash_command(command, syntax):
         print("error")
     return(e.output.decode("utf-8"))
 
+def get_config(ROOT_DIR):
+    kwargs=load_yaml(os.path.join(ROOT_DIR, 'carme-config.yaml'))
+    return kwargs
+
 def load_yaml(file):
     try:
         with open(file, 'r') as yaml:

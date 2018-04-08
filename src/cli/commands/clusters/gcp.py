@@ -1,8 +1,7 @@
 
-def gcp_commands(self):
+def gcp_commands(lc):
     """This functions creates a variety of commands to augment the configuration of Kubernetes on the Google cloud platform.
     """
-    lc=self.launch_config
     commands={}
     commands['create_service_account']="gcloud iam service-accounts create "+lc['g_service_account_name']+ " --display-name "+ lc['g_service_account_name']
     commands['create_key']="gcloud iam service-accounts keys create "+self.cwd+"/gcp/"+lc['g_authorization_file'] +" --iam-account "+lc['g_service_account_name']+"@"+lc['g_project']+".iam.gserviceaccount.com"
@@ -15,7 +14,7 @@ def gcp_commands(self):
     commands['set_project']="gcloud config set project "+lc['g_project']
     commands['set_zone']="gcloud config set compute/zone "+lc['g_zone']
     commands['create']="gcloud container clusters create "+lc['g_cluster_name']+" --num-nodes="+str(lc['g_num_nodes'])+" --machine-type="+lc['g_machine_type']+" --zone="+lc['g_zone']+ " --cluster-version="+lc['g_cluster_version']
-    #commands['create_gpu']="gcloud container clusters create "+lc['g_cluster_name']+" --num-nodes="+str(lc['g_num_nodes'])+" --machine-type="+lc['g_machine_type']+" --zone="+lc['g_zone']+ " --cluster-version="+lc['g_cluster_version'] +    
+    #commands['create_gpu']="gcloud container clusters create "+lc['g_cluster_name']+" --num-nodes="+str(lc['g_num_nodes'])+" --machine-type="+lc['g_machine_type']+" --zone="+lc['g_zone']+ " --cluster-version="+lc['g_cluster_version'] +
     commands['get_credentials']="gcloud container clusters get-credentials "+lc['g_cluster_name']
     commands['stop']="gcloud container clusters resize "+lc['g_cluster_name']+" --size=0 --quiet"
     commands['normal_size']="gcloud container clusters resize "+lc['g_cluster_name']+" --size="+str(lc['g_num_nodes'])+" --quiet"

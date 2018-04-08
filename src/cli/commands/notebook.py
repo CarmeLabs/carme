@@ -6,7 +6,7 @@ import os
 import logging
 import click
 from shutil import copyfile
-from .base import bash_command, get_project_root, setup_logger
+from .base import *
 
 # Set up logger
 setup_logger()

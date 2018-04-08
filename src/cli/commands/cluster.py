@@ -1,75 +1,44 @@
 '''
-Creates a new cluster.
+Creates a new project
 '''
-from json import dumps
-import ruamel.yaml
-from shutil import copyfile
+
 import os
-import sys
-from .base import Base
+import logging
+import click
+from shutil import copyfile
+from ...modules.gitwrapper import Git
+from .base import *
 from .clusters.azure import *
 from .clusters.gcp import *
-supported_clusters=['gcp','azure']
+SUPPORTED=['gcp','azure']
+
+setup_logger()
+
+@click.command()
+#@click.argument('cloud', default=False, help='Run Docker container in the background.')
+@click.option('--dryrun', is_flag=True, default=False, help='Just the command without executing.')
 
 
-# TODO
-class Cluster(Base):
-    """Cluster commands"""
-    def run(self):
-        #print("the following keys are required", requiredKeys)
-        if self.check_launch_file():
-            if not self.check_key("cluster_location"):
-                #This performs the initial configuration if key isn't there
-                print("Updating launchfile to include cluster information.")
-                self.cluster_location = input("Please enter cloud provider ("+'/'.join(supported_clusters)+"):")
-                if(self.cluster_location in supported_clusters):
-                    config=self.load_yaml(self.launch_dir+'/clusters/'+self.cluster_location+'.yaml')
-                else:
-                    logging.error("Only "+'/'.join(supported_clusters)+"are currently supported")
-                config['email']= input("Please enter the email associated with your account: ")  # Python 3
-                #Create the launch_file in the user directory
-                copyfile(self.notebooks_dir+'/clusters/'+self.cluster_location+'.ipynb', self.cwd+'/'+self.cluster_location+'.ipynb')
-                self.append_launch_file(config)
-                self.options['<command>']='list'
+def cluster(dryrun):
+    """
+    Can be used to create a manage a Kubernetes cluster.
+    """
+    ROOT_DIR=get_project_root()
+    kwargs=get_config(ROOT_DIR)
+    try:
+        print(kwargs,dryrun)
+        # os.mkdir('apps')
+        # os.mkdir('data')
+        # os.mkdir('docker')
+        # os.mkdir('docker/pip-cache')
+        # os.mkdir('notebooks')
+        # copyfile(os.path.join(DOCKER_DIR, 'docker-compose.yaml'), os.path.join(project_dir, 'docker/docker-compose.yaml'))
+        # copytree(os.path.join(DOCKER_DIR,image), os.path.join(project_dir, 'docker/'+image))
+        # os.rename(os.path.join(project_dir, 'docker/'+image),os.path.join(project_dir, 'docker/jupyter'))
+        # with open('carme-config.yaml','w+') as f:
+        #     f.writelines('project_name: ' + project_name + '\n')
+        #     f.writelines('jupyter_image: carme/' + image + '\n')
 
-
-            if self.launch_config['cluster_location']=='azure':
-                print('Azure Cloud')
-                self.cluster_commands=azure_commands(self)
-            elif self.launch_config['cluster_location']=='gcp':
-                #print('Google cloud')
-                self.cluster_commands=gcp_commands(self)
-            if self.options['<command>']=='list':
-                print("Listing out available commands.")
-                print(ruamel.yaml.dump(self.cluster_commands, sys.stdout, Dumper=ruamel.yaml.RoundTripDumper))
-            elif self.options['<command>']=='login':
-                print("Logging in.")
-                result=self.bash_command('login',self.cluster_commands['login'])
-                print(result)
-                print(type(result))
-                #print(self.launch_config)
-            elif self.options['<command>'] in self.cluster_commands:
-                print(self.bash_command(self.options['<command>'],self.cluster_commands[self.options['<command>']]))
-
-
-        #cluster_location="gcp"
-        #config=self.load_yaml(self.launch_dir+'/clusters/'+cluster_location+'.yaml')
-        #print(config)
-        #if self.check_keys()
-        # if self.launch_config['cluster_location']=='azure':
-        #     print('Azure Cloud')
-        #     self.cluster_commands=azure_commands(self)
-        # elif self.launch_config['cluster_location']=='gcp':
-        #     #print('Google cloud')
-        #     self.cluster_commands=gcp_commands(self)
-        # if self.options['<command>']=='list':
-        #     print("Listing out available commands.")
-        #     print(ruamel.yaml.dump(self.cluster_commands, sys.stdout, Dumper=ruamel.yaml.RoundTripDumper))
-        # elif self.options['<command>']=='login':
-        #     print("Logging in.")
-        #     result=self.bash_command('login',self.cluster_commands['login'])
-        #     print(result)
-        #     print(type(result))
-        #     #print(self.launch_config)
-        # elif self.options['<command>'] in self.cluster_commands:
-        #     print(self.bash_command(self.options['<command>'],self.cluster_commands[self.options['<command>']]))
+    except Exception as err:
+        logging.error("Error creating the project structure")
+        logging.error(err)

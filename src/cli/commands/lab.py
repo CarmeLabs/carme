@@ -6,14 +6,13 @@ import os
 import logging
 import click
 from shutil import copyfile
-from .base import bash_command, get_project_root, setup_logger
-
+from .base import *
 # Set up logger
 setup_logger()
 
 @click.command()
-@click.option('--image', default="carme/jupyter:latest", help='The Jupyter docker image to be launched.')
-@click.option('--background', is_flag=True, default=False, help='Run docker container in the background.')
+@click.option('--image', default="carme/jupyter:latest", help='The Jupyter docker image (must be based on Jupyter stacks).')
+@click.option('--background', is_flag=True, default=False, help='Run Docker container in the background.')
 
 def lab(image, background):
     """
