@@ -1,0 +1,17 @@
+torchvision>=0.1.9
+opencv-python
+isoweek
+pandas_summary
+torchtext
+graphviz
+sklearn_pandas
+feather-format
+jupyter_contrib_nbextensions
+plotnine
+twitter
+awscli
+ruamel.yaml
+kaggle-cli
+ipywidgets
+jupyter_contrib_nbextensions
+git+https://github.com/SauceCat/PDPbox.git
