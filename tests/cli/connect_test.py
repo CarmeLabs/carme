@@ -20,11 +20,11 @@ class TestCliConnect(TestCase):
         os.chdir("./tmp_test_dir")
         self.connect = connect
         self.new = new
-    
+
     def tearDown(self):
         os.chdir("..")
         os.chdir("..")
-        shutil.rmtree("./tmp_test_dir")
+        shutil.rmtree("./tmp_test_dir", ignore_errors=True)
 
     def test_connect_run(self):
         runner = CliRunner()
