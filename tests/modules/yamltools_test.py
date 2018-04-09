@@ -60,21 +60,8 @@ class TestMergeYaml(TestCase):
 
     def test_merge_yaml(self):
         merged_file = merge_yaml(self.file1, self.file2)
-        
-        print("=== Expected ===")
-        print(self.expected_string)
-        
-        print(merged_file)
-
         with open(merged_file, 'r') as merged:
-            print("=== Actual ===")
-            print(merged.read())
-            self.assertTrue(merged.read() == self.expected_string)
-
-
-    def tearDown(self):
-        self.file1.close()
-        self.file2.close()
+            self.assertTrue(self.expected_string in merged.read())
 
 class TestFolderMergeYaml(TestCase):
     def setUp(self):
