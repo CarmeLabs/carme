@@ -1,12 +1,16 @@
 import click
-from .commands import new, save, package, connect, lab, build, notebook, cluster
+from .commands import new, save, package, connect, lab, build, notebook, cluster, run 
+#from .commands.packages import samppack
+
+#create a sample list of packages. Could pull from config.
+packages=['samppack']
 
 @click.group()
 @click.version_option()
 def carme():
     pass
 
-@carme.command()
+@carme.command('hello')
 def hello():
     """
     Prints a simple hello world message.
@@ -23,3 +27,4 @@ carme.add_command(connect)
 carme.add_command(build)
 carme.add_command(notebook)
 carme.add_command(cluster)
+carme.add_command(run)
