@@ -23,7 +23,7 @@ def cluster(dryrun):
     Can be used to create a manage a Kubernetes cluster.
     """
     ROOT_DIR=get_project_root()
-    CARME_CONFIG=kwargs=os.path.join(ROOT_DIR, 'carme-config.yaml')
+    kwargs=get_config(ROOT_DIR)
     kwargs=load_yaml(CARME_CONFIG)
     if 'cluster_location' not in kwargs:
         kwargs=init_cluster(CARME_CONFIG)

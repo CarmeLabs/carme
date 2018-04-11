@@ -1,14 +1,14 @@
 
-def gcp_commands(lc):
+def gcp_commands(cwd, lc):
     """This functions creates a variety of commands to augment the configuration of Kubernetes on the Google cloud platform.
     """
     commands={}
     commands['create_service_account']="gcloud iam service-accounts create "+lc['g_service_account_name']+ " --display-name "+ lc['g_service_account_name']
-    commands['create_key']="gcloud iam service-accounts keys create "+self.cwd+"/gcp/"+lc['g_authorization_file'] +" --iam-account "+lc['g_service_account_name']+"@"+lc['g_project']+".iam.gserviceaccount.com"
-    commands['get_policy']="gcloud iam service-accounts get-iam-policy "+lc['g_service_account_name']+"@"+lc['g_project']+".iam.gserviceaccount.com --format json > "+self.cwd+"gcp/policy.json"
-    commands['set_policy']="gcloud iam service-accounts set-iam-policy "+lc['g_service_account_name']+"@"+lc['g_project']+".iam.gserviceaccount.com "+self.cwd+"/gcp/policy.json"
+    commands['create_key']="gcloud iam service-accounts keys create "+cwd+"/gcp/"+lc['g_authorization_file'] +" --iam-account "+lc['g_service_account_name']+"@"+lc['g_project']+".iam.gserviceaccount.com"
+    commands['get_policy']="gcloud iam service-accounts get-iam-policy "+lc['g_service_account_name']+"@"+lc['g_project']+".iam.gserviceaccount.com --format json > "+cwd+"gcp/policy.json"
+    commands['set_policy']="gcloud iam service-accounts set-iam-policy "+lc['g_service_account_name']+"@"+lc['g_project']+".iam.gserviceaccount.com "+cwd+"/gcp/policy.json"
     commands['login']="gcloud auth login"
-    commands['login_sa']="gcloud auth activate-service-account --key-file "+self.cwd+"/gcp/"+ lc['g_authorization_file']
+    commands['login_sa']="gcloud auth activate-service-account --key-file "+cwd+"/gcp/"+ lc['g_authorization_file']
     commands['helm']="kubectl --namespace kube-system create sa tiller && kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller && helm init --service-account tiller"
     commands['create_project']="gcloud projects create "+lc['g_project']+" --set-as-default"
     commands['set_project']="gcloud config set project "+lc['g_project']
@@ -27,5 +27,5 @@ def gcp_commands(lc):
     commands['delete_fixedip']="gcloud compute addresses delete "+lc['g_fixedip_namespace']+" --region="+lc['g_region']+" --quiet"
     commands['describe_cluster']="gcloud container clusters describe "+lc['g_cluster_name']
     commands['rbac']="kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user="+lc['email']
-    #commands['backup_ssh']="mkdir "+self.cwd+"/.ssh &&"+ "cp ~/.ssh/id_rsa "+self.cwd+"/.ssh/id_rsa_"+lc['cluster_name']+"&& cp ~/.ssh/id_rsa.pub "+self.cwd+"/.ssh/id_rsa_"+lc['cluster_name']+".pub"
+    #commands['backup_ssh']="mkdir "+cwd+"/.ssh &&"+ "cp ~/.ssh/id_rsa "+cwd+"/.ssh/id_rsa_"+lc['cluster_name']+"&& cp ~/.ssh/id_rsa.pub "+cwd+"/.ssh/id_rsa_"+lc['cluster_name']+".pub"
     return commands
