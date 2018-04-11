@@ -66,7 +66,13 @@
 
 # Week 3/27
 - [ ] Work on Jupyter integration with Ubuntu Server - Jason
-- [ ] Fix unit tests - Dan
+- [x] Fix unit tests - Dan
 - [ ] Work on SSH support - Dan
 - [ ] Fix Airflow timeout error - John
-- [ ] Build out serve command - Steven
+- [x] Build out serve command - Steven
+
+# Week 4/10
+- [ ] Layout a large road map of the project - Dan
+- [ ] Finish bugging out Docker - Steve
+- [ ] Add internal packages - Steve
+- [ ] Add the functionality of including commands into the package - Jason
