@@ -1,3 +1,0 @@
-create_project: gcloud projects create {g_project} --set-as-default
-set_project: gcloud config set project {g_project}
-set_zone: gcloud config set compute/zone {g_zone}
