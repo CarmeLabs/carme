@@ -8,8 +8,6 @@ import click
 from shutil import copyfile
 from ...modules.gitwrapper import Git
 from .base import *
-from .clusters.azure import *
-from .clusters.gcp import *
 SUPPORTED=['gcp','azure']
 
 setup_logger()
