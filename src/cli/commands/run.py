@@ -45,6 +45,12 @@ def run(command, dryrun):
     commands=get_project_commands()
     if command=='list':
         ruamel.yaml.dump(commands, sys.stdout, Dumper=ruamel.yaml.RoundTripDumper)
+    elif isinstance(commands[command], ruamel.yaml.comments.CommentedSeq):
+        print("This is a command series.")
+        for x in commands[command]:
+            print("Running the command: ", x)
+            if not dryrun:
+                bash_command(x, commands[x])
     else:
         print ("Running the command: ", command)
         click.echo("Template: "+ commands[command])
