@@ -1,0 +1,17 @@
+#Start of Jupyterhub
+#install_ssl: "helm install --name=letsencrypt --namespace=kube-system stable/kube-lego --set config.LEGO_EMAIL={jup_email} --set config.LEGO_URL=https://acme-v01.api.letsencrypt.org/directory"
+init_jupyterhub: [init_jupyterhub0,init_jupyterhub1,init_jupyterhub2 ]
+init_jupyterhub0: "mkdir {root_dir}/apps/jupyterhub {root_dir}/apps/jupyterhub/{jup_namespace}"
+init_jupyterhub1: "openssl rand -hex 32 > {root_dir}/apps/jupyterhub/{jup_namespace}/secret_token.txt"
+init_jupyterhub23: "sed -i s/skt/$(cat {root_dir}/apps/jupyterhub/secret_token.txt)/p {root_dir}/apps/jupyterhub/config.yaml"
+init_jupyterhub2: "cat {root_dir}/apps/jupyterhub/secret_token.txt | sed -ne 's/skt/$1/p' {root_dir}/apps/jupyterhub/config.yaml"
+init_jupyterhub3: "wget -P {root_dir}/apps/jupyterhub/ https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml"
+show_config: "cat {jup_config}"
+clone_repo: "helm repo add jupyterhub {jup_helm_repo} && helm repo update"
+install_jupyterhub: "helm install jupyterhub/jupyterhub --version={jup_version} --name={jup_releasename} --namespace={jup_namespace} -f ../apps/jupyterhub/config.yaml"
+upgrade_jupyterhub: "helm upgrade {jup_namespace} jupyterhub/jupyterhub --version={jup_version} -f ../apps/jupyterhub/config.yaml"
+describe_jupyterhub: "kubectl --namespace={jup_namespace} get pod"
+get_ip: "kubectl --namespace={jup_namespace} get svc proxy-public"
+delete_namespace: "kubectl delete namespace {jup_namespace}"
+delete_jupyterhub: "helm delete {jup_releasename} --purge"
+#End of Jupyterhub

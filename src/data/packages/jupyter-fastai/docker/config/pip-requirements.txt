@@ -14,4 +14,7 @@ ruamel.yaml
 kaggle-cli
 ipywidgets
 jupyter_contrib_nbextensions
+jupyterlab_github
 git+https://github.com/SauceCat/PDPbox.git
+git+https://github.com/data-8/nbgitpuller
+git+https://github.com/fastai/fastai

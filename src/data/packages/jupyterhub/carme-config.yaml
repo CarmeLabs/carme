@@ -1,5 +1,7 @@
 #Start of Jupyterhub Configuration
 jup_rebuild_config: true
+jup_proxy:
+  secretToken: null
 jup_proxy:                    #Jup_proxy is used to setup ssl.
   https:
     hosts:

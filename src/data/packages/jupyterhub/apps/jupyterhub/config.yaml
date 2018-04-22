@@ -1,0 +1,3 @@
+    #These are the only two required fields we need to launch
+proxy:
+  secretToken: skt 

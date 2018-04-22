@@ -1,7 +1,7 @@
 cluster_location: gcp
-email: you@mail.com    #Email Associated with the account.
+email: jkuruzovich@gmail.com    #Email Associated with the account.
 #Start of Google Specific Configuration
-g_project: carmecli             #Google project name
+g_project: techfunsp2018             #Google project name
 g_cluster_name: carmecli        #Name of your Google Cluster
 g_region: us-east1                 #Selection from gcloud compute regions list.
 g_zone: us-east1-b                  #Selection from gcloud compute regions list.

@@ -33,7 +33,6 @@ def get_project_commands():
     @return: A commented list of the commands
     """
     ROOT_DIR=get_project_root()
-    print(ROOT_DIR)
     CARME_COMMANDS=os.path.join(ROOT_DIR, 'commands/carme-commands.yaml')
     if os.path.isfile(CARME_COMMANDS):
         commands=load_yaml(CARME_COMMANDS)
@@ -62,6 +61,8 @@ def bash_command(command, syntax):
 
 def get_config(ROOT_DIR):
     kwargs=load_yaml(os.path.join(ROOT_DIR, 'carme-config.yaml'))
+    kwargs['root_dir']= ROOT_DIR
+    kwargs['cwd']=os.getcwd()
     return kwargs
 
 def load_yaml(file):

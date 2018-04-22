@@ -1,0 +1,23 @@
+    #These are the only two required fields we need to launch
+proxy:
+  secretToken: f42d7d7ef7f3ac158cc95a8b4bde7d1c209294c600df46b2e2722a6beca3d517
+  https:
+    hosts:
+    - lab.analyticsdojo.com
+    letsencrypt:
+      contactEmail: kuruzj@rpi.edu
+hub:
+  cookieSecret: c990370304fd8a20905f532628e2ec4edb27e2eed70cbc351364ae85c299b02f
+auth:
+  type: github
+  github:
+    clientId: "e106e1c6e831461a94c2"
+    clientSecret: "31c4311cd95bb39a9bf9fe3323bc253856b91c9f"
+    callbackUrl: "http://lab.analyticsdojo.com/hub/oauth_callback"
+admin:
+  access: true
+  users: ['jkuruzovich']
+singleuser:
+  image:
+    name: analyticsdojo/techfundamentals
+    tag: 1.0
