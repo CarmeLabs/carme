@@ -184,3 +184,35 @@ class Git():
             Popen(["git", "push", "-u", uri], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git push")
+
+    @staticmethod
+    @permcheck
+    def log(number=1, flags=[]):
+
+        """
+        Returns the git log
+
+        Parameters
+        ----------
+        number : int
+        Log index
+
+        flags : list
+        List of extra flags
+
+        Throws
+        -------
+        Exception if error occurs running git log
+        """
+        try:
+            number = '-' + str(number)
+            if len(flags) != 0:
+                flags = ' '.join(flags)
+                process = Popen(['git', 'log', number, flags], stdout=subprocess.PIPE)
+            else:
+                process = Popen(['git', 'log', number], stdout=subprocess.PIPE)
+            out, err = process.communicate()
+            out = out.decode('UTF-8')
+            return out
+        except subprocess.CalledProcessError:
+            raise Exception("Error when running git log")
