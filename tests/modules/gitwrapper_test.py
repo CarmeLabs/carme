@@ -51,3 +51,10 @@ class TestGitWrapper(TestCase):
         self.assertRaises(ValueError, Git.push, os.getcwd())
         self.mock_rv.communicate.return_value = ["https://validurl.com", ""]
         Git.push(os.getcwd())
+
+    def test_git_log(self):
+        self.mock_rv.communicate.return_value = [b'test', ""]
+        Git.log()
+        Git.log(1, [])
+        Git.log(1, ['-f'])
+
