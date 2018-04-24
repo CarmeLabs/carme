@@ -7,6 +7,7 @@ import logging
 import click
 from shutil import copyfile
 from .base import *
+from ...modules.gitwrapper import Git
 
 # Set up logger
 setup_logger()
@@ -23,13 +24,16 @@ def build(force, push, jupyterhub):
     """
     Build project docker images.
     """
+
+    git = Git()
+
     if force:
         docop=' --no-cache '
     else:
         docop=''
     ROOT_DIR=get_project_root()
     kwargs=get_config(ROOT_DIR)
-    tag= bash_command("Get the current hash.", 'git log -1 --format=%h')
+    tag = git.log(1, ['--format=%h'])
     print("tag", tag)
 
     #Build Jupyter
