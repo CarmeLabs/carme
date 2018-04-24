@@ -28,4 +28,5 @@ if ! dpkg-query -W nvidia-docker2; then
   curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
   apt-get update
   apt-get install -y nvidia-docker2
+  pkill -SIGHUP dockerd
 fi
