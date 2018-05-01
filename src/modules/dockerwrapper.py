@@ -84,6 +84,16 @@ def carme_start(path: str):
 
 # TODO: Debug this function, ensure functionality
 @check
+def build(**kwargs):
+    """
+    Just wraps the docker SDK's build function.
+
+    @return an Image object
+    """
+    return client.images.build(**kwargs)
+
+# TODO: Debug this function, ensure functionality
+@check
 def carme_stop():
     return stack_remove("carme")
 
@@ -99,7 +109,7 @@ def swarm_init():
         client.swarm.init(name="carme")
         return True
     except Exception as err:
-        loggint.error(err)
+        logging.error(err)
         return False
 
 # TODO: Debug this function, ensure functionality
@@ -123,6 +133,17 @@ def service_list():
     @return: a List of Service objects    
     """
     return client.service.list()
+
+@check
+def service_create(image: str, **kwargs):
+    """
+    Starts a service. This can also be done with Service.start()
+
+    @param image: the name of the image you want to create a service for
+    @return: a Service object representing the service
+    """
+
+    return client.service.create(image, command=kwargs['command'], **kwargs)
 
 # TODO: Debug this function, ensure functionality
 @check

@@ -21,7 +21,7 @@ class CommandFormatter(Formatter):
             except KeyError:
                 return key
         else:
-            return Formatter.get_value(key, args, kwds)
+            return Formatter.get_value(key, args, **kwds)
 
 def sub_keys(template, kwargs):
     fmt = CommandFormatter()
