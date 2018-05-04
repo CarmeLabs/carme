@@ -42,7 +42,7 @@ def remove(package_path):
     """
     Remove a package from the project.
     """
-    Packager(package_path, get_project_root()).install()
+    Packager(package_path, get_project_root()).remove()
 
 @package.command()
 @click.argument('package_path')
@@ -50,7 +50,7 @@ def download(package_path):
     """
     Download a package and cache it.
     """
-    Packager(package_path, get_project_root()).install()
+    Packager(package_path, get_project_root()).download()
 
 @package.command()
 def create():

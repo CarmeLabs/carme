@@ -4,7 +4,7 @@ import os
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from subprocess import call
-from yamltools import folder_merge_yaml
+from .yamltools import * #had trouble inmporting
 import logging
 import stat
 
@@ -71,9 +71,9 @@ def check(func):
 def carme_start(path: str):
     """
     Starts a Docker stack named 'carme' from the compositor compose file of fo the the current project.
-    Generally this should be the only function called from this file unless you are doing something more complicated. 
+    Generally this should be the only function called from this file unless you are doing something more complicated.
 
-    @param path: path to the project's compose file 
+    @param path: path to the project's compose file
     @return: boolean value of success status
     """
     if not os.path.exists(path) or os.path.isdir(path):
@@ -130,7 +130,7 @@ def service_list():
     """
     List all the services
 
-    @return: a List of Service objects    
+    @return: a List of Service objects
     """
     return client.service.list()
 
@@ -172,7 +172,7 @@ def stack_start(name: str, compose_file: str):
         return False
     return True
 
-# TODO: Debug this function, ensure functionality  
+# TODO: Debug this function, ensure functionality
 def stack_remove(name: str):
     """Removes a stack. Due to limitations of the Docker SDK this calls the actual Docker CLI."""
     proc = call(["docker", "stack", "rm", name])
