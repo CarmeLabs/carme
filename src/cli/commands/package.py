@@ -68,9 +68,8 @@ def create():
     #TBD Check for uncommitted changes require commit before packaging.
     #git.check_changes()
     #TBD get the git commit hash (short version).
-    h=git.log(1, ['--format=%h'])
-    print("result",h,type(h))
-    
+    out=git.log(1, ['--format=%h'])
+    logging.info(out)
     #get the current timestamp
     kwargs['package_created']="today"   #TBD
     kwargs['commit']="7a7d2"  #TBD
