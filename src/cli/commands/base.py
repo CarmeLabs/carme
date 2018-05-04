@@ -14,7 +14,6 @@ LAUNCH_DIR  =   path.join(DATA_DIR, 'launch_files')
 NOTEBOOKS_DIR=  path.join(DATA_DIR, 'notebooks')
 CWD=getcwd()
 
-
 def get_project_root():
     """
     Traverses up until it finds the folder with `carme-config.yaml` in it.
@@ -48,7 +47,6 @@ def setup_logger():
     """
     FORMAT = 'carme: [%(levelname)s] %(message)s'
     logging.basicConfig(level=logging.INFO, format=FORMAT)
-
 
 def bash_command(command, syntax):
     try:
@@ -86,6 +84,11 @@ def append_config(carme_config,file):
 def update_config(carme_config,key,value):
     kwargs=load_yaml(carme_config)
     kwargs[key]=value
-    ruamel.yaml.round_trip_dump(kwargs, open(carme_config, 'w'))
+    update_yaml(kwargs)
     kwargs=load_yaml(carme_config)
     return kwargs
+
+def update_yaml(kwargs):
+    file=os.path.join(get_project_root(), 'carme-config.yaml')
+    ruamel.yaml.round_trip_dump(kwargs, open(file, 'w'))
+    return
