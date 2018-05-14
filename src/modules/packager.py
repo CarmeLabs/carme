@@ -1,7 +1,6 @@
 """
 Module for managing packages. Provides facilites for installing, removing and updating.
 """
-
 import os, sys
 from urllib.request import urlretrieve
 import mimetypes
@@ -17,6 +16,18 @@ PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cac
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
+
+def create_package(package_path, project_path):
+    """
+    Create a package from the directory.
+    """
+    logging.info("Creating package for current project." )
+    logging.info("Package location: " + package_path)
+    ###TBD
+    ### Here I need to zip all files except the packages directoryself.
+    #self.unzipped_path = mkdtemp()
+    #zf.extractall(path=self.unzipped_path)
+
 
 class Packager:
     """
@@ -85,6 +96,10 @@ class Packager:
             os.makedirs(os.path.dirname(f), exist_ok=True)
             copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
 
+
+
+
+
     def remove(self):
         """
         Removes a package from the project folder.
@@ -101,6 +116,7 @@ class Packager:
         """
         # TODO see note in download
         pass
+
 
     def download(self):
         """

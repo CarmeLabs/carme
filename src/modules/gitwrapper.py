@@ -21,7 +21,7 @@ class Git():
     """
 
     def permcheck(func):
-        """ 
+        """
         Decorator to check if Git is installed, and if the user has permissions for it.
         """
         def inner(*args, **kwargs):
@@ -93,7 +93,7 @@ class Git():
             Popen(["git", "commit", "-m", message], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git commit")
-    
+
     @staticmethod
     @permcheck
     def add(project_dir):
@@ -110,7 +110,7 @@ class Git():
         ValueError if project_dir isn't valid
         Exception if error occurs when running `git add`
         """
-        
+
         if project_dir == "" or not os.path.exists(project_dir):
             raise ValueError("Invalid directory")
         try:
@@ -204,6 +204,7 @@ class Git():
         -------
         Exception if error occurs running git log
         """
+
         try:
             number = '-' + str(number)
             if len(flags) != 0:
@@ -212,7 +213,10 @@ class Git():
             else:
                 process = Popen(['git', 'log', number], stdout=subprocess.PIPE)
             out, err = process.communicate()
-            out = out.decode('UTF-8')
+
+            out=out.decode('UTF-8')
+            logging.info("Local git commit value: "+out)
             return out
+
         except subprocess.CalledProcessError:
             raise Exception("Error when running git log")

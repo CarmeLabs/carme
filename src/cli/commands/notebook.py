@@ -7,6 +7,7 @@ import logging
 import click
 from shutil import copyfile
 from .base import *
+from ...modules.dockerwrapper import service_create
 
 # Set up logger
 setup_logger()
@@ -23,5 +24,8 @@ def notebook(image, background):
     else:
         flags = '-ti --rm'
     cwd=os.getcwd()
-    cmd='docker run '+flags+' -p 8888:8888  -v '+ cwd+ ':/home/jovyan/work '+image
-    bash_command("Launching Jupyter Notebook", cmd)
+    #cmd='docker run '+flags+' -p 8888:8888  -v '+ cwd+ ':/home/jovyan/work '+image
+    #bash_command("Launching Jupyter Notebook", cmd)
+    #TODO test this
+    #The ports feild might be wrong? The documentation was strange about this.
+    service_create(image, name="notebook", ports={'8888':8888}, mounts=[cwd+":/home/jovyan/work"])

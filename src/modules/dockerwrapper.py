@@ -4,7 +4,7 @@ import os
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from subprocess import call
-from yamltools import folder_merge_yaml
+from .yamltools import * #had trouble inmporting
 import logging
 import stat
 
@@ -71,9 +71,9 @@ def check(func):
 def carme_start(path: str):
     """
     Starts a Docker stack named 'carme' from the compositor compose file of fo the the current project.
-    Generally this should be the only function called from this file unless you are doing something more complicated. 
+    Generally this should be the only function called from this file unless you are doing something more complicated.
 
-    @param path: path to the project's compose file 
+    @param path: path to the project's compose file
     @return: boolean value of success status
     """
     if not os.path.exists(path) or os.path.isdir(path):
@@ -81,6 +81,16 @@ def carme_start(path: str):
 
     outfile = folder_merge_yaml(path)
     stack_start("carme", outfile)
+
+# TODO: Debug this function, ensure functionality
+@check
+def build(**kwargs):
+    """
+    Just wraps the docker SDK's build function.
+
+    @return an Image object
+    """
+    return client.images.build(**kwargs)
 
 # TODO: Debug this function, ensure functionality
 @check
@@ -99,7 +109,7 @@ def swarm_init():
         client.swarm.init(name="carme")
         return True
     except Exception as err:
-        loggint.error(err)
+        logging.error(err)
         return False
 
 # TODO: Debug this function, ensure functionality
@@ -120,9 +130,20 @@ def service_list():
     """
     List all the services
 
-    @return: a List of Service objects    
+    @return: a List of Service objects
     """
     return client.service.list()
+
+@check
+def service_create(image: str, **kwargs):
+    """
+    Starts a service. This can also be done with Service.start()
+
+    @param image: the name of the image you want to create a service for
+    @return: a Service object representing the service
+    """
+
+    return client.service.create(image, command=kwargs['command'], **kwargs)
 
 # TODO: Debug this function, ensure functionality
 @check
@@ -151,7 +172,7 @@ def stack_start(name: str, compose_file: str):
         return False
     return True
 
-# TODO: Debug this function, ensure functionality  
+# TODO: Debug this function, ensure functionality
 def stack_remove(name: str):
     """Removes a stack. Due to limitations of the Docker SDK this calls the actual Docker CLI."""
     proc = call(["docker", "stack", "rm", name])
