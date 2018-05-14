@@ -7,6 +7,7 @@ import os
 import logging
 import subprocess
 import click
+import yaml
 from ...modules.gitwrapper import Git
 
 
@@ -29,8 +30,18 @@ def save(message):
     try:
         git.add(cwd)
         git.commit(message, cwd)
-        git.push(cwd)
-        logging.info("Successfully saved updates")
+        pushed = False
+        with open("carme-config.yaml") as f:
+                yamlData = yaml.load(f) 
+                for item in yamlData:
+                    if item == 'project':
+                        if yamlData[item]['repository'] != None:
+                            git.push(cwd)
+                            pushed = True
+        if not pushed:
+            logging.warning("No git repository set. Changes only saved locally.")
+        else:
+            logging.info("Successfully saved updates")
     except ValueError as err:
         logging.error(err)
     except Exception as err:

@@ -8,6 +8,7 @@ import click
 from shutil import copyfile, copytree
 from ...modules.gitwrapper import Git
 from .base import DOCKER_DIR, setup_logger
+from .connect import _connect
 
 # Set up logger
 setup_logger()
@@ -44,8 +45,10 @@ def new(project_dir, image):
         copytree(os.path.join(DOCKER_DIR,image), os.path.join(project_dir, 'docker/'+image))
         os.rename(os.path.join(project_dir, 'docker/'+image),os.path.join(project_dir, 'docker/jupyter'))
         with open('carme-config.yaml','w+') as f:
-            f.writelines('project_name: ' + project_name + '\n')
-            f.writelines('jupyter_image: carme/' + image + '\n')
+            f.writelines('project:\n')
+            f.writelines('  name: ' + project_name + '\n')
+            f.writelines('  jupyter_image: carme/' + image + '\n')
+            f.writelines('  repository: ')
 
     except Exception as err:
         logging.error("Error creating the project structure")
@@ -55,3 +58,16 @@ def new(project_dir, image):
         git.init(project_dir)
     except Exception as err:
         logging.error(err)
+    
+    validResponse = False
+    while not validResponse:
+        connectDecision = input("Would you like to connect to a git repository? (y/n): ")
+        if connectDecision.lower() == 'y':
+            _connect()
+            validResponse = True
+        elif connectDecision.lower() == 'n':
+            logging.info("Git repository not set. Changes will only be saved locally.")
+            logging.info("To connect to git repository, run `carme connect`")
+            validResponse = True
+        else:
+            logging.info("Invalid response. Please enter 'y' or 'n'")
