@@ -36,19 +36,20 @@ def new(project_dir, image):
 
     logging.info('Creating new project structure at ' + project_dir)
     try:
-        os.mkdir('apps')
+        os.mkdir('plugins')
         os.mkdir('data')
         os.mkdir('docker')
         os.mkdir('docker/pip-cache')
-        os.mkdir('notebooks')
-        copyfile(os.path.join(DOCKER_DIR, 'docker-compose.yaml'), os.path.join(project_dir, 'docker/docker-compose.yaml'))
-        copytree(os.path.join(DOCKER_DIR,image), os.path.join(project_dir, 'docker/'+image))
-        os.rename(os.path.join(project_dir, 'docker/'+image),os.path.join(project_dir, 'docker/jupyter'))
         with open('carme-config.yaml','w+') as f:
             f.writelines('project:\n')
             f.writelines('  name: ' + project_name + '\n')
-            f.writelines('  jupyter_image: carme/' + image + '\n')
             f.writelines('  repository: ')
+        with open('docker-compose.yaml', 'w+') as f:
+            f.writelines('version: \'3\'\n\n')
+            f.writelines('networks:\n')
+            f.writelines('  carme-net:\n')
+            f.writelines('    external:true\n')
+
 
     except Exception as err:
         logging.error("Error creating the project structure")

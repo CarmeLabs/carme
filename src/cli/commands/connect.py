@@ -4,7 +4,7 @@ Connects to the github repo
 
 import click
 import os
-import yaml
+from ruamel.yaml import YAML
 import logging
 import subprocess
 import validators
@@ -25,6 +25,7 @@ def _connect():
     # Get this scripts dir
     cwd=os.getcwd()
     git = Git()
+    yaml=YAML()
     remoteRepo = input("Enter remote git repository URL: ")
     if(validators.url(remoteRepo)):
         try:
