@@ -1,5 +1,5 @@
 import click
-from .commands import new, save, package, connect, lab, build, notebook, cmd
+from .commands import new, save, package, connect, lab, build, notebook, run
 #from .commands.packages import samppack
 
 #create a sample list of packages. Could pull from config.
@@ -10,13 +10,6 @@ packages=['samppack']
 def carme():
     pass
 
-@carme.command('hello')
-def hello():
-    """
-    Prints a simple hello world message.
-    """
-    print('Hello, world! version 3')
-
 # commands from external files ie the commands folder must be manually
 # imported then added to the group.
 carme.add_command(lab)
@@ -26,5 +19,4 @@ carme.add_command(package)
 carme.add_command(connect)
 carme.add_command(build)
 carme.add_command(notebook)
-#carme.add_command(cluster)
-carme.add_command(cmd)
+carme.add_command(run)
