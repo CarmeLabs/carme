@@ -53,7 +53,6 @@ def check(func):
     @permcheck
     def inner():
         try:
-            print(client.info()['Swarm']['LocalNodeState'])
             if client.info()['Swarm']['LocalNodeState'] != 'inactive':
                 return func()
             else:
