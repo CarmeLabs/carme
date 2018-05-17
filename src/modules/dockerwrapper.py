@@ -4,7 +4,7 @@ import os
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from subprocess import call
-from .yamltools import * #had trouble inmporting
+from .yamltools import * #had trouble importing
 import logging
 import stat
 
@@ -15,7 +15,6 @@ client = docker.from_env()
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-# FIXED
 def permcheck(func):
     """Decorator to check if Docker is installed, and if the user has permissions for it."""
     def inner():
@@ -28,7 +27,7 @@ def permcheck(func):
                 if os.path.exists(bin_path):
                     bin_found = True
                     if os.access(bin_path, os.X_OK):
-                        func()
+                        return func()
                     else:
                         logging.error("You do not have permisison to manage Docker")
                         raise PermissionError
@@ -40,7 +39,7 @@ def permcheck(func):
         socket_path = "/var/run/docker.sock"
         if not os.path.exists(socket_path):
             logging.error("Docker daemon not found, try starting the Docker service")
-            raise FileNotFoundError
+            raise FileNotFoundError("Docker daemon not found")
         docker_mode = os.stat(socket_path).st_mode
         isSocket = stat.S_ISSOCK(docker_mode)
         if not isSocket:
@@ -54,8 +53,9 @@ def check(func):
     @permcheck
     def inner():
         try:
-            if client.info()['Swarm'] is not "inactive":
-                func()
+            print(client.info()['Swarm']['LocalNodeState'])
+            if client.info()['Swarm']['LocalNodeState'] != 'inactive':
+                return func()
             else:
                 # It might be a good idea to just call init() here but for debug purposes I left it as an error
                 logging.warning("Docker not in swarm mode. Would you like to enable swarm mode? (y/n) [n]")
@@ -97,7 +97,6 @@ def build(**kwargs):
 def carme_stop():
     return stack_remove("carme")
 
-# TODO: Debug this function, ensure functionality
 @permcheck
 def swarm_init():
     """
@@ -105,12 +104,13 @@ def swarm_init():
 
     @return: boolean value of success status
     """
+    # TODO: Figure out how to get host IP 
     try:
-        client.swarm.init(name="carme")
-        return True
+        ip_addr = input("Enter IP to addvertise for swarm: ")
+        client.swarm.init(name="default", advertise_addr=ip_addr, listen_addr=ip_addr)
+        logging.info("Initialized the swarm")
     except Exception as err:
         logging.error(err)
-        return False
 
 # TODO: Debug this function, ensure functionality
 
@@ -180,3 +180,33 @@ def stack_remove(name: str):
         logging.error("`docker stack remove` exited with non-zero exit code.")
         return False
     return True
+
+@check
+def check_network():
+    """
+    Returns if the network carme-net is found 
+
+    Returns
+    -------
+    True if the network carme-net has been created, false if not
+
+    Throws
+    -------
+    Exception if carme-net is not an overlay network
+    """
+    for network in client.networks.list():
+        if network.name == 'carme-net':
+            if client.networks.get(network.id).attrs['Scope'] != 'overlay':
+                raise Exception('carme-net is not an overlay network')
+            else:
+                return True
+    return False
+    
+def create_network():
+    try:
+        client.networks.create(name="carme-net", driver="overlay")
+    except Exception as err:
+        logging.error(err)
+
+
+    
