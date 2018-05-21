@@ -4,7 +4,7 @@ import os
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from subprocess import call
-from .yamltools import * #had trouble importing
+from yamltools import * #had trouble importing
 import logging
 import stat
 
@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 def permcheck(func):
     """Decorator to check if Docker is installed, and if the user has permissions for it."""
-    def inner():
+    def inner(**kwargs):
         path = os.getenv('PATH')
         # This only iterates through the locations in the PATH so it is pretty cheap
         bin_found = False
@@ -27,7 +27,7 @@ def permcheck(func):
                 if os.path.exists(bin_path):
                     bin_found = True
                     if os.access(bin_path, os.X_OK):
-                        return func()
+                        return func(**kwargs)
                     else:
                         logging.error("You do not have permisison to manage Docker")
                         raise PermissionError
@@ -51,10 +51,10 @@ def permcheck(func):
 def check(func):
     """Decorator to check if Docker is in swarm mode, and also calls permcheck()"""
     @permcheck
-    def inner():
+    def inner(**kwargs):
         try:
             if client.info()['Swarm']['LocalNodeState'] != 'inactive':
-                return func()
+                return func(**kwargs)
             else:
                 # It might be a good idea to just call init() here but for debug purposes I left it as an error
                 logging.warning("Docker not in swarm mode. Would you like to enable swarm mode? (y/n) [n]")
@@ -82,7 +82,7 @@ def carme_start(path: str):
     stack_start("carme", outfile)
 
 # TODO: Debug this function, ensure functionality
-@check
+#@check
 def build(**kwargs):
     """
     Just wraps the docker SDK's build function.
@@ -202,10 +202,28 @@ def check_network():
     return False
     
 def create_network():
+    """
+    Creates an overlay network named carme-net
+
+    Throws
+    -------
+    Exception if issue occurs creating the network
+    """
     try:
         client.networks.create(name="carme-net", driver="overlay")
     except Exception as err:
         logging.error(err)
+
+def docker_find(root_dir):
+    for subdir, dirs, files in os.walk(root_dir):
+        for _file in files:
+            if(_file == 'Dockerfile'):
+                _tag = root_dir.split('/')
+                _tag = _tag[len(_tag)-1]
+                build(path=root_dir, tag=_tag)
+        for sub in dirs:
+            docker_find(root_dir+'/'+sub)
+        break
 
 
     
