@@ -10,7 +10,7 @@ from pathlib import Path
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
 
-def merge_yaml(file1:str, file2:str, outpath=None):
+def merge_yaml(file1:str, file2:str, outpath=None, master=False):
     """
     Merges 2 yaml files returning the path to the merged file.
 
@@ -32,20 +32,30 @@ def merge_yaml(file1:str, file2:str, outpath=None):
     elif not os.path.isfile(file2):
         raise IsADirectoryError(file2)
 
-    with NamedTemporaryFile(delete=False, mode="w+") as outfile:
-        logging.debug("Outputting to " + outfile.name)
+    if outpath == None:
+        outpath = NamedTemporaryFile(delete=False, mode="w").name
+    outfile = None
+    if os.path.exists(outpath):
+        outfile = open(outpath, "a+")
+    else:
+        outfile = open(outpath, "w+")
 
-        # Docker actually doesn't mind duplicate keys in compose files so we are going to abuse that a bit
-        # Hopefully if they every change that it will be after docker stack supports multiple files
-        outtext = ""
-        with open(file1, 'r') as f1:
-            outtext += f1.read()
-            with open(file2, 'r') as f2:
+
+    logging.debug("Outputting to " + outfile.name)
+
+    # Docker actually doesn't mind duplicate keys in compose files so we are going to abuse that a bit
+    # Hopefully if they every change that it will be after docker stack supports multiple files
+    outtext = ""
+    with open(file1, 'r') as f1:
+        outtext += f1.read()
+        with open(file2, 'r') as f2:
+            if master:
+                outtext = f2.read()
+            else:
                 outtext += f2.read()
-                outfile.write(outtext.strip())
-
-        # get the path, close the file, and return
-        return outfile.name
+            outfile.write(outtext.strip())
+    # get the path, close the file, and return
+    return outfile.name
 
 def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     """
@@ -61,12 +71,12 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
         raise FileNotFoundError(folderpath)
     if not os.path.isdir(folderpath):
         raise Exception(folderpath + " is not a directory")
-
-    with NamedTemporaryFile(delete=False, mode="w") as outfile:
-        files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
+    if outpath == None:
+        outpath = NamedTemporaryFile(delete=False, mode="w").name
+    outfile = open(outpath, "w+")
+    files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
+    for _file in files:
+        merge_yaml(outfile.name, _file, outfile.name, True)
         
-        for file in files:
-            outfile = merge_yaml(outfile.name, file)
-            
-        # get the path, close the file, and return
-        return outfile.name
+    # get the path, close the file, and return
+    return outfile.name
