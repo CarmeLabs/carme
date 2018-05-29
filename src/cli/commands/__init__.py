@@ -5,4 +5,4 @@ from .package import *
 from .lab import *
 from .build import *
 from .notebook import *
-from .run import *
+from .cmd import *

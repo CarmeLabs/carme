@@ -4,7 +4,7 @@ import os
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from subprocess import call
-from yamltools import * #had trouble importing
+from .yamltools import * #had trouble importing
 import logging
 import stat
 
@@ -103,7 +103,7 @@ def swarm_init():
 
     @return: boolean value of success status
     """
-    # TODO: Figure out how to get host IP 
+    # TODO: Figure out how to get host IP
     try:
         ip_addr = input("Enter IP to addvertise for swarm: ")
         client.swarm.init(name="default", advertise_addr=ip_addr, listen_addr=ip_addr)
@@ -183,7 +183,7 @@ def stack_remove(name: str):
 @check
 def check_network():
     """
-    Returns if the network carme-net is found 
+    Returns if the network carme-net is found
 
     Returns
     -------
@@ -200,7 +200,7 @@ def check_network():
             else:
                 return True
     return False
-    
+
 def create_network():
     """
     Creates an overlay network named carme-net
@@ -224,6 +224,3 @@ def docker_find(root_dir):
         for sub in dirs:
             docker_find(root_dir+'/'+sub)
         break
-
-
-    
