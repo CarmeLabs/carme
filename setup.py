@@ -8,7 +8,7 @@ from subprocess import call
 from setuptools import Command, find_packages, setup
 from src import __version__
 from unittest import TestLoader
-from pip.req import parse_requirements
+#from pip.req import parse_requirements
 
 this_dir = abspath(dirname(__file__))
 
