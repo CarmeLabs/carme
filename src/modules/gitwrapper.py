@@ -44,7 +44,7 @@ class Git():
         return inner
 
     @staticmethod
-    @permcheck
+    #@permcheck
     def init(project_dir):
         """
         Initializes a git repository
@@ -68,7 +68,7 @@ class Git():
             raise Exception("Error when running git init")
 
     @staticmethod
-    @permcheck
+    #@permcheck
     def commit(message, project_dir):
         """
         Commits the indexed files
@@ -91,11 +91,13 @@ class Git():
             raise ValueError("Invalid directory")
         try:
             Popen(["git", "commit", "-m", message], cwd=project_dir, stdout=DEVNULL)
+            return True
         except subprocess.CalledProcessError:
             raise Exception("Error when running git commit")
+            return False
 
     @staticmethod
-    @permcheck
+    #@permcheck
     def add(project_dir):
         """
         Indexes all of the project files
@@ -119,7 +121,7 @@ class Git():
             raise Exception("Error when running git add")
 
     @staticmethod
-    @permcheck
+    #@permcheck
     def remote_add(project_dir, repo_url):
         """
         Connects to a remote git repository
@@ -147,7 +149,7 @@ class Git():
             raise Exception("Error when running git remote add")
 
     @staticmethod
-    @permcheck
+    #@permcheck
     def push(project_dir):
         """
         Pushes all of the staged files to the remote repository
@@ -186,8 +188,8 @@ class Git():
             raise Exception("Error when running git push")
 
     @staticmethod
-    @permcheck
-    def log(number=1, flags=[]):
+#    @permcheck   #Variable not returned
+    def log(number=1, flags=['--format=%h']):
 
         """
         Returns the git log
@@ -214,9 +216,64 @@ class Git():
                 process = Popen(['git', 'log', number], stdout=subprocess.PIPE)
             out, err = process.communicate()
 
-            out=out.decode('UTF-8')
+            out=out.decode('UTF-8').rstrip()
             logging.info("Local git commit value: "+out)
             return out
 
         except subprocess.CalledProcessError:
             raise Exception("Error when running git log")
+
+    @staticmethod
+    def check_remote2():
+        """
+        Checks if a remote exists.
+
+        Parameters
+        ----------
+        None
+
+        Throws
+        -------
+        Exception if no remote exists.
+        """
+
+        try:
+            process = Popen(['git', 'log', '1'], cwd=project_dir, stdout=DEVNULL)
+            out, err = process.communicate()
+            out=out.decode('UTF-8')
+            print("out",out,err)
+            return out
+        except subprocess.CalledProcessError:
+            raise Exception("Error when running git log")
+            return None
+    @staticmethod
+    def check_remote(number=1, flags=['--format=%h']):
+
+        """
+        Returns the git log
+
+        Parameters
+        ----------
+        number : int
+        Log index
+
+        flags : list
+        List of extra flags
+
+        Throws
+        -------
+        Exception if error occurs running git log
+        """
+
+        try:
+            process = Popen(['git', 'ls-remote'], stdout=subprocess.PIPE)
+            out, err = process.communicate()
+            out=out.decode('UTF-8')
+            logging.info("Local git commit value: "+str(type(out)))
+            return out
+
+        except subprocess.CalledProcessError:
+            raise Exception("Error when running git log")
+
+#if git ls-remote > /dev/null; then echo "found"; fi
+#if git ls-remote --exit-code; then echo "found"; fi
