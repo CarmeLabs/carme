@@ -82,7 +82,7 @@ def zip_directory2(zip_path, package_path):
         os.makedirs(package_path)
     logging.info("Package location: " + package_path)
     package_path=os.path.join(package_path,"latest.zip")
-    zf = zipfile.ZipFile(package_path, "w")
+    zf = ZipFile(package_path, "w")
     for dirname, subdirs, files in os.walk(zip_path):
         if 'package' in subdirs:
             subdirs.remove('package')
@@ -205,7 +205,7 @@ class Packager:
         """
         Unzips the project file into a temporary directory.
         """
-        zf = zipfile.ZipFile(self.zip_path)
+        zf = ZipFile(self.zip_path)
         self.unzipped_path = mkdtemp()
         zf.extractall(path=self.unzipped_path)
 

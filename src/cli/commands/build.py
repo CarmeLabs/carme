@@ -41,14 +41,11 @@ def build(force, push, jupyterhub):
     #Build Jupyter
     #cmd='docker build '+docop+'-t '+kwargs['jupyter_image']+':latest -t '+kwargs['jupyter_image']+':$(git log -1 --format=%h) ' +  os.path.join(ROOT_DIR, 'docker/jupyter')
     # bash_command("Building Jupyter", cmd)
-    dkwargs={}
-    dkwargs['path']=os.path.join(ROOT_DIR, 'docker/jupyter')
 
     # TODO git commit tag
     # TODO test this to ensure functionality
-    #image = build_image(tag=kwargs['jupyter_image']+':latest', path=os.path.join(ROOT_DIR, 'docker/jupyter'))
-    #image=build_image(dkwargs)
-    image = build_image(path=os.path.join(ROOT_DIR, 'docker/jupyter'))
+    image = build_image(nocache=force, tag=kwargs['jupyter_image']+':latest', path=os.path.join(ROOT_DIR, 'docker/jupyter'))
+    
 
     #Currently there is an issue where if the build fails it will still push.
     if push:
