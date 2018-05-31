@@ -5,11 +5,12 @@ import os, sys
 from urllib.request import urlretrieve
 import mimetypes
 import logging
-from zipfile import ZipFile
+import zipfile
 from shutil import copyfile
 from tempfile import mkdtemp
 import validators
-
+from collections import Counter
+from pathlib import Path
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
 
@@ -17,17 +18,79 @@ PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cac
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-def create_package(package_path, project_path):
+def create_package(project_root, kwargs):
     """
     Create a package from the directory.
     """
     logging.info("Creating package for current project." )
-    logging.info("Package location: " + package_path)
+
+    #Create the package directory if it doesn't exist.
+    package_path=Path(os.path.join(project_root, "package"))
+    if not package_path.exists():
+        print("The package directory doesn't exist...creating it.")
+        os.makedirs(package_path)
+
+
+
+    zipfile=os.path.join(package_path,kwargs['commit']+".zip")
+    #Load the carmeignore file. This has directories and files which are not to be packaged.
+    carmeignore = Path(os.path.join(project_root, ".carmeignore"))
+    if carmeignore.exists():
+        with open(carmeignore) as f:
+            ignore = f.read().splitlines()
+    else:
+        ignore=['package','.git']
+    zip_directory(project_root, ignore, zipfile)
+    copyfile(os.path.join(package_path, zipfile), os.path.join(package_path, "current.zip"))
     ###TBD
     ### Here I need to zip all files except the packages directoryself.
     #self.unzipped_path = mkdtemp()
     #zf.extractall(path=self.unzipped_path)
 
+def zip_directory(directory, carmeignore, zipname):
+    """
+    Compress a directory (ZIP file).
+    """
+    if os.path.exists(directory):
+        outZipFile = zipfile.ZipFile(zipname, 'w', zipfile.ZIP_DEFLATED)
+        # The root directory within the ZIP file.
+        rootdir = os.path.basename(directory)
+
+        for dirpath, dirnames, filenames in os.walk(directory):
+            for ignore in carmeignore:
+                if ignore in dirnames:
+                    dirnames.remove(ignore)
+                if ignore in filenames:
+                    filenames.remove(ignore)
+            for filename in filenames:
+                #if filename in remove:
+
+                # Write the file named filename to the archive,
+                # giving it the archive name 'arcname'.
+                filepath   = os.path.join(dirpath, filename)
+                parentpath = os.path.relpath(filepath, directory)
+                arcname = parentpath
+                #arcname    = os.path.join(rootdir, parentpath)
+                #print("filepath:",filepath,"parentpath",parentpath,"arcname",arcname )
+                outZipFile.write(filepath, arcname)
+
+    outZipFile.close()
+
+
+def zip_directory2(zip_path, package_path):
+    if not os.path.exists(package_path):
+        os.makedirs(package_path)
+    logging.info("Package location: " + package_path)
+    package_path=os.path.join(package_path,"latest.zip")
+    zf = ZipFile(package_path, "w")
+    for dirname, subdirs, files in os.walk(zip_path):
+        if 'package' in subdirs:
+            subdirs.remove('package')
+        zf.write(dirname)
+        for filename in files:
+            print("adding file",dirname,filename)
+            zf.write(os.path.join(dirname, filename))
+    zf.close()
 
 class Packager:
     """
@@ -95,10 +158,6 @@ class Packager:
         for f in files:
             os.makedirs(os.path.dirname(f), exist_ok=True)
             copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
-
-
-
-
 
     def remove(self):
         """

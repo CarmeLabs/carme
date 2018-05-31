@@ -8,6 +8,8 @@ from ...modules.packager import Packager, create_package
 from ...modules.gitwrapper import Git
 from .base import *
 import validators
+from time import gmtime, strftime
+
 
 # Set up logger
 setup_logger()
@@ -59,21 +61,15 @@ def create():
     """
     #Get the project root
     project_root=get_project_root()
-    #Get the project location
-    package_path=os.path.join(project_root,"package","latest.zip")
+    print(project_root)
     #Loads the configuration in the root directory.
     kwargs=get_config(project_root)
-    #This requires a git commit
+    #This requires a git object to get the current hash.
     git = Git()
-    #TBD Check for uncommitted changes require commit before packaging.
-    #git.check_changes()
-    #TBD get the git commit hash (short version).
-    out=git.log(1, ['--format=%h'])
-    logging.info(out)
     #get the current timestamp
-    kwargs['package_created']="today"   #TBD
-    kwargs['commit']="7a7d2"  #TBD
+    kwargs['package_created_gmt']=strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    kwargs['commit']=git.log()
     #Update the config-yaml file.
     update_yaml(kwargs)
     #Create the package. #TBD
-    create_package(package_path, project_root)
+    create_package(project_root, kwargs)
