@@ -18,7 +18,7 @@ PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cac
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-def create_package(project_root, kwargs):
+def create_package(project_root, hash):
     """
     Create a package from the directory.
     """
@@ -30,7 +30,7 @@ def create_package(project_root, kwargs):
         print("The packages directory doesn't exist...creating it.")
         os.makedirs(package_path)
 
-    zipfile=os.path.join(package_path,kwargs['commit']+".zip")
+    zipfile=os.path.join(package_path,hash+".zip")
     #Load the carmeignore file. This has directories and files which are not to be packaged.
     carmeignore = Path(os.path.join(project_root, ".carmeignore"))
     if carmeignore.exists():

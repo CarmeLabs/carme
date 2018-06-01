@@ -62,18 +62,18 @@ def create():
     project_root=get_project_root()
     print(project_root)
     #Loads the configuration in the root directory.
-    kwargs=get_config(project_root)
+    #kwargs=get_config(project_root)
     #This requires a git object to get the current hash.
     git = Git()
     #get the current timestamp
-    kwargs['package_created_gmt']=strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    kwargs['commit']=git.log()
+    current_time=strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    commit=git.log()
 
     #temporary fix because hash not being returned.
-    if kwargs['commit']==None:
-        kwargs['commit']="initial"
-    print("hash:",kwargs['commit'])
+    if commit==None:
+        commit="initial"
+    print("hash:",commit)
     #Update the config-yaml file.
-    update_yaml(kwargs)
+    #update_yaml(kwargs)
     #Create the package. #TBD
-    create_package(project_root, kwargs)
+    create_package(project_root, commit)
