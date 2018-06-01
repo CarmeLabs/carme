@@ -18,7 +18,7 @@ class TestCliSave(TestCase):
         os.chdir("./tmp_test_dir")
         self.new = new
         self.save = save
-    
+
     def tearDown(self):
         os.chdir("../..")
         shutil.rmtree("./tmp_test_dir")
@@ -26,7 +26,6 @@ class TestCliSave(TestCase):
     def test_save_run(self):
         runner = CliRunner()
         runner.invoke(new, ['tmp_test_dir'])
-        result = runner.invoke(save, ['test_message'])
+        result = runner.invoke(save)
         assert result.exit_code == 0
         assert not result.exception
-    
