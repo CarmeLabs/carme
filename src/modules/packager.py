@@ -25,12 +25,10 @@ def create_package(project_root, kwargs):
     logging.info("Creating package for current project." )
 
     #Create the package directory if it doesn't exist.
-    package_path=Path(os.path.join(project_root, "package"))
+    package_path=Path(os.path.join(project_root, "packages"))
     if not package_path.exists():
-        print("The package directory doesn't exist...creating it.")
+        print("The packages directory doesn't exist...creating it.")
         os.makedirs(package_path)
-
-
 
     zipfile=os.path.join(package_path,kwargs['commit']+".zip")
     #Load the carmeignore file. This has directories and files which are not to be packaged.
@@ -39,7 +37,7 @@ def create_package(project_root, kwargs):
         with open(carmeignore) as f:
             ignore = f.read().splitlines()
     else:
-        ignore=['package','.git']
+        ignore=['packages','.git']
     zip_directory(project_root, ignore, zipfile)
     copyfile(os.path.join(package_path, zipfile), os.path.join(package_path, "current.zip"))
     ###TBD

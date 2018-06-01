@@ -10,7 +10,6 @@ from .base import *
 import validators
 from time import gmtime, strftime
 
-
 # Set up logger
 setup_logger()
 
@@ -69,6 +68,11 @@ def create():
     #get the current timestamp
     kwargs['package_created_gmt']=strftime("%Y-%m-%d %H:%M:%S", gmtime())
     kwargs['commit']=git.log()
+
+    #temporary fix because hash not being returned.
+    if kwargs['commit']==None:
+        kwargs['commit']="initial"
+    print("hash:",kwargs['commit'])
     #Update the config-yaml file.
     update_yaml(kwargs)
     #Create the package. #TBD
