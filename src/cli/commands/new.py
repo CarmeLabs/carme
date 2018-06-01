@@ -7,7 +7,7 @@ import logging
 import click
 from shutil import copyfile, copytree
 from ...modules.gitwrapper import Git
-from .base import DOCKER_DIR, setup_logger
+from .base import  setup_logger, DEFAULT_DIR,CONFIG_DIR
 from .connect import _connect
 
 # Set up logger
@@ -33,24 +33,25 @@ def new(project_dir, image):
     """
     os.mkdir(project_dir)
     os.chdir(project_dir)
-
+    logging.info(DEFAULT_DIR)
     logging.info('Creating new project structure at ' + project_dir)
     try:
-        os.mkdir('plugins')
-        os.mkdir('data')
-        os.mkdir('docker')
-        os.mkdir('docker/pip-cache')
-        with open('carme-config.yaml','w+') as f:
-            f.writelines('project:\n')
-            f.writelines('  name: ' + project_name + '\n')
-            f.writelines('  repository: ')
+        for dir in DEFAULT_DIR:
+            os.mkdir(dir)
+
         with open('docker-compose.yaml', 'w+') as f:
             f.writelines('version: \'3\'\n\n')
             f.writelines('networks:\n')
             f.writelines('  carme-net:\n')
             f.writelines('    external:true\n')
-
-
+        with open('.carmeignore', 'w+') as f:
+            f.writelines('packages\n')
+            f.writelines('.git\n')
+        os.chdir(CONFIG_DIR)
+        with open('carme-config.yaml','w+') as f:
+            f.writelines('project:\n')
+            f.writelines('  name: ' + project_name + '\n')
+            f.writelines('  repository: ')
     except Exception as err:
         logging.error("Error creating the project structure")
         logging.error(err)
@@ -59,7 +60,7 @@ def new(project_dir, image):
         git.init(project_dir)
     except Exception as err:
         logging.error(err)
-    
+
     validResponse = False
     while not validResponse:
         connectDecision = input("Would you like to connect to a git repository? (y/n): ")

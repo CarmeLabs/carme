@@ -75,21 +75,6 @@ def zip_directory(directory, carmeignore, zipname):
     outZipFile.close()
 
 
-def zip_directory2(zip_path, package_path):
-    if not os.path.exists(package_path):
-        os.makedirs(package_path)
-    logging.info("Package location: " + package_path)
-    package_path=os.path.join(package_path,"latest.zip")
-    zf = ZipFile(package_path, "w")
-    for dirname, subdirs, files in os.walk(zip_path):
-        if 'package' in subdirs:
-            subdirs.remove('package')
-        zf.write(dirname)
-        for filename in files:
-            print("adding file",dirname,filename)
-            zf.write(os.path.join(dirname, filename))
-    zf.close()
-
 class Packager:
     """
     Object for managing a package

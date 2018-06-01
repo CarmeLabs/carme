@@ -2,25 +2,27 @@
 Variables and Functions used by multiple CLI commands
 """
 import os, subprocess, logging, ruamel.yaml
-
 from os import path, pardir,getcwd
 
 # Global Constants
 CLI_DIR     =   path.abspath(path.join(path.dirname(__file__), pardir))
 BASE_DIR    =   path.dirname(CLI_DIR)
-DATA_DIR    =   path.join(BASE_DIR, 'data')
-DOCKER_DIR  =   path.join(DATA_DIR, 'docker')
-LAUNCH_DIR  =   path.join(DATA_DIR, 'launch_files')
-NOTEBOOKS_DIR=  path.join(DATA_DIR, 'notebooks')
+CONFIG_DIR = 'config'
+CONFIG_FILE= 'carme-config.yaml'
+APP_DIR= 'apps'
+DATA_DIR = 'data'
+NOTEBOOKS_DIR = 'notebooks'
+DOCKER_DIR= 'docker'
 CWD=getcwd()
+DEFAULT_DIR=[APP_DIR,DATA_DIR,NOTEBOOKS_DIR,DOCKER_DIR, CONFIG_DIR]
 
 def get_project_root():
     """
-    Traverses up until it finds the folder with `carme-config.yaml` in it.
+    Traverses up until it finds the folder with `.carmeignore` in it.
     @return: The absolute path to the project root or None if not in a project
     """
     cd = os.getcwd()
-    while not os.path.exists(os.path.join(cd, "carme-config.yaml")):
+    while not os.path.exists(os.path.join(cd, ".carmeignore")):
         if cd == "/":
             return None
         cd = os.path.dirname(cd)
@@ -32,7 +34,7 @@ def get_project_commands():
     @return: A commented list of the commands
     """
     ROOT_DIR=get_project_root()
-    CARME_COMMANDS=os.path.join(ROOT_DIR, 'commands/carme-commands.yaml')
+    CARME_COMMANDS=os.path.join(ROOT_DIR, 'commands','carme-commands.yaml')
     if os.path.isfile(CARME_COMMANDS):
         commands=load_yaml(CARME_COMMANDS)
     else:
@@ -58,7 +60,7 @@ def bash_command(command, syntax):
     return(e.output.decode("utf-8"))
 
 def get_config(ROOT_DIR):
-    kwargs=load_yaml(os.path.join(ROOT_DIR, 'carme-config.yaml'))
+    kwargs=load_yaml(os.path.join(ROOT_DIR, CONFIG_DIR,CONFIG_FILE))
     kwargs['root_dir']= ROOT_DIR
     kwargs['cwd']=os.getcwd()
     return kwargs
@@ -74,7 +76,7 @@ def load_yaml(file):
 
 def append_config(carme_config,file):
     if os.path.isfile(file):
-        print('Adding configuration to carme-config.yaml.')
+        print('Adding configuration to ',CONFIG_FILE,'.')
         kwargs=load_yaml(file)
         ruamel.yaml.round_trip_dump(kwargs, open(carme_config, 'a'))
         kwargs=load_yaml(carme_config)
@@ -89,6 +91,6 @@ def update_config(carme_config,key,value):
     return kwargs
 
 def update_yaml(kwargs):
-    file=os.path.join(get_project_root(), 'carme-config.yaml')
+    file=os.path.join(get_project_root(),CONFIG_DIR, CONFIG_FILE)
     ruamel.yaml.round_trip_dump(kwargs, open(file, 'w'))
     return
