@@ -8,7 +8,7 @@ from ...modules.packager import Packager, create_package
 from ...modules.gitwrapper import Git
 from .base import *
 import validators
-from time import gmtime, strftime
+
 
 # Set up logger
 setup_logger()
@@ -54,26 +54,11 @@ def download(package_path):
     Packager(package_path, get_project_root()).download()
 
 @package.command()
-def create():
+@click.option('--archive', is_flag=True, default=False, help='Create an archive of the work.')
+def create(archive):
     """
     Create a package from the current project directory.
     """
     #Get the project root
     project_root=get_project_root()
-    print(project_root)
-    #Loads the configuration in the root directory.
-    #kwargs=get_config(project_root)
-    #This requires a git object to get the current hash.
-    git = Git()
-    #get the current timestamp
-    current_time=strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    commit=git.log()
-
-    #temporary fix because hash not being returned.
-    if commit==None:
-        commit="initial"
-    print("hash:",commit)
-    #Update the config-yaml file.
-    #update_yaml(kwargs)
-    #Create the package. #TBD
-    create_package(project_root, commit)
+    create_package(project_root, archive)

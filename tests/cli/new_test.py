@@ -26,6 +26,5 @@ class TestCliRun(TestCase):
         result = runner.invoke(self.new, ['tmp_test_dir'])
         os.chdir("..")
         self.assertTrue(os.path.exists("./tmp_test_dir"))
-        self.assertTrue(os.path.exists("./tmp_test_dir/apps"))
         self.assertTrue(os.path.exists("./tmp_test_dir/data"))
         self.assertTrue(os.path.exists("./tmp_test_dir/docker"))

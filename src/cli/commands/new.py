@@ -8,7 +8,7 @@ import click
 from shutil import copyfile, copytree
 from ...modules.gitwrapper import Git
 from ...modules.packager import Packager, create_package
-from .base import  setup_logger, DEFAULT_DIR,CONFIG_DIR
+from .base import  setup_logger, DEFAULT_DIR, CONFIG_DIR, BASE_DIR 
 from .connect import _connect
 
 # Set up logger

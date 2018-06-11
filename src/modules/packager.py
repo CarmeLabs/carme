@@ -6,6 +6,7 @@ from urllib.request import urlretrieve
 import mimetypes
 import logging
 import zipfile
+from time import strftime, localtime
 from shutil import copyfile
 from tempfile import mkdtemp
 import validators
@@ -20,19 +21,20 @@ PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cac
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-def create_package(project_root, hash):
+def create_package(project_root, archive):
     """
     Create a package from the directory.
     """
     logging.info("Creating package for current project." )
-
+    package_name=os.path.basename(project_root)
     #Create the package directory if it doesn't exist.
     package_path=Path(os.path.join(project_root, "packages"))
     if not package_path.exists():
         print("The packages directory doesn't exist...creating it.")
         os.makedirs(package_path)
 
-    zipfile=os.path.join(package_path,hash+".zip")
+    print("package_name",package_name)
+    zipfile=os.path.join(package_path,package_name+"_current.zip")
     #Load the carmeignore file. This has directories and files which are not to be packaged.
     carmeignore = Path(os.path.join(project_root, ".carmeignore"))
     if carmeignore.exists():
@@ -41,11 +43,13 @@ def create_package(project_root, hash):
     else:
         ignore=['packages','.git']
     zip_directory(project_root, ignore, zipfile)
-    copyfile(os.path.join(package_path, zipfile), os.path.join(package_path, "current.zip"))
-    ###TBD
-    ### Here I need to zip all files except the packages directoryself.
-    #self.unzipped_path = mkdtemp()
-    #zf.extractall(path=self.unzipped_path)
+
+    #Copy the file only if hash value is offered.
+    if archive:
+        current_time=strftime("%Y%m%d_%H%M%S", localtime())
+        copyfile(os.path.join(package_path, package_name+"_current.zip"), os.path.join(package_path, package_name+"_"+current_time+".zip"))
+
+
 
 def zip_directory(directory, carmeignore, zipname):
     """
@@ -103,6 +107,7 @@ class Packager:
 
         index_path=self._check_index(package_path)
 
+
         # If package_path was a valid URL then download it
         if validators.url(package_path):
             self.download_URL = package_path
@@ -122,6 +127,7 @@ class Packager:
         # Otherwise it was an error and log it
         else:
             raise Exception("Invalid file path or URL: " + package_path)
+
 
     def install(self):
         """
