@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 @click.command()
 def remote():
-    _git_remote()
+    _git_remote(get_project_root())
 
 def _git_init(project_dir):
     gitobj = Git()
