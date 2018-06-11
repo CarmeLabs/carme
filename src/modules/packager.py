@@ -13,7 +13,7 @@ import validators
 from collections import Counter
 from pathlib import Path
 from .yamltools import load_yaml_url
-DEFAULT_INDEX="https://github.com/CarmeLabs/packages/raw/master/index.yaml"
+DEFAULT_INDEX="https://raw.githubusercontent.com/CarmeLabs/packages/master/index.yaml"
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
 
@@ -21,7 +21,7 @@ PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cac
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-def create_package(project_root, archive):
+def create_package(project_root):
     """
     Create a package from the directory.
     """
@@ -33,8 +33,9 @@ def create_package(project_root, archive):
         print("The packages directory doesn't exist...creating it.")
         os.makedirs(package_path)
 
-    print("package_name",package_name)
-    zipfile=os.path.join(package_path,package_name+"_current.zip")
+    #Get the time string to mark the package.
+    current_time=strftime("%Y%m%d_%H%M%S", localtime())
+    zipfile=os.path.join(package_path,package_name+"_"+current_time+".zip")
     #Load the carmeignore file. This has directories and files which are not to be packaged.
     carmeignore = Path(os.path.join(project_root, ".carmeignore"))
     if carmeignore.exists():
@@ -43,11 +44,6 @@ def create_package(project_root, archive):
     else:
         ignore=['packages','.git']
     zip_directory(project_root, ignore, zipfile)
-
-    #Copy the file only if hash value is offered.
-    if archive:
-        current_time=strftime("%Y%m%d_%H%M%S", localtime())
-        copyfile(os.path.join(package_path, package_name+"_current.zip"), os.path.join(package_path, package_name+"_"+current_time+".zip"))
 
 
 
@@ -127,7 +123,7 @@ class Packager:
         # Otherwise it was an error and log it
         else:
             raise Exception("Invalid file path or URL: " + package_path)
-
+        print("Download URL:", self.download_URL)
 
     def install(self):
         """
@@ -231,7 +227,7 @@ class Packager:
         @param absolute: (optional) If True returns a list absolute paths instead.
         """
 
-        ignored = [".git", "carme-config.yaml", ".gitignore"]
+        ignored = [".git", ".gitignore"]
 
         if not os.path.exists(path) or not os.path.isdir(path):
             return []

@@ -7,14 +7,13 @@ from os import path, pardir,getcwd
 # Global Constants
 CLI_DIR     =   path.abspath(path.join(path.dirname(__file__), pardir))
 BASE_DIR    =   path.dirname(CLI_DIR)
-CONFIG_DIR = 'config'
-CONFIG_FILE= 'carme-config.yaml'
+CONFIG_DIR  = 'config'
+CONFIG_FILE= os.path.join(CONFIG_DIR, 'carme-config.yaml')
 APP_DIR= 'apps'
 DATA_DIR = 'data'
 NOTEBOOKS_DIR = 'code/notebooks'
 DOCKER_DIR= 'docker'
 CWD=getcwd()
-DEFAULT_DIR=[APP_DIR,DATA_DIR,NOTEBOOKS_DIR,DOCKER_DIR, CONFIG_DIR]
 
 def get_project_root():
     """

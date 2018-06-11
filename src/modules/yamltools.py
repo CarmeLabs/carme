@@ -96,6 +96,7 @@ def load_yaml_file(file):
     return(e.output.decode("utf-8"))
 
 def load_yaml_url(url):
+
     try:
         response = urllib.request.urlopen(url)
         yaml=response.read().decode('utf-8')

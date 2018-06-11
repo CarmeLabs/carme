@@ -54,11 +54,13 @@ def download(package_path):
     Packager(package_path, get_project_root()).download()
 
 @package.command()
-@click.option('--archive', is_flag=True, default=False, help='Create an archive of the work.')
-def create(archive):
+#@click.option('--archive', is_flag=True, default=False, help='Create an archive of the work.')
+def create():
     """
     Create a package from the current project directory.
     """
     #Get the project root
     project_root=get_project_root()
-    create_package(project_root, archive)
+    #TO DO Create process to flag archived version/otherwise delete
+    #create_package(project_root, archive)
+    create_package(project_root)

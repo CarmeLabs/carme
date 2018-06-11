@@ -1,6 +1,6 @@
 from .new import *
 from .save import *
-from .connect import *
+from .git import *
 from .package import *
 from .lab import *
 from .build import *
