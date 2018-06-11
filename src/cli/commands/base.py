@@ -1,7 +1,7 @@
 """
 Variables and Functions used by multiple CLI commands
 """
-import os, subprocess, logging, ruamel.yaml
+import os, subprocess, logging, ruamel.yaml,  urllib.request
 from os import path, pardir,getcwd
 
 # Global Constants
@@ -11,7 +11,7 @@ CONFIG_DIR = 'config'
 CONFIG_FILE= 'carme-config.yaml'
 APP_DIR= 'apps'
 DATA_DIR = 'data'
-NOTEBOOKS_DIR = 'notebooks'
+NOTEBOOKS_DIR = 'code/notebooks'
 DOCKER_DIR= 'docker'
 CWD=getcwd()
 DEFAULT_DIR=[APP_DIR,DATA_DIR,NOTEBOOKS_DIR,DOCKER_DIR, CONFIG_DIR]
@@ -36,7 +36,7 @@ def get_project_commands():
     ROOT_DIR=get_project_root()
     CARME_COMMANDS=os.path.join(ROOT_DIR, 'commands','carme-commands.yaml')
     if os.path.isfile(CARME_COMMANDS):
-        commands=load_yaml(CARME_COMMANDS)
+        commands=load_yaml_file(CARME_COMMANDS)
     else:
         print("No commands file found.")
         exit()
@@ -60,12 +60,12 @@ def bash_command(command, syntax):
     return(e.output.decode("utf-8"))
 
 def get_config(ROOT_DIR):
-    kwargs=load_yaml(os.path.join(ROOT_DIR, CONFIG_DIR,CONFIG_FILE))
+    kwargs=load_yaml_file(os.path.join(ROOT_DIR, CONFIG_DIR,CONFIG_FILE))
     kwargs['root_dir']= ROOT_DIR
     kwargs['cwd']=os.getcwd()
     return kwargs
 
-def load_yaml(file):
+def load_yaml_file(file):
     try:
         with open(file, 'r') as yaml:
             kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
@@ -74,20 +74,31 @@ def load_yaml(file):
         print("error")
     return(e.output.decode("utf-8"))
 
+def load_yaml_url(url):
+    try:
+        response = urllib.request.urlopen(url)
+        yaml=response.read().decode('utf-8')
+        kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
+        return kwargs
+    except subprocess.CalledProcessError as e:
+        print("Error loading", url)
+    return(e.output.decode("utf-8"))
+
+
 def append_config(carme_config,file):
     if os.path.isfile(file):
         print('Adding configuration to ',CONFIG_FILE,'.')
-        kwargs=load_yaml(file)
+        kwargs=load_yaml_file(file)
         ruamel.yaml.round_trip_dump(kwargs, open(carme_config, 'a'))
-        kwargs=load_yaml(carme_config)
+        kwargs=load_yaml_file(carme_config)
     else:
         print('The configuration for the application ', app, 'is not available.' )
 
 def update_config(carme_config,key,value):
-    kwargs=load_yaml(carme_config)
+    kwargs=load_yaml_file(carme_config)
     kwargs[key]=value
     update_yaml(kwargs)
-    kwargs=load_yaml(carme_config)
+    kwargs=load_yaml_file(carme_config)
     return kwargs
 
 def update_yaml(kwargs):

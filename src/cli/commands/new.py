@@ -7,6 +7,7 @@ import logging
 import click
 from shutil import copyfile, copytree
 from ...modules.gitwrapper import Git
+from ...modules.packager import Packager, create_package
 from .base import  setup_logger, DEFAULT_DIR,CONFIG_DIR
 from .connect import _connect
 
@@ -15,8 +16,8 @@ setup_logger()
 
 @click.command()
 @click.argument('project_dir', type=click.Path())
-@click.option('--image', default="base", help='The Jupyter docker image.')
-def new(project_dir, image):
+@click.option('--package', default="default", help='Enter the package for initial project scaffold.')
+def new(project_dir, package):
     """
     Creates a new carme project in project_dir or the given folder.
     """
@@ -33,28 +34,29 @@ def new(project_dir, image):
     """
     os.mkdir(project_dir)
     os.chdir(project_dir)
-    logging.info(DEFAULT_DIR)
-    logging.info('Creating new project structure at ' + project_dir)
-    try:
-        for dir in DEFAULT_DIR:
-            os.mkdir(dir)
-
-        with open('docker-compose.yaml', 'w+') as f:
-            f.writelines('version: \'3\'\n\n')
-            f.writelines('networks:\n')
-            f.writelines('  carme-net:\n')
-            f.writelines('    external:true\n')
-        with open('.carmeignore', 'w+') as f:
-            f.writelines('packages\n')
-            f.writelines('.git\n')
-        os.chdir(CONFIG_DIR)
-        with open('carme-config.yaml','w+') as f:
-            f.writelines('project:\n')
-            f.writelines('  name: ' + project_name + '\n')
-            f.writelines('  repository: ')
-    except Exception as err:
-        logging.error("Error creating the project structure")
-        logging.error(err)
+    Packager(package, project_dir).install()
+    # logging.info(DEFAULT_DIR)
+    # logging.info('Creating new project structure at ' + project_dir)
+    # try:
+    #     for dir in DEFAULT_DIR:
+    #         os.mkdir(dir)
+    #
+    #     with open('docker-compose.yaml', 'w+') as f:
+    #         f.writelines('version: \'3\'\n\n')
+    #         f.writelines('networks:\n')
+    #         f.writelines('  carme-net:\n')
+    #         f.writelines('    external:true\n')
+    #     with open('.carmeignore', 'w+') as f:
+    #         f.writelines('packages\n')
+    #         f.writelines('.git\n')
+    #     os.chdir(CONFIG_DIR)
+    #     with open('carme-config.yaml','w+') as f:
+    #         f.writelines('project:\n')
+    #         f.writelines('  name: ' + project_name + '\n')
+    #         f.writelines('  repository: ')
+    # except Exception as err:
+    #     logging.error("Error creating the project structure")
+    #     logging.error(err)
 
     try:
         git.init(project_dir)

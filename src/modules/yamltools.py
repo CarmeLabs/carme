@@ -1,10 +1,11 @@
-import os,sys
+import os,sys, subprocess, ruamel.yaml,  urllib.request
 import logging
 from glob import glob
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from random import randint
 from pathlib import Path
+
 
 # set up logging
 FORMAT = 'carme: [%(levelname)s] %(message)s'
@@ -77,6 +78,29 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
     for _file in files:
         merge_yaml(outfile.name, _file, outfile.name, True)
-        
+
     # get the path, close the file, and return
     return outfile.name
+
+def load_yaml_file(file):
+    """
+    Loads a yaml file from file system.
+    @param file Path to file to be loaded.
+    """
+    try:
+        with open(file, 'r') as yaml:
+            kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
+        return kwargs
+    except subprocess.CalledProcessError as e:
+        print("error")
+    return(e.output.decode("utf-8"))
+
+def load_yaml_url(url):
+    try:
+        response = urllib.request.urlopen(url)
+        yaml=response.read().decode('utf-8')
+        kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
+        return kwargs
+    except subprocess.CalledProcessError as e:
+        print("Error loading", url)
+    return(e.output.decode("utf-8"))

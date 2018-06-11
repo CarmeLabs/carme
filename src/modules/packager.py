@@ -11,6 +11,8 @@ from tempfile import mkdtemp
 import validators
 from collections import Counter
 from pathlib import Path
+from .yamltools import load_yaml_url
+DEFAULT_INDEX="https://github.com/CarmeLabs/packages/raw/master/index.yaml"
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
 
@@ -99,6 +101,8 @@ class Packager:
         self.project_path = project_path
         absp = os.path.abspath(package_path)
 
+        index_path=self._check_index(package_path)
+
         # If package_path was a valid URL then download it
         if validators.url(package_path):
             self.download_URL = package_path
@@ -113,6 +117,8 @@ class Packager:
             elif os.path.isfile(absp) and mimetypes.guess_type(absp)[0] == "application/zip":
                 self.zip_path = absp
 
+        elif index_path!=None:
+            self.download_URL=index_path
         # Otherwise it was an error and log it
         else:
             raise Exception("Invalid file path or URL: " + package_path)
@@ -184,11 +190,21 @@ class Packager:
                 logging.error("Error downloading package file")
                 raise err
 
+    def _check_index(self,package_path):
+        """
+        Checks the presence of a value in the indexself.
+        """
+        index=load_yaml_url(DEFAULT_INDEX)
+        if package_path in index:
+            return index[package_path]
+        return None
+
+
     def _unzip(self):
         """
         Unzips the project file into a temporary directory.
         """
-        zf = ZipFile(self.zip_path)
+        zf = zipfile.ZipFile(self.zip_path)
         self.unzipped_path = mkdtemp()
         zf.extractall(path=self.unzipped_path)
 
