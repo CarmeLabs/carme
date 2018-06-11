@@ -7,7 +7,7 @@ import os
 import logging
 import subprocess
 import click
-import yaml
+#import yaml #JNK need to add to dependencies. 
 from ...modules.gitwrapper import Git
 save_default_message= "No save message provided, defaulting to: `Carme Saved Executed`."
 save_help = "Use message to record changes made.  This will be stored in git with the commit."
