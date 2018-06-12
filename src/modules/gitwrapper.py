@@ -1,12 +1,13 @@
 '''
 Carme git commands
 '''
+
 import os
 import logging
 import subprocess
 import getpass
 from subprocess import DEVNULL, Popen
-from .base import *
+
 
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'
@@ -43,7 +44,7 @@ class Git():
         return inner
 
     @staticmethod
-    #@permcheck
+    @permcheck
     def init(project_dir):
         """
         Initializes a git repository
@@ -67,7 +68,7 @@ class Git():
             raise Exception("Error when running git init")
 
     @staticmethod
-    #@permcheck
+    @permcheck
     def commit(message, project_dir):
         """
         Commits the indexed files
@@ -94,7 +95,7 @@ class Git():
             raise Exception("Error when running git commit")
 
     @staticmethod
-    #@permcheck
+    @permcheck
     def add(project_dir):
         """
         Indexes all of the project files
@@ -113,14 +114,12 @@ class Git():
         if project_dir == "" or not os.path.exists(project_dir):
             raise ValueError("Invalid directory")
         try:
-            Popen(["git", "add", "-A"], cwd=project_dir, stdout=DEVNULL)
-            logging.info("Command: `git add -A`")
-
+            Popen(["git", "add", "."], cwd=project_dir, stdout=DEVNULL)
         except subprocess.CalledProcessError:
             raise Exception("Error when running git add")
 
     @staticmethod
-    #@permcheck
+    @permcheck
     def remote_add(project_dir, repo_url):
         """
         Connects to a remote git repository
@@ -138,6 +137,7 @@ class Git():
         ValueError if project_dir isn't valid
         Exception if error occurs when running `git remote add`
         """
+
         if project_dir == "" or not os.path.exists(project_dir):
             raise ValueError("Invalid directory")
         try:
@@ -147,7 +147,7 @@ class Git():
             raise Exception("Error when running git remote add")
 
     @staticmethod
-    #@permcheck
+    @permcheck
     def push(project_dir):
         """
         Pushes all of the staged files to the remote repository
@@ -186,7 +186,7 @@ class Git():
             raise Exception("Error when running git push")
 
     @staticmethod
-    #@permcheck
+    @permcheck
     def log(number=1, flags=[]):
 
         """
