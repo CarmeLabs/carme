@@ -1,15 +1,13 @@
 '''
 Creates a new project
 '''
-
 import os
 import logging
 import click
 from shutil import copyfile, copytree
-from ...modules.gitwrapper import Git
 from ...modules.packager import Packager, create_package
-from .base import  *
-from .git import _git_init, _git_remote
+from ...modules.base import *
+from .git import _git_save
 
 # Set up logger
 setup_logger()
@@ -41,8 +39,7 @@ def new(project_dir, package, git):
 
     #The git flag will connect a github repository.
     if git:
-        _git_init(project_dir)
-        _git_remote(project_dir)
+        _git()
     else:
         logging.info("Git repository not set. Changes will only be saved locally.")
         logging.info("To connect to git repository, run `carme git`")

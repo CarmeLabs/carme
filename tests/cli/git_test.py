@@ -1,4 +1,4 @@
-""" Test suite for `carme connect command` """
+""" Test suite for `carme git` """
 
 import logging
 import sys
@@ -14,7 +14,7 @@ from click.testing import CliRunner
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
 
-class TestCliConnect(TestCase):
+class TestCliRemote(TestCase):
     def setUp(self):
         os.mkdir("tmp_test_dir")
         os.chdir("./tmp_test_dir")

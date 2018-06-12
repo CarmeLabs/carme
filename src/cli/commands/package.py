@@ -6,7 +6,7 @@ import logging
 import click
 from ...modules.packager import Packager, create_package
 from ...modules.gitwrapper import Git
-from .base import *
+from ...modules.base import *
 import validators
 
 

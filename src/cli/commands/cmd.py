@@ -7,7 +7,7 @@ import logging
 import sys
 import click
 from shutil import copyfile
-from .base import *
+from ...modules.base import *
 import ruamel.yaml
 from string import Formatter
 

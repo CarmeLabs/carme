@@ -6,7 +6,7 @@ import os
 import logging
 import click
 from shutil import copyfile
-from .base import *
+from ...modules.base import *
 # Set up logger
 setup_logger()
 

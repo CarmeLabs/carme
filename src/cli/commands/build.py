@@ -6,8 +6,7 @@ import os
 import logging
 import click
 from shutil import copyfile
-from .base import *
-from ...modules.gitwrapper import Git
+from ...modules.base import *
 from ...modules.dockerwrapper import build as build_image # renamed to avoid confict
 
 # Set up logger
@@ -45,7 +44,7 @@ def build(force, push, jupyterhub):
     # TODO git commit tag
     # TODO test this to ensure functionality
     image = build_image(nocache=force, tag=kwargs['jupyter_image']+':latest', path=os.path.join(ROOT_DIR, 'docker/jupyter'))
-    
+
 
     #Currently there is an issue where if the build fails it will still push.
     if push:

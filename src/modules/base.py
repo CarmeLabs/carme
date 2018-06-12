@@ -49,13 +49,13 @@ def setup_logger():
     FORMAT = 'carme: [%(levelname)s] %(message)s'
     logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-def bash_command(command, syntax):
+def bash_command(command, syntax, error="error"):
     try:
         print("Executing "+command+":\n", syntax)
         result= subprocess.call(syntax, shell=True, executable='/bin/bash')
         return result
     except subprocess.CalledProcessError as e:
-        print("error")
+        print(error)
     return(e.output.decode("utf-8"))
 
 def get_config(ROOT_DIR):
@@ -83,7 +83,6 @@ def load_yaml_url(url):
         print("Error loading", url)
     return(e.output.decode("utf-8"))
 
-
 def append_config(carme_config,file):
     if os.path.isfile(file):
         print('Adding configuration to ',CONFIG_FILE,'.')
@@ -93,7 +92,7 @@ def append_config(carme_config,file):
     else:
         print('The configuration for the application ', app, 'is not available.' )
 
-def update_config(carme_config,key,value):
+def update_config(config_file, key, value):
     kwargs=load_yaml_file(carme_config)
     kwargs[key]=value
     update_yaml(kwargs)

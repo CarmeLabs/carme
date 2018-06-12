@@ -6,7 +6,7 @@ import os
 import logging
 import click
 from shutil import copyfile
-from .base import *
+from ...modules.base import *
 from ...modules.dockerwrapper import service_create
 
 # Set up logger
