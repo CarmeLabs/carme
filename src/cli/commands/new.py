@@ -7,7 +7,7 @@ import click
 from shutil import copyfile, copytree
 from ...modules.packager import Packager, create_package
 from ...modules.base import *
-from .git import _git_save
+from .git import _git
 
 # Set up logger
 setup_logger()

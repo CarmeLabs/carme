@@ -96,7 +96,10 @@ def load_yaml_file(file):
     return(e.output.decode("utf-8"))
 
 def load_yaml_url(url):
-
+    """
+    Loads a yaml file from url.
+    @param file Path to file to be loaded.
+    """
     try:
         response = urllib.request.urlopen(url)
         yaml=response.read().decode('utf-8')
@@ -105,3 +108,8 @@ def load_yaml_url(url):
     except subprocess.CalledProcessError as e:
         print("Error loading", url)
     return(e.output.decode("utf-8"))
+
+def update_yaml(yaml_file, kwargs):
+    logging.info("Updating the file: "+yaml_file+ " with ")
+    ruamel.yaml.round_trip_dump(kwargs, open(yaml_file, 'w'))
+    return 

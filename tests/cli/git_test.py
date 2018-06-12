@@ -5,7 +5,7 @@ import sys
 import os
 import shutil
 from unittest import TestCase
-from src.cli.commands.git import remote
+from src.cli.commands.git import _git_remote
 from src.cli.commands.new import new
 from click.testing import CliRunner
 
@@ -18,7 +18,7 @@ class TestCliRemote(TestCase):
     def setUp(self):
         os.mkdir("tmp_test_dir")
         os.chdir("./tmp_test_dir")
-        self.remote = remote
+        self.remote  = remote
         self.new = new
 
     def tearDown(self):

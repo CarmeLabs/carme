@@ -26,6 +26,6 @@ class TestCliSave(TestCase):
     def test_save_run(self):
         runner = CliRunner()
         runner.invoke(new, ['tmp_test_dir'])
-        result = runner.invoke(save)
+        result = runner.invoke(save, ['--nopush'])
         assert result.exit_code == 0
         assert not result.exception
