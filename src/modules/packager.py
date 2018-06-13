@@ -13,7 +13,7 @@ import validators
 from collections import Counter
 from pathlib import Path
 from .yamltools import load_yaml_url
-MERGE_LIST=['.gitignore','docker_compose.yaml']
+MERGE_LIST=['./.carmeignore','./docker_compose.yaml']
 DEFAULT_INDEX="https://raw.githubusercontent.com/CarmeLabs/packages/master/index.yaml"
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
@@ -142,7 +142,7 @@ class Packager:
         # Get file conflicts, warn about them, and backup files
         inters = self._conflict_check()
         for i in inters:
-            if i not in IGNORELIST:
+            if i not in MERGE_LIST:
                 logging.warning("File '" + i + "' already exists. Backing up and proceeding.")
                 os.rename(i, i + ".bak")
 
@@ -151,7 +151,7 @@ class Packager:
         for f in files:
             os.makedirs(os.path.dirname(f), exist_ok=True)
             copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
-
+            #Add functionaily for merge.
     def remove(self):
         """
         Removes a package from the project folder.

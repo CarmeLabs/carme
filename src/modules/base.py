@@ -27,6 +27,7 @@ def get_project_root():
         if cd == "/":
             return None
         cd = os.path.dirname(cd)
+    logging.info("Current project root: "+os.path.abspath(cd))
     return os.path.abspath(cd)
 
 def setup_logger():
@@ -46,18 +47,18 @@ def bash_command(command, syntax, error="error"):
         print(error)
     return(e.output.decode("utf-8"))
 
-def get_config():
-    kwargs=load_yaml_file(os.path.join(get_project_root(), CONFIG_FILE))
+def get_config(project_dir=get_project_root()):
+    kwargs=load_yaml_file(os.path.join(project_dir, CONFIG_FILE))
     return kwargs
 
-def update_config(kwargs):
-    ruamel.yaml.round_trip_dump(kwargs, open(os.path.join(get_project_root(), CONFIG_FILE), 'w'))
+def update_config(kwargs, project_dir=get_project_root()):
+    ruamel.yaml.round_trip_dump(kwargs, open(os.path.join(project_dir, CONFIG_FILE), 'w'))
     return kwargs
 
-def set_config(key, value):
-    kwargs=get_config()
+def set_config(key, value, project_dir=get_project_root()):
+    kwargs=get_config(project_dir)
     kwargs[key]=value
-    update_config(kwargs)
+    update_config(kwargs, project_dir)
     return kwargs
 
 # def load_yaml_file(file):
