@@ -36,6 +36,7 @@ def new(project_dir, package, git):
     os.chdir(project_dir)
     logging.info("Installing using package: "+package)
     Packager(package, project_dir).install()
+    set_config('project_name', project_name)
 
     #The git flag will connect a github repository.
     if git:

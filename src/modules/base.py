@@ -47,11 +47,17 @@ def bash_command(command, syntax, error="error"):
     return(e.output.decode("utf-8"))
 
 def get_config():
-    kwargs=load_yaml_file(os.path.join(get_project_root(), CONFIG_DIR,CONFIG_FILE))
+    kwargs=load_yaml_file(os.path.join(get_project_root(), CONFIG_FILE))
     return kwargs
 
 def update_config(kwargs):
-    kwargs=load_yaml_file(os.path.join(get_project_root(), CONFIG_DIR,CONFIG_FILE))
+    ruamel.yaml.round_trip_dump(kwargs, open(os.path.join(get_project_root(), CONFIG_FILE), 'w'))
+    return kwargs
+
+def set_config(key, value):
+    kwargs=get_config()
+    kwargs[key]=value
+    update_config(kwargs)
     return kwargs
 
 # def load_yaml_file(file):

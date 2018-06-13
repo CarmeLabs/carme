@@ -24,6 +24,7 @@ def _git():
     _git_remote(get_project_root())
     #_git_initial_push()
 
+
 def _git_init(project_dir):
     bash_command("git init", "git init")
 
@@ -42,12 +43,10 @@ def _git_remote(project_dir):
     Connects to the github repo.
     """
     os.path.join(CONFIG_DIR, 'carme-config.yaml')
-    remoteRepo = input("Enter remote git repository URL: ")
-    if(validators.url(remoteRepo)):
+    remote = input("Enter remote git repository URL: ")
+    if(validators.url(remote)):
         #update_yaml(os.path.join(get_project_root(), CONFIG_FILE), 'repository', remoteRepo)
-        kwargs=get_config()
-        kwargs['repository']=remoteRepo
-        update_config(kwargs)
-        bash_command("Adding reposiotry","git remote add origin "+remoteRepo)
+        bash_command("Adding repository","git remote add origin "+remote)
+        set_config('repository', remote)
     else:
         logging.error("Invalid URL. Please see carme --help")
