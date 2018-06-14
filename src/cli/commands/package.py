@@ -1,6 +1,6 @@
-"""
+'''
 Manage project packages
-"""
+'''
 
 import logging
 import click

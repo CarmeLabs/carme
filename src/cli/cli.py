@@ -1,5 +1,5 @@
 import click
-from .commands import new, save, package, git, lab, build, notebook, run
+from .commands import new, save, package, git, lab, build, notebook, cmd
 #from .commands.packages import samppack
 
 #create a sample list of packages. Could pull from config.
@@ -19,4 +19,4 @@ carme.add_command(package)
 carme.add_command(git)
 carme.add_command(build)
 carme.add_command(notebook)
-carme.add_command(run)
+carme.add_command(cmd)

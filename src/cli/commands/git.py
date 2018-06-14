@@ -1,5 +1,5 @@
 '''
-Git Helper.
+Initializes git repository.
 '''
 import click
 import os
@@ -15,6 +15,7 @@ FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 @click.command()
+@click.option('--push', is_flag=True, default=False, help='Initialize a git repository.')
 def git():
     _git()
 
@@ -24,7 +25,6 @@ def _git():
     _git_init(project_dir)
     _git_remote(project_dir)
     #_git_initial_push()
-
 
 def _git_init(project_dir):
     bash_command("git init", "git init")
@@ -45,8 +45,7 @@ def _git_remote(project_dir):
     """
     remote = input("Enter remote git repository URL: ")
     if(validators.url(remote)):
-        #update_yaml(os.path.join(get_project_root(), CONFIG_FILE), 'repository', remoteRepo)
         bash_command("Adding repository","git remote add origin "+remote)
-        set_config('repository', remote, project_dir)
+        update_key('repository', remote, os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE))
     else:
         logging.error("Invalid URL. Please see carme --help")

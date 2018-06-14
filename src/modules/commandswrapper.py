@@ -1,3 +1,23 @@
+import logging
+import sys
+import click
+from shutil import copyfile
+from .base import *
+import ruamel.yaml
+from string import Formatter
+
+class CommandFormatter(Formatter):
+    """This will replace the values in the template with values from the kwargs.
+    """
+    def get_value(self, key, args, kwds):
+        if isinstance(key, str):
+            try:
+                return kwds[key]
+            except KeyError:
+                return key
+        else:
+            return Formatter.get_value(key, args, **kwds)
+
 def get_project_commands():
     """
     Gets the list of commands from the commands directory.
@@ -11,3 +31,20 @@ def get_project_commands():
         print("No commands file found.")
         exit()
     return commands
+
+def sub_keys(template, kwargs):
+    fmt = CommandFormatter()
+    command= fmt.format(template, **kwargs)
+    return command
+
+
+
+def execute(command, commands, kwargs, dryrun=False):
+    logging.info("Running the command: "+ command)
+    logging.info("Template: "+ commands[command])
+    syntax=sub_keys(commands[command], kwargs)
+    logging.info("Values: "+ syntax)
+    if not dryrun:
+        bash_command(command, syntax)
+
+#

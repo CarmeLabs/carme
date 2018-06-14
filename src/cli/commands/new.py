@@ -7,6 +7,7 @@ import click
 from shutil import copyfile, copytree
 from ...modules.packager import Packager, create_package
 from ...modules.base import *
+from ...modules.yamltools import *
 from .git import _git
 
 # Set up logger
@@ -36,7 +37,7 @@ def new(project_dir, package, git):
     os.chdir(project_dir)
     logging.info("Installing using package: "+package)
     Packager(package, project_dir).install()
-    set_config('project_name', project_name, project_dir)
+    update_key('project_name', project_name, os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE))
 
     #The git flag will connect a github repository.
     if git:

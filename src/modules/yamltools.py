@@ -4,6 +4,7 @@ from glob import glob
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from random import randint
+from .base import *
 from pathlib import Path
 
 
@@ -109,7 +110,33 @@ def load_yaml_url(url):
         print("Error loading", url)
     return(e.output.decode("utf-8"))
 
-def update_yaml(yaml_file, kwargs):
-    logging.info("Updating the file: "+yaml_file+ " with ")
-    ruamel.yaml.round_trip_dump(kwargs, open(yaml_file, 'w'))
-    return 
+def update_yaml_file(file, kwargs):
+    """
+    Updates a yaml file.
+    @param kwargs dictionary.
+    """
+    logging.info("Updating the file: " + file)
+    try:
+        ruamel.yaml.round_trip_dump(kwargs, open(file, 'w'))
+    except subprocess.CalledProcessError as e:
+        print("error")
+
+def update_key(key, value, file):
+    """
+    Updates a yaml file.
+    @param kwargs dictionary.
+    """
+    kwargs=load_yaml_file(file)
+    kwargs[key]=value
+    update_yaml_file(file, kwargs)
+    return kwargs
+
+
+# def append_config(carme_config,file):
+#     if os.path.isfile(file):
+#         print('Adding configuration to ',CONFIG_FILE,'.')
+#         kwargs=load_yaml_file(file)
+#         ruamel.yaml.round_trip_dump(kwargs, open(carme_config, 'a'))
+#         kwargs=load_yaml_file(carme_config)
+#     else:
+#         print('The configuration for the application ', app, 'is not available.' )

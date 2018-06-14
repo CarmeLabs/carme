@@ -152,6 +152,7 @@ class Packager:
             os.makedirs(os.path.dirname(f), exist_ok=True)
             copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
             #Add functionaily for merge.
+
     def remove(self):
         """
         Removes a package from the project folder.
