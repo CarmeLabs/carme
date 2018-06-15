@@ -11,6 +11,7 @@ CLI_DIR     =   path.abspath(path.join(path.dirname(__file__), pardir))
 BASE_DIR    =   path.dirname(CLI_DIR)
 CONFIG_DIR  = 'config'
 COMMANDS_DIR = 'commands'
+PACKAGES_DIR = 'packages'
 CONFIG_FILE= 'carme-config.yaml'
 APP_DIR= 'apps'
 DATA_DIR = 'data'

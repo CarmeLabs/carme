@@ -5,7 +5,7 @@ import os
 import logging
 import click
 from shutil import copyfile, copytree
-from ...modules.packager import Packager, create_package
+from ...modules.packager import Packager
 from ...modules.base import *
 from ...modules.yamltools import *
 from .git import _git

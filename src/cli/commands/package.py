@@ -4,9 +4,10 @@ Manage project packages
 
 import logging
 import click
-from ...modules.packager import Packager, create_package
+from ...modules.packager import Packager
 from ...modules.gitwrapper import Git
 from ...modules.base import *
+from time import strftime, localtime
 import validators
 
 
@@ -61,6 +62,10 @@ def create():
     """
     #Get the project root
     project_root=get_project_root()
-    #TO DO Create process to flag archived version/otherwise delete
-    #create_package(project_root, archive)
-    create_package(project_root)
+    current_time=strftime("%Y%m%d_%H%M%S", localtime())
+    logging.info("Creating package for current project." )
+    package_name=os.path.basename(project_root)
+    package_path=os.path.join(project_root,PACKAGES_DIR,package_name+"_"+current_time+".zip")
+    logging.info("Creating package for current project: "+package_path )
+    Packager(package_path, get_project_root(),True).create()
+    #create_package(project_root)

@@ -5,6 +5,7 @@ import os, sys
 from urllib.request import urlretrieve
 import mimetypes
 import logging
+from .base import *
 import zipfile
 from time import strftime, localtime
 from shutil import copyfile
@@ -22,62 +23,6 @@ PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cac
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
-def create_package(project_root):
-    """
-    Create a package from the directory.
-    """
-    logging.info("Creating package for current project." )
-    package_name=os.path.basename(project_root)
-    #Create the package directory if it doesn't exist.
-    package_path=Path(os.path.join(project_root, "packages"))
-    if not package_path.exists():
-        print("The packages directory doesn't exist...creating it.")
-        os.makedirs(package_path)
-
-    #Get the time string to mark the package.
-    current_time=strftime("%Y%m%d_%H%M%S", localtime())
-    zipfile=os.path.join(package_path,package_name+"_"+current_time+".zip")
-    #Load the carmeignore file. This has directories and files which are not to be packaged.
-    carmeignore = Path(os.path.join(project_root, ".carmeignore"))
-    if carmeignore.exists():
-        with open(carmeignore) as f:
-            ignore = f.read().splitlines()
-    else:
-        ignore=['packages','.git']
-    zip_directory(project_root, ignore, zipfile)
-
-
-
-def zip_directory(directory, carmeignore, zipname):
-    """
-    Compress a directory (ZIP file).
-    """
-    if os.path.exists(directory):
-        outZipFile = zipfile.ZipFile(zipname, 'w', zipfile.ZIP_DEFLATED)
-        # The root directory within the ZIP file.
-        rootdir = os.path.basename(directory)
-
-        for dirpath, dirnames, filenames in os.walk(directory):
-            for ignore in carmeignore:
-                if ignore in dirnames:
-                    dirnames.remove(ignore)
-                if ignore in filenames:
-                    filenames.remove(ignore)
-            for filename in filenames:
-                #if filename in remove:
-
-                # Write the file named filename to the archive,
-                # giving it the archive name 'arcname'.
-                filepath   = os.path.join(dirpath, filename)
-                parentpath = os.path.relpath(filepath, directory)
-                arcname = parentpath
-                #arcname    = os.path.join(rootdir, parentpath)
-                #print("filepath:",filepath,"parentpath",parentpath,"arcname",arcname )
-                outZipFile.write(filepath, arcname)
-
-    outZipFile.close()
-
-
 class Packager:
     """
     Object for managing a package
@@ -87,44 +32,89 @@ class Packager:
     unzipped_path: str = None
     download_URL: str = None
 
-    def __init__(self, package_path: str, project_path: str):
+    def __init__(self, package_path: str, project_path: str, create=False):
         """
         Creates a new instance of the package object.
 
         @param package_path: The local path or URL to the package to be installed. Can be to either a folder or a zip archive.
         @param project_path: The local path to the project that the package is going to be installed into.
         """
-
+        #Check if it is a project
         if project_path is None:
             logging.error("Not in a Carme project.")
             exit(1)
 
-        self.project_path = project_path
-        absp = os.path.abspath(package_path)
-
-        index_path=self._check_index(package_path)
-
-
-        # If package_path was a valid URL then download it
-        if validators.url(package_path):
-            self.download_URL = package_path
-
-        # If the absoulte path of package_path exists as a...
-        elif os.path.exists(absp):
-            # Folder
-            if os.path.isdir(absp):
-                self.unzipped_path = absp
-
-            # Zip file
-            elif os.path.isfile(absp) and mimetypes.guess_type(absp)[0] == "application/zip":
-                self.zip_path = absp
-
-        elif index_path!=None:
-            self.download_URL=index_path
-        # Otherwise it was an error and log it
+        if create:
+            self.zip_path=package_path
+            self.project_path = project_path
         else:
-            raise Exception("Invalid file path or URL: " + package_path)
-        print("Download URL:", self.download_URL)
+            absp = os.path.abspath(package_path)
+            index_path=self._check_index(package_path)
+
+            # If package_path was a valid URL then download it
+            if validators.url(package_path):
+                self.download_URL = package_path
+
+            # If the absoulte path of package_path exists as a...
+            elif os.path.exists(absp):
+            # Folder
+                if os.path.isdir(absp):
+                    self.unzipped_path = absp
+
+                # Zip file
+                elif os.path.isfile(absp) and mimetypes.guess_type(absp)[0] == "application/zip":
+                    self.zip_path = absp
+
+            elif index_path!=None:
+                self.download_URL=index_path
+            # Otherwise it was an error and log it
+            else:
+                raise Exception("Invalid file path or URL: " + package_path)
+                print("Download URL:", self.download_URL)
+
+    def create(self):
+        """
+        Create a package from the directory.
+        """
+        logging.info("Creating package for current project." )
+        print("self.project_path", self.project_path)
+        print("self.zip_path", self.zip_path)
+        package_name=os.path.basename(self.project_path)
+        #Create the package directory if it doesn't exist.
+        package_path=Path(os.path.join(self.project_path, PACKAGES_DIR))
+        if not package_path.exists():
+            print("The packages directory doesn't exist...creating it.")
+            os.makedirs(self.zip_path)
+
+        #Load the carmeignore file. This has directories and files which are not to be packaged.
+        carmeignore_file = Path(os.path.join(self.project_path, ".carmeignore"))
+        if carmeignore_file.exists():
+            with open(carmeignore_file) as f:
+                carmeignore = f.read().splitlines()
+        else:
+            ignore=['packages','.git']
+        #zip_directory(self.project_path, ignore, self.zip_path)
+        if os.path.exists(self.project_path):
+            outZipFile = zipfile.ZipFile(self.zip_path, 'w', zipfile.ZIP_DEFLATED)
+            # The root directory within the ZIP file.
+            rootdir = os.path.basename(self.project_path)
+            for dirpath, dirnames, filenames in os.walk(self.project_path):
+                for ignore in carmeignore:
+                    if ignore in dirnames:
+                        dirnames.remove(ignore)
+                    if ignore in filenames:
+                        filenames.remove(ignore)
+                for filename in filenames:
+                    #if filename in remove:
+                    # Write the file named filename to the archive,
+                    # giving it the archive name 'arcname'.
+                    filepath   = os.path.join(dirpath, filename)
+                    parentpath = os.path.relpath(filepath, self.project_path)
+                    arcname = parentpath
+                    #arcname    = os.path.join(rootdir, parentpath)
+                    #print("filepath:",filepath,"parentpath",parentpath,"arcname",arcname )
+                    outZipFile.write(filepath, arcname)
+            outZipFile.close()
 
     def install(self):
         """
