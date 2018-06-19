@@ -2,7 +2,7 @@
 Variables and Functions used by multiple CLI commands
 """
 import os, subprocess, logging, ruamel.yaml,  urllib.request
-from subprocess import call
+from subprocess import call, DEVNULL, Popen
 from os import path, pardir,getcwd
 from .yamltools import *
 
@@ -12,6 +12,7 @@ BASE_DIR    =   path.dirname(CLI_DIR)
 CONFIG_DIR  = 'config'
 COMMANDS_DIR = 'commands'
 PACKAGES_DIR = 'packages'
+DOCKER_DIR = 'docker'
 CONFIG_FILE= 'carme-config.yaml'
 APP_DIR= 'apps'
 DATA_DIR = 'data'
@@ -48,3 +49,54 @@ def bash_command(command, syntax, error="error"):
     except subprocess.CalledProcessError as e:
         print(error)
     return(e.output.decode("utf-8"))
+
+def git_log2(number=1, flags=['--format=%h']):
+
+    """
+    Returns the git log
+
+    Parameters
+    ----------
+    number : int
+    Log index
+
+    flags : list
+    List of extra flags
+
+    Throws
+    -------
+    Exception if error occurs running git log
+    """
+    flags = ' '.join(flags)
+    logging.info("Use carme save --push to push changes")
+    out =bash_command("check git log", "git log "+ str(number)+' '+flags)
+    out=out.decode('UTF-8')
+    logging.info("Local git commit value: "+out)
+    return out
+
+
+def git_log(number=1, flags=['--format=%h']):
+
+    """
+    Returns the git log
+
+    Parameters
+    ----------
+    number : int
+    Log index
+
+    flags : list
+    List of extra flags
+
+    Throws
+    -------
+    Exception if error occurs running git log
+    """
+
+    number = '-' + str(number)
+    flags = ' '.join(flags)
+    process = Popen(['git', 'log', number, flags], stdout=subprocess.PIPE)
+    out, err = process.communicate()
+    out=out.decode('UTF-8')
+    logging.info("Local git commit value: "+out)
+    return out

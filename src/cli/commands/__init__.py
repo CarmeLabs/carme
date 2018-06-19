@@ -6,3 +6,6 @@ from .lab import *
 from .build import *
 from .notebook import *
 from .cmd import *
+from .start import *
+from .stop import *
+from .cleanup import *

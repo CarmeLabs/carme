@@ -1,6 +1,8 @@
 '''
-Initializes git repository.
+Launches an instance of JupyterLab.
 '''
+
+
 import click
 import os
 from ruamel.yaml import YAML
@@ -16,15 +18,19 @@ logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 @click.command()
 @click.option('--push', is_flag=True, default=False, help='Initialize a git repository.')
-def git():
-    _git()
+def git(push):
+    """
+    Initializes git and performs initial commit/push to GitHub.
+    """
+    _git(push)
 
-def _git():
+def _git(push):
     project_dir=get_project_root()
     print("current project",project_dir)
     _git_init(project_dir)
-    _git_remote(project_dir)
-    #_git_initial_push()
+    if push:
+        _git_remote(project_dir)
+        _git_initial_push()
 
 def _git_init(project_dir):
     bash_command("git init", "git init")

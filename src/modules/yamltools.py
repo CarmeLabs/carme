@@ -7,7 +7,6 @@ from random import randint
 from .base import *
 from pathlib import Path
 
-
 # set up logging
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
@@ -130,6 +129,17 @@ def update_key(key, value, file):
     kwargs[key]=value
     update_yaml_file(file, kwargs)
     return kwargs
+
+#def add_key(base, key, value, file):
+#    """
+#    Updates a yaml file.
+#    @param kwargs dictionary.
+#    """
+#    kwargs=load_yaml_file(file)
+#    kwargs[base][key]=value
+#    update_yaml_file(file, kwargs)
+#    return kwargs
+
 
 
 # def append_config(carme_config,file):

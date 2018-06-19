@@ -11,14 +11,15 @@ SAVE_HELP = "Use message to record changes made.  This will be stored in git wit
 setup_logger()
 @click.command()
 @click.option('--message', default=SAVE_DEFAULT, help=SAVE_HELP)
-@click.option('--nopush', is_flag=True, default=False, help="Don't push to the remote repository")
-def save(message):
+@click.option('--push', is_flag=True, default=False, help="Don't push to the remote repository")
+def save(message, push):
     """
     A simler alias to git commit and push.
     """
     _git_save(message)
-    if nopush:
-        logging.info("Use carme save --push to push changes")
-    else:
+    if push:
         _git_push()
+    else:
+        logging.info("Use carme save --push to push changes")
+
     #TBD Add functionality to push data to bucket.

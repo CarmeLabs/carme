@@ -13,8 +13,8 @@ from tempfile import mkdtemp
 import validators
 from collections import Counter
 from pathlib import Path
-from .yamltools import load_yaml_url
-MERGE_LIST=['./.carmeignore','./docker_compose.yaml']
+from .yamltools import *
+MERGE_LIST=['./.carmeignore','./docker-compose.yaml', './config/carme-config.yaml']
 DEFAULT_INDEX="https://raw.githubusercontent.com/CarmeLabs/packages/master/index.yaml"
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
@@ -43,10 +43,9 @@ class Packager:
         if project_path is None:
             logging.error("Not in a Carme project.")
             exit(1)
-
+        self.project_path = project_path
         if create:
             self.zip_path=package_path
-            self.project_path = project_path
         else:
             absp = os.path.abspath(package_path)
             index_path=self._check_index(package_path)
@@ -77,14 +76,12 @@ class Packager:
         Create a package from the directory.
         """
         logging.info("Creating package for current project." )
-        print("self.project_path", self.project_path)
-        print("self.zip_path", self.zip_path)
         package_name=os.path.basename(self.project_path)
         #Create the package directory if it doesn't exist.
         package_path=Path(os.path.join(self.project_path, PACKAGES_DIR))
         if not package_path.exists():
             print("The packages directory doesn't exist...creating it.")
-            os.makedirs(self.zip_path)
+            os.makedirs(package_path)
 
         #Load the carmeignore file. This has directories and files which are not to be packaged.
         carmeignore_file = Path(os.path.join(self.project_path, ".carmeignore"))
@@ -136,12 +133,19 @@ class Packager:
                 logging.warning("File '" + i + "' already exists. Backing up and proceeding.")
                 os.rename(i, i + ".bak")
 
+
         # Copy all the files making directories as necessary
         files = self._files_list(self.unzipped_path)
         for f in files:
-            os.makedirs(os.path.dirname(f), exist_ok=True)
-            copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
-            #Add functionaily for merge.
+            if f in MERGE_LIST and os.path.exists(os.path.join(self.project_path, f)):
+                logging.info("Merging the file: "+f)
+                merge_yaml(os.path.join(self.project_path, f), os.path.join(self.unzipped_path, f),os.path.join(self.project_path, f))
+            else:
+                os.makedirs(os.path.dirname(f), exist_ok=True)
+                copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
+
+        #Add functionaily for merge.
+        #add_key('packages', 'azk', self.zip_path, os.path.join(self.project_path, CONFIG_DIR, CONFIG_FILE))
 
     def remove(self):
         """
