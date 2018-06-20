@@ -14,10 +14,15 @@ COMMANDS_DIR = 'commands'
 PACKAGES_DIR = 'packages'
 DOCKER_DIR = 'docker'
 CONFIG_FILE= 'carme-config.yaml'
+INDEX_FILE='index.yaml'
+DEFAULT_DIR='default'
 APP_DIR= 'apps'
 DATA_DIR = 'data'
 NOTEBOOKS_DIR = 'code/notebooks'
 DOCKER_DIR= 'docker'
+MERGE_LIST=['./.carmeignore','./docker-compose.yaml', 'config/carme-config.yaml']
+DEFAULT_INDEX="https://raw.githubusercontent.com/CarmeLabs/packages/master/default/config/index.yaml"
+
 CWD=getcwd()
 
 def get_project_root():

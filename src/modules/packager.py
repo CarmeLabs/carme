@@ -14,8 +14,6 @@ import validators
 from collections import Counter
 from pathlib import Path
 from .yamltools import *
-MERGE_LIST=['./.carmeignore','./docker-compose.yaml', './config/carme-config.yaml']
-DEFAULT_INDEX="https://raw.githubusercontent.com/CarmeLabs/packages/master/index.yaml"
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
 

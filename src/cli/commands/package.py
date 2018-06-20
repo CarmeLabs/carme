@@ -4,6 +4,7 @@ Manage project packages
 
 import logging
 import click
+import re
 from ...modules.packager import Packager
 from ...modules.gitwrapper import Git
 from ...modules.base import *
@@ -55,8 +56,8 @@ def download(package_path):
     Packager(package_path, get_project_root()).download()
 
 @package.command()
-#@click.option('--archive', is_flag=True, default=False, help='Create an archive of the work.')
-def create():
+@click.option('--index', is_flag=True, default=False, help='Update the default index.')
+def create(index):
     """
     Create a package from the current project directory.
     """
@@ -65,7 +66,18 @@ def create():
     current_time=strftime("%Y%m%d_%H%M%S", localtime())
     logging.info("Creating package for current project." )
     package_name=os.path.basename(project_root)
-    package_path=os.path.join(project_root,PACKAGES_DIR,package_name+"_"+current_time+".zip")
+    filename=package_name+"_"+current_time+".zip"
+    package_path=os.path.join(project_root,PACKAGES_DIR,filename)
     logging.info("Creating package for current project: "+package_path )
     Packager(package_path, get_project_root(),True).create()
+
+    if index:
+        os.chdir(project_root)
+        index=os.path.join(os.pardir, DEFAULT_DIR, CONFIG_DIR, INDEX_FILE)
+        kwargs=load_yaml_file(index)
+        kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
+        logging.info("Updating index" + kwargs[package_name])
+        update_yaml_file(index, kwargs)
+
+
     #create_package(project_root)

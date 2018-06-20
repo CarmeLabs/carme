@@ -27,40 +27,26 @@ def build(force, push):
         sys.exit(1)
     else:
         #Infos
-        kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, CONFIG_FILE))
-        print(kwargs)
+        kwargs=load_yaml_file(os.path.join(os.pardir(project_root),DEFAULT_DIR, CONFIG_DIR, INDEX_FILE))
+
         if force:
             docop=' --no-cache '
         else:
             docop=''
+        #get hash to tag dockerfile
+        hash = git_log(1, ['--format=%h'])
+        if hash=='':
+            logging.info("No commit tag. Building with hash `init`.")
+            hash='init'
 
-    tag = git_log(1, ['--format=%h'])
-    print("returned", tag)
-    if tag=='':
-        logging.info("No commit tag. Building with tag `initial`.")
-        tag='latest'
-        cmd='docker build '+docop+'-t '+kwargs['jupyter_image']+':latest -t ' +  os.path.join(ROOT_DIR, 'docker/jupyter')
-    else:
-        #Build Jupyter
-        cmd='docker build '+docop+'-t '+kwargs['jupyter_image']+':latest -t '+kwargs['jupyter_image']+':$(git log -1 --format=%h) ' +  os.path.join(ROOT_DIR, 'docker/jupyter')
-    print (cmd)
-    # bash_command("Building Jupyter", cmd)
+        folder = os.path.join(project_root, DOCKER_DIR)
+        for dir in os.listdir(folder):
+            if dir+'_image' in kwargs:
+                tag='carme/'+dir
+            else:
+                tag=kwargs[dir+'_image']
 
-    # TODO git commit tag
-    # TODO test this to ensure functionality
-    #image = build_image(nocache=force, tag=kwargs['jupyter_image']+':latest', path=os.path.join(ROOT_DIR, 'docker/jupyter'))
-
-
-    #Currently there is an issue where if the build fails it will still push.
-#    if push:
-        #cmd='docker push '+kwargs['jupyter_image']+':latest
-        # bash_command("Pushing to Dockerhub", cmd)
-        #cmd='docker push '+kwargs['jupyter_image']+':$(git log -1 --format=%h)'
-        #bash_command("Pushing to Dockerhub", cmd)
-        #TODO test for functionality
-#        image.push(dockerhub_url, tag=kwargs['jupyter_image']+':latest')
-
-#    if jupyterhub:
-        #This should update the singleuser tag
-        # in /app/jupyterhub/config.yaml
-#        print("tbd")
+            logging.info("Building the "+tag+ "image.")
+            os.chdir(os.path.join(project_root, DOCKER_DIR,dir))
+            cmd='docker build '+docop+'-t '+tag+':'+'latest -t '+tag+':'+hash+'  .'
+            bash_command("Building dockerfile", cmd)
