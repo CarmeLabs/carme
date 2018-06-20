@@ -191,7 +191,7 @@ class Packager:
         """
         Checks the presence of a value in the indexself.
         """
-        index=load_yaml_url(DEFAULT_INDEX)
+        index=load_yaml_url(PACKAGE_INDEX)
         if package_path in index:
             return index[package_path]
         return None

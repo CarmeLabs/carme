@@ -27,7 +27,7 @@ def build(force, push):
         sys.exit(1)
     else:
         #Infos
-        kwargs=load_yaml_file(os.path.join(os.pardir(project_root),DEFAULT_DIR, CONFIG_DIR, INDEX_FILE))
+        kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, CONFIG_FILE))
 
         if force:
             docop=' --no-cache '

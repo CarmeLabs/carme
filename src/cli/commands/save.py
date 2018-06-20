@@ -16,6 +16,12 @@ def save(message, push):
     """
     A simler alias to git commit and push.
     """
+    logging.info("Checking for git")
+    project_root=get_project_root()
+    if not os.path.isdir(os.path.join(project_root, '.git')):
+        logging.info("Git not initiated in project. Doing that now.")
+        _git(push=False)
+
     _git_save(message)
     if push:
         _git_push()
