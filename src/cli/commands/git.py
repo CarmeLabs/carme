@@ -22,17 +22,19 @@ def git(push):
     """
     Initializes git and performs initial commit/push to GitHub.
     """
-    _git(push)
+    _git
 
 def _git(push):
-    project_dir=get_project_root()
-    print("current project",project_dir)
-    _git_init(project_dir)
+    project_root=get_project_root()
+    print("current project",project_root)
+    if not os.path.isdir(os.path.join(project_root, '.git')):
+        _git_init(project_dir)
     if push:
         _git_remote(project_dir)
         _git_initial_push()
 
 def _git_init(project_dir):
+    os.chdir(os.path.join(project_root))
     bash_command("git init", "git init")
 
 def _git_initial_push():

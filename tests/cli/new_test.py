@@ -27,4 +27,4 @@ class TestCliRun(TestCase):
         os.chdir("..")
         self.assertTrue(os.path.exists("./tmp_test_dir"))
         self.assertTrue(os.path.exists("./tmp_test_dir/data"))
-        self.assertTrue(os.path.exists("./tmp_test_dir/docker"))
+        self.assertTrue(os.path.exists("./tmp_test_dir/config"))

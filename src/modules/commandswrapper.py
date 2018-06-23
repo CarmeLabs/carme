@@ -37,12 +37,12 @@ def sub_keys(template, kwargs):
     command= fmt.format(template, **kwargs)
     return command
 
-
-
-def execute(command, commands, kwargs, dryrun=False):
+def execute(command, commands, package, kwargs, docker=False, dryrun=False):
     logging.info("Running the command: "+ command)
     logging.info("Template: "+ commands[command])
     syntax=sub_keys(commands[command], kwargs)
+    if docker==True:
+        syntax= 'docker exec -ti ' +kwargs[package+'_image']+' sh -c "'+syntax+'"'
     logging.info("Values: "+ syntax)
     if not dryrun:
         bash_command(command, syntax)

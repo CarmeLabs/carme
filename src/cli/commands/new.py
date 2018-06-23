@@ -22,19 +22,22 @@ def new(project_dir, package, git):
     """
     Creates a new carme project in project_dir or the given folder.
     """
-
     project_name = os.path.basename(project_dir)
     project_dir = os.path.abspath(project_dir)
+    cwd=os.getcwd()
+    #If running in the current directory, no need to cd.
+    if project_name != '.':
+        if os.path.exists(project_dir):
+            logging.warning(project_dir + " already exists!")
+            return
+        os.mkdir(project_dir)
+        os.chdir(project_dir)
+    else:
+        if os.path.exists(os.path.join(cwd, ".carmeignore")):
+            logging.warning("Camre project already exists here!")
+            return
+        project_name=os.path.basename(os.path.dirname(os.getcwd()))
 
-    if os.path.exists(project_dir):
-        logging.warning(project_dir + " already exists!")
-        return
-
-    """
-    Run the actual command
-    """
-    os.mkdir(project_dir)
-    os.chdir(project_dir)
     logging.info("Installing using package: "+package)
     Packager(package, project_dir).install()
     update_key('project_name', project_name, os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE))

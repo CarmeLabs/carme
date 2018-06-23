@@ -19,8 +19,9 @@ setup_logger()
 @click.argument('package')
 @click.argument('command')
 @click.option('--dryrun', is_flag=True, default=False, help='Only print the command, do not run.')
+@click.option('--docker', is_flag=True, default=False, help='Run the command on the Docker container.')
 
-def cmd(package, command, dryrun):
+def cmd(package, command, docker, dryrun):
     """Runs commands from the commands folder."""
     #Finds the project root directory.
     project_dir=get_project_root()
@@ -38,10 +39,10 @@ def cmd(package, command, dryrun):
     elif isinstance(commands[command], ruamel.yaml.comments.CommentedSeq):
         logging.info('Executing command block '+command+ ':')
         for x in commands[command]:
-            execute(x, commands, kwargs, dryrun)
+            execute(x, commands, package, kwargs, docker, dryrun)
     #This attempts to execute a single command.
     else:
-        execute(command, commands, kwargs, dryrun)
+        execute(command, commands, package, kwargs, docker, dryrun)
 
 def validate_command(ctx, param, value):
     """Validates that the desired command is in the commands file.

@@ -2,7 +2,7 @@
 Saves the project
 '''
 import click
-from .git import _git_save
+from .git import _git_save, _git
 from ...modules.base import *
 SAVE_DEFAULT= "Carme Saved Executed."
 SAVE_HELP = "Use message to record changes made.  This will be stored in git with the commit."
@@ -19,8 +19,9 @@ def save(message, push):
     logging.info("Checking for git")
     project_root=get_project_root()
     if not os.path.isdir(os.path.join(project_root, '.git')):
+        print(os.path.join(project_root, '.git'))
         logging.info("Git not initiated in project. Doing that now.")
-        _git(push=False)
+        _git(False)
 
     _git_save(message)
     if push:

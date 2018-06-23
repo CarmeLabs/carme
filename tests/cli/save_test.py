@@ -6,6 +6,7 @@ import shutil
 from unittest import TestCase
 from src.cli.commands.save import save
 from src.cli.commands.new import new
+from src.cli.commands.git import git
 from click.testing import CliRunner
 
 # set up logging
@@ -17,6 +18,7 @@ class TestCliSave(TestCase):
         os.mkdir("tmp_test_dir")
         os.chdir("./tmp_test_dir")
         self.new = new
+        self.git = git
         self.save = save
 
     def tearDown(self):
@@ -26,6 +28,8 @@ class TestCliSave(TestCase):
     def test_save_run(self):
         runner = CliRunner()
         runner.invoke(new, ['tmp_test_dir'])
-        result = runner.invoke(save, ['--nopush'])
+        runner.invoke(git, ['tmp_test_dir'])
+        result = runner.invoke(save, ['tmp_test_dir'])
+        print("exit code", result.exit_code)
         assert result.exit_code == 0
         assert not result.exception
