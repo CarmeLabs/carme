@@ -1,3 +1,6 @@
+/* Adopted from PyTorch Tutorial Theme */
+/* License: https://github.com/pytorch/tutorials/blob/master/LICENSE */
+
 /* Use white for docs background */
 .wy-side-nav-search {
     background-color: #fff;
@@ -77,17 +80,4 @@ a.icon.icon-home {
 
 .version{
     color: #D44D2C !important;
-}
-
-/* Default footer text is quite big */
-footer {
-    font-size: 80%;
-}
-
-footer .rst-footer-buttons {
-    font-size: 125%; /* revert footer settings - 1/80% = 125% */
-}
-
-footer p {
-    font-size: 100%;
 }
