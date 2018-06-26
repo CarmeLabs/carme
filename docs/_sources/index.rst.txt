@@ -1,6 +1,6 @@
 Carme
 =====
-The **C**ontainerized **A**nalytics **R**untime and **M**anagement **E**ngine.
+An container-centric framework for data artisans. 
 
 About
 ^^^^^
@@ -48,15 +48,6 @@ Installation
 .. raw:: html
 
     <div style='clear:both'></div>
-
-
-.. toctree::
-   :maxdepth: 2
-   :hidden:
-   :includehidden:
-   :caption: CarmeCasts
-
-   tutorials/deep_learning_60min_blitz
 
 
 .. raw:: html
