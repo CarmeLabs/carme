@@ -1,5 +1,7 @@
 make html
 rm -rf ../docs
+rm -rf ../doctrees
 mv ../html ../docs 
-git commit -m 'Built documentation' -- ../docs/*
+git add ../docs/*
+git commit -m "Built documentation"
 git push
