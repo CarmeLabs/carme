@@ -1,12 +1,3 @@
-body {
-    font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
-}
-
-/* Default header fonts are ugly */
-h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend, p.caption {
-    font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
-}
-
 /* Use white for docs background */
 .wy-side-nav-search {
     background-color: #fff;
@@ -57,16 +48,6 @@ h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend, p.capti
     display: table;
 }
 
-/* Use our red for literals (it's very similar to the original color) */
-.rst-content tt.literal, .rst-content tt.literal, .rst-content code.literal {
-    color: #F05732;
-}
-
-.rst-content tt.xref, a .rst-content tt, .rst-content tt.xref,
-.rst-content code.xref, a .rst-content tt, a .rst-content code {
-    color: #404040;
-}
-
 /* Change link colors (except for the menu) */
 
 a {
@@ -109,19 +90,4 @@ footer .rst-footer-buttons {
 
 footer p {
     font-size: 100%;
-}
-
-/* For hidden headers that appear in TOC tree */
-/* see http://stackoverflow.com/a/32363545/3343043 */
-.rst-content .hidden-section {
-    display: none;
-}
-
-nav .hidden-section {
-    display: inherit;
-}
-
-/* Make code blocks have a background */
-.codeblock,pre.literal-block,.rst-content .literal-block,.rst-content pre.literal-block,div[class^='highlight'] {
-        background: rgba(0, 0, 0, 0.0470588);
 }
