@@ -42,9 +42,7 @@ def build(force, push, dryrun):
 
         folder = os.path.join(project_root, DOCKER_DIR)
         for dir in os.listdir(folder):
-            config_file=os.path.join(project_root, CONFIG_DIR, dir+'.yaml')
-            print(config_file)
-            kwargs=load_yaml_file(config_file)
+            kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, dir+'.yaml'))
 
             if dir+'_image' in kwargs:
                 tag=kwargs[dir+'_image']

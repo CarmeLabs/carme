@@ -191,6 +191,8 @@ class Packager:
         """
         Checks the presence of a value in the indexself.
         """
+        kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, CONFIG_FILE))
+
         index=load_yaml_url(PACKAGE_INDEX)
         if package_path in index:
             return index[package_path]

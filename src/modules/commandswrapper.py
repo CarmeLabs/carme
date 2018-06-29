@@ -12,7 +12,13 @@ class CommandFormatter(Formatter):
     def get_value(self, key, args, kwds):
         if isinstance(key, str):
             try:
-                return kwds[key]
+                val=kwds[key]
+                if val != None:
+                    return kwds[key]
+                else:
+                    logging.error("Value for key="+ key+ \
+                    " is not set in the /config/<command>.yaml file. Please set the key and rerun the command." )
+                    exit()
             except KeyError:
                 return key
         else:
@@ -37,13 +43,24 @@ def sub_keys(template, kwargs):
     command= fmt.format(template, **kwargs)
     return command
 
-def execute(command, commands, package, kwargs, docker=False, dryrun=False):
+def execute(command, commands, package, project_root, kwargs, docker=False, dryrun=False, remote =False):
     logging.info("Running the command: "+ command)
     logging.info("Template: "+ commands[command])
+    project_name = os.path.basename(project_root)
+    #slighty different if it is a script
+    if commands[command][-3:]=='.sh'or commands[command][0:7]=='script:':
+        commands[command]=commands[command].replace('script:', '')
+        script_path=os.path.join(project_root, 'commands', 'scripts',commands[command])
+        if remote ==false:
+            syntax= 'bash -x '+script_path
+        else:
+            syntax='ssh {server_name}@{ip_address} bash -s > '+script_path
     syntax=sub_keys(commands[command], kwargs)
+    #slightly different if it is docker.
     if docker==True:
-        syntax= 'docker exec -ti ' +kwargs[package+'_image']+' sh -c "'+syntax+'"'
+        syntax= 'docker run -it -v '+project_root+':/home/'+project_name+' '+kwargs[package+'_image']+' sh -c "'+syntax+'"'
     logging.info("Values: "+ syntax)
+
     if not dryrun:
         bash_command(command, syntax)
 

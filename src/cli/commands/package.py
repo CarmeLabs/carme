@@ -8,9 +8,9 @@ import re
 from ...modules.packager import Packager
 from ...modules.gitwrapper import Git
 from ...modules.base import *
+from ...modules.yamltools import *
 from time import strftime, localtime
 import validators
-
 
 # Set up logger
 setup_logger()
@@ -75,8 +75,14 @@ def create(index):
         os.chdir(project_root)
         index=os.path.join(os.pardir, DEFAULT_DIR, CONFIG_DIR, INDEX_FILE)
         kwargs=load_yaml_file(index)
-        kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
-        logging.info("Updating index" + kwargs[package_name])
+        if package_name in kwargs:
+            kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
+            logging.info("Updating index: " + kwargs[package_name])
+        else:
+            kwargs[package_name]=kwargs['default']
+            kwargs[package_name]=kwargs[package_name].replace('default', package_name)
+            kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
+            logging.info("Creating index: " + kwargs[package_name])
         update_yaml_file(index, kwargs)
 
 

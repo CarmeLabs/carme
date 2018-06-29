@@ -19,7 +19,6 @@ DEFAULT_DIR='default'
 APP_DIR= 'apps'
 DATA_DIR = 'data'
 NOTEBOOKS_DIR = 'code/notebooks'
-DOCKER_DIR= 'docker'
 MERGE_LIST=['./.carmeignore','./docker-compose.yaml', 'config/carme-config.yaml']
 PACKAGE_INDEX='https://raw.githubusercontent.com/CarmeLabs/packages/master/default/config/index.yaml'
 
