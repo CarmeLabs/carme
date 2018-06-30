@@ -5,6 +5,7 @@ import os
 import logging
 import click
 from shutil import copyfile, copytree
+from .package import _install_package
 from ...modules.packager import Packager
 from ...modules.base import *
 from ...modules.yamltools import *
@@ -39,7 +40,10 @@ def new(project_dir, package, git):
         project_name=os.path.basename(os.path.dirname(os.getcwd()))
 
     logging.info("Installing using package: "+package)
-    Packager(package, project_dir).install()
+
+    #Update the package short name to url using index.
+    _install_package(project_dir, package)
+
     update_key('project_name', project_name, os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE))
 
     #The git flag will connect a github repository.

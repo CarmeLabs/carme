@@ -20,7 +20,9 @@ class CommandFormatter(Formatter):
                     " is not set in the /config/<command>.yaml file. Please set the key and rerun the command." )
                     exit()
             except KeyError:
-                return key
+                logging.error("The Key="+ key+ \
+                " is not set in the /config/<command>.yaml file. Please set the key and rerun the command." )
+                exit()
         else:
             return Formatter.get_value(key, args, **kwds)
 
@@ -43,7 +45,7 @@ def sub_keys(template, kwargs):
     command= fmt.format(template, **kwargs)
     return command
 
-def execute(command, commands, package, project_root, kwargs, docker=False, dryrun=False, remote =False):
+def execute(command, commands, package, project_root, kwargs, docker=False, dryrun=False, server =False):
     logging.info("Running the command: "+ command)
     logging.info("Template: "+ commands[command])
     project_name = os.path.basename(project_root)

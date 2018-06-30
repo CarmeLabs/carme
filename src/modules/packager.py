@@ -42,32 +42,25 @@ class Packager:
             logging.error("Not in a Carme project.")
             exit(1)
 
+        #Set the project root directory
         self.project_root = project_root
 
-        #if creating, use zip_path as location.
-        if create:
-            self.zip_path=package_path
-        #Otherwise
-        else:
-            absp = os.path.abspath(package_path)
-            index_path=self._check_index(package_path)
+        absp = os.path.abspath(package_path)
 
-            # If package_path was a valid URL then download it
-            if validators.url(package_path):
-                self.download_URL = package_path
+        # If package_path was a valid URL then download it
+        if validators.url(package_path):
+            self.download_URL = package_path
 
-            # If the absoulte path of package_path exists as a...
-            elif os.path.exists(absp):
-            # Folder
-                if os.path.isdir(absp):
-                    self.unzipped_path = absp
+        # If the absoulte path of package_path exists as a...
+        elif os.path.exists(absp):
+        # Folder
+            if os.path.isdir(absp):
+                self.unzipped_path = absp
 
-                # Zip file
-                elif os.path.isfile(absp) and mimetypes.guess_type(absp)[0] == "application/zip":
-                    self.zip_path = absp
+            # Zip file
+            elif os.path.isfile(absp) and mimetypes.guess_type(absp)[0] == "application/zip":
+                self.zip_path = absp
 
-            elif index_path!=None:
-                self.download_URL=index_path
             # Otherwise it was an error and log it
             else:
                 raise Exception("Invalid file path or URL: " + package_path)
@@ -78,7 +71,16 @@ class Packager:
         Create a package from the directory.
         """
         logging.info("Creating package for current project." )
+        #get the package name
         package_name=os.path.basename(self.project_root)
+        #use the current time
+        current_time=strftime("%Y%m%d_%H%M%S", localtime())
+        #set the filename for the zip
+        filename=package_name+"_"+current_time+".zip"
+        self.zip_path=os.path.join(self.project_root,PACKAGES_DIR,filename)
+        logging.info("Creating package for current project: "+self.zip_path )
+        print("zip",self.zip_path,"project_root",self.project_root)
+        
         #Create the package directory if it doesn't exist.
         package_path=Path(os.path.join(self.project_root, PACKAGES_DIR))
         if not package_path.exists():

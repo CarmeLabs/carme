@@ -37,6 +37,7 @@ def get_project_root():
     #logging.info("Current project root: "+os.path.abspath(cd))
     return os.path.abspath(cd)
 
+
 def setup_logger():
     """
     Sets up logging
@@ -53,6 +54,7 @@ def bash_command(command, syntax, error="error"):
     except subprocess.CalledProcessError as e:
         print(error)
     return(e.output.decode("utf-8"))
+
 
 def git_log2(number=1, flags=['--format=%h']):
 

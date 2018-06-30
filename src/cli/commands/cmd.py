@@ -23,7 +23,7 @@ setup_logger()
 @click.option('--server', is_flag=True, default=False, help='Run the command on a remote server.')
 
 #TODO need to add checks for file/commands with nice errors.
-def cmd(package, command, docker, dryrun, remote):
+def cmd(package, command, docker, dryrun, server):
     """Runs commands from the commands folder."""
     #Finds the project root directory.
     project_root=get_project_root()
