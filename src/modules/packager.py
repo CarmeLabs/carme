@@ -25,25 +25,29 @@ class Packager:
     """
     Object for managing a package
     """
-    project_path: str = None
+    project_root: str = None
     zip_path: str = None
     unzipped_path: str = None
     download_URL: str = None
 
-    def __init__(self, package_path: str, project_path: str, create=False):
+    def __init__(self, package_path: str, project_root: str, create=False):
         """
         Creates a new instance of the package object.
 
         @param package_path: The local path or URL to the package to be installed. Can be to either a folder or a zip archive.
-        @param project_path: The local path to the project that the package is going to be installed into.
+        @param project_root: The local path to the project that the package is going to be installed into.
         """
         #Check if it is a project
-        if project_path is None:
+        if project_root is None:
             logging.error("Not in a Carme project.")
             exit(1)
-        self.project_path = project_path
+
+        self.project_root = project_root
+
+        #if creating, use zip_path as location.
         if create:
             self.zip_path=package_path
+        #Otherwise
         else:
             absp = os.path.abspath(package_path)
             index_path=self._check_index(package_path)
@@ -74,26 +78,26 @@ class Packager:
         Create a package from the directory.
         """
         logging.info("Creating package for current project." )
-        package_name=os.path.basename(self.project_path)
+        package_name=os.path.basename(self.project_root)
         #Create the package directory if it doesn't exist.
-        package_path=Path(os.path.join(self.project_path, PACKAGES_DIR))
+        package_path=Path(os.path.join(self.project_root, PACKAGES_DIR))
         if not package_path.exists():
             print("The packages directory doesn't exist...creating it.")
             os.makedirs(package_path)
 
         #Load the carmeignore file. This has directories and files which are not to be packaged.
-        carmeignore_file = Path(os.path.join(self.project_path, ".carmeignore"))
+        carmeignore_file = Path(os.path.join(self.project_root, ".carmeignore"))
         if carmeignore_file.exists():
             with open(carmeignore_file) as f:
                 carmeignore = f.read().splitlines()
         else:
             ignore=['packages','.git']
-        #zip_directory(self.project_path, ignore, self.zip_path)
-        if os.path.exists(self.project_path):
+        #zip_directory(self.project_root, ignore, self.zip_path)
+        if os.path.exists(self.project_root):
             outZipFile = zipfile.ZipFile(self.zip_path, 'w', zipfile.ZIP_DEFLATED)
             # The root directory within the ZIP file.
-            rootdir = os.path.basename(self.project_path)
-            for dirpath, dirnames, filenames in os.walk(self.project_path):
+            rootdir = os.path.basename(self.project_root)
+            for dirpath, dirnames, filenames in os.walk(self.project_root):
                 for ignore in carmeignore:
                     if ignore in dirnames:
                         dirnames.remove(ignore)
@@ -104,7 +108,7 @@ class Packager:
                     # Write the file named filename to the archive,
                     # giving it the archive name 'arcname'.
                     filepath   = os.path.join(dirpath, filename)
-                    parentpath = os.path.relpath(filepath, self.project_path)
+                    parentpath = os.path.relpath(filepath, self.project_root)
                     arcname = parentpath
                     #arcname    = os.path.join(rootdir, parentpath)
                     #print("filepath:",filepath,"parentpath",parentpath,"arcname",arcname )
@@ -115,7 +119,7 @@ class Packager:
         """
         Installs a package into the project folder.
         """
-        if self.project_path is None:
+        if self.project_root is None:
             raise Exception("Invalid project path.")
 
         if self.unzipped_path is None and self.zip_path is None:
@@ -135,15 +139,15 @@ class Packager:
         # Copy all the files making directories as necessary
         files = self._files_list(self.unzipped_path)
         for f in files:
-            if f in MERGE_LIST and os.path.exists(os.path.join(self.project_path, f)):
+            if f in MERGE_LIST and os.path.exists(os.path.join(self.project_root, f)):
                 logging.info("Merging the file: "+f)
-                merge_yaml(os.path.join(self.project_path, f), os.path.join(self.unzipped_path, f),os.path.join(self.project_path, f))
+                merge_yaml(os.path.join(self.project_root, f), os.path.join(self.unzipped_path, f),os.path.join(self.project_root, f))
             else:
                 os.makedirs(os.path.dirname(f), exist_ok=True)
-                copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_path, f))
+                copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_root, f))
 
         #Add functionaily for merge.
-        #add_key('packages', 'azk', self.zip_path, os.path.join(self.project_path, CONFIG_DIR, CONFIG_FILE))
+        #add_key('packages', 'azk', self.zip_path, os.path.join(self.project_root, CONFIG_DIR, CONFIG_FILE))
 
     def remove(self):
         """
@@ -189,10 +193,10 @@ class Packager:
 
     def _check_index(self,package_path):
         """
-        Checks the presence of a value in the indexself.
+        Checks the presence of a value in the index.
         """
-        kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, CONFIG_FILE))
-
+        #TODO CHECK if a different index is used.
+        #kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, CONFIG_FILE))
         index=load_yaml_url(PACKAGE_INDEX)
         if package_path in index:
             return index[package_path]
@@ -211,7 +215,7 @@ class Packager:
         """
         Checks for any file conflicts between the package and project.
         """
-        proj_files = self._files_list(self.project_path)
+        proj_files = self._files_list(self.project_root)
         pkg_files = self._files_list(self.unzipped_path)
 
         return set(proj_files).intersection(pkg_files)

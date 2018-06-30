@@ -30,12 +30,6 @@ def install(package_path):
     """
     logging.info("Installing package: " + package_path)
 
-    #Get the path for core packages
-    tmp_path=os.path.join(DATA_DIR, "packages", package_path,"package","latest.zip")
-    if os.path.exists(tmp_path):
-        logging.info("Installing cached core package.")
-        package_path=tmp_path
-        logging.info("Package location: " + package_path)
     #Install the package
     Packager(package_path, get_project_root()).install()
 
