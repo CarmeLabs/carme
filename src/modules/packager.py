@@ -79,7 +79,6 @@ class Packager:
         filename=package_name+"_"+current_time+".zip"
         self.zip_path=os.path.join(self.project_root,PACKAGES_DIR,filename)
         logging.info("Creating package for current project: "+self.zip_path )
-        print("zip",self.zip_path,"project_root",self.project_root)
         
         #Create the package directory if it doesn't exist.
         package_path=Path(os.path.join(self.project_root, PACKAGES_DIR))
@@ -192,17 +191,6 @@ class Packager:
             except Exception as err:
                 logging.error("Error downloading package file")
                 raise err
-
-    def _check_index(self,package_path):
-        """
-        Checks the presence of a value in the index.
-        """
-        #TODO CHECK if a different index is used.
-        #kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, CONFIG_FILE))
-        index=load_yaml_url(PACKAGE_INDEX)
-        if package_path in index:
-            return index[package_path]
-        return None
 
 
     def _unzip(self):

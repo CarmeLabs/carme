@@ -44,7 +44,9 @@ def new(project_dir, package, git):
     #Update the package short name to url using index.
     _install_package(project_dir, package)
 
-    update_key('project_name', project_name, os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE))
+    config_path=os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE)
+    if os.path.exists(config_path):
+        update_key('project_name', project_name, config_path)
 
     #The git flag will connect a github repository.
     if git:
