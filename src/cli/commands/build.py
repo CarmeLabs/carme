@@ -29,30 +29,37 @@ def build(force, push, dryrun):
         sys.exit(1)
     else:
         #Infos
-
         if force:
             docop=' --no-cache '
         else:
             docop=''
         #get hash to tag dockerfile
-        hash = git_log(1, ['--format=%h'])
+        hash = git_log(1, ['--format=%h']).strip()
         if hash=='':
             logging.info("No commit tag. Building with hash `init`.")
             hash='init'
 
         folder = os.path.join(project_root, DOCKER_DIR)
         for dir in os.listdir(folder):
-            kwargs=load_yaml_file(os.path.join(project_root, CONFIG_DIR, dir+'.yaml'))
+            #Loop through and only if there is a docker
+            if os.path.exists(os.path.join(project_root, DOCKER_DIR, dir, 'Dockerfile')):
+                print("Dockerfile check sucess",dir)
+                #Image tag stored in config/<dir>.yaml or set to the dir.
+                config_file=os.path.join(project_root, CONFIG_DIR, dir+'.yaml')
+                if os.path.exists(config_file):
+                    kwargs=load_yaml_file(config_file)
 
-            if dir+'_image' in kwargs:
-                tag=kwargs[dir+'_image']
-            else:
-                tag='carme/'+dir
+                    if dir+'-image' in kwargs:
+                        tag=kwargs[dir+'-image']
+                    else:
+                        tag='carme/'+dir
 
-            logging.info("Building the "+tag+ "image.")
-            os.chdir(os.path.join(project_root, DOCKER_DIR,dir))
-            cmd='docker build '+docop+'-t '+tag+':'+'latest -t '+tag+':'+hash+'  .'
-            if dryrun==False:
-                bash_command("Building dockerfile", cmd)
-            else:
-                logging.info("Build command: "+cmd)
+                logging.info("Building the "+tag+ "image.")
+                cmd='docker build '+docop+'-t '+tag+':'+'latest -t '+tag+':'+hash+'  .'
+
+                #Now actually run the container build command.
+                if dryrun==False:
+                    os.chdir(os.path.join(project_root, DOCKER_DIR,dir))
+                    bash_command("Building container: ", cmd)
+                else:
+                    logging.info("Build command: "+cmd)
