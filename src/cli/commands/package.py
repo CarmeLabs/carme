@@ -4,7 +4,7 @@ Manage project packages
 
 import logging
 import click
-import re
+
 from ...modules.packager import Packager
 from ...modules.gitwrapper import Git
 from ...modules.base import *
@@ -21,6 +21,23 @@ def package():
     Manage packages on the project.
     """
     pass
+
+@package.command()
+def list():
+    """
+    List all of the available packages.
+    """
+    project_root=get_project_root()
+    config_file=os.path.join(project_root, CONFIG_DIR, CONFIG_FILE)
+    if os.path.exists(config_file):
+        kwargs=load_yaml_file(config_file)
+        if PACKAGE_INDEX_KEY in kwargs:
+            packages=load_yaml_url(kwargs[PACKAGE_INDEX_KEY])
+        #Should update and look in .carme/config
+        else:
+            packages=load_yaml_url(PACKAGE_INDEX)
+
+    ruamel.yaml.dump(packages, sys.stdout, Dumper=ruamel.yaml.RoundTripDumper)
 
 @package.command()
 @click.argument('package_path')
@@ -79,21 +96,9 @@ def create(index):
     """
     #Get the project root
     project_root=get_project_root()
-    Packager(package_path, get_project_root()).create()
-
-    if index:
-        os.chdir(project_root)
-        index=os.path.join(os.pardir, DEFAULT_DIR, CONFIG_DIR, INDEX_FILE)
-        kwargs=load_yaml_file(index)
-        if package_name in kwargs:
-            kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
-            logging.info("Updating index: " + kwargs[package_name])
-        else:
-            kwargs[package_name]=kwargs['default']
-            kwargs[package_name]=kwargs[package_name].replace('default', package_name)
-            kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
-            logging.info("Creating index: " + kwargs[package_name])
-        update_yaml_file(index, kwargs)
+    package_name=os.path.basename(project_root)
+    logging.info("Creating package for current project: "+ package_name)
+    Packager(package_name, project_root).create(index)
 
 def _return_package_url(project_root,package):
     #See if there is a different index set.

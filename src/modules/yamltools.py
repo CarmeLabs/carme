@@ -36,11 +36,13 @@ def merge_yaml(file1:str, file2:str, outpath=None, master=False):
     if outpath == None:
         outpath = NamedTemporaryFile(delete=False, mode="w").name
     outfile = None
+
+    ### JNK.  Currently when merging A with B and putting back to A this results in duplicate keys.
     if os.path.exists(outpath):
         outfile = open(outpath, "a+")
     else:
         outfile = open(outpath, "w+")
-
+    
 
     logging.debug("Outputting to " + outfile.name)
 

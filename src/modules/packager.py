@@ -14,6 +14,7 @@ import validators
 from collections import Counter
 from pathlib import Path
 from .yamltools import *
+import re
 # A constant for the downloaded package cache
 PKG_CACHE = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'cache/')
 
@@ -66,7 +67,7 @@ class Packager:
                 raise Exception("Invalid file path or URL: " + package_path)
                 print("Download URL:", self.download_URL)
 
-    def create(self):
+    def create(self, index):
         """
         Create a package from the directory.
         """
@@ -79,7 +80,7 @@ class Packager:
         filename=package_name+"_"+current_time+".zip"
         self.zip_path=os.path.join(self.project_root,PACKAGES_DIR,filename)
         logging.info("Creating package for current project: "+self.zip_path )
-        
+
         #Create the package directory if it doesn't exist.
         package_path=Path(os.path.join(self.project_root, PACKAGES_DIR))
         if not package_path.exists():
@@ -115,6 +116,19 @@ class Packager:
                     #print("filepath:",filepath,"parentpath",parentpath,"arcname",arcname )
                     outZipFile.write(filepath, arcname)
             outZipFile.close()
+        if index:
+            os.chdir(self.project_root)
+            index=os.path.join(os.pardir, DEFAULT_DIR, CONFIG_DIR, INDEX_FILE)
+            kwargs=load_yaml_file(index)
+            if package_name in kwargs:
+                kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
+                logging.info("Updating index: " + kwargs[package_name])
+            else:
+                kwargs[package_name]=kwargs['default']
+                kwargs[package_name]=kwargs[package_name].replace('default', package_name)
+                kwargs[package_name]=re.sub(r'\d\d\d\d\d\d\d\d_\d\d\d\d\d\d',current_time, kwargs[package_name])
+                logging.info("Creating index: " + kwargs[package_name])
+            update_yaml_file(index, kwargs)
 
     def install(self):
         """
@@ -142,7 +156,8 @@ class Packager:
         for f in files:
             if f in MERGE_LIST and os.path.exists(os.path.join(self.project_root, f)):
                 logging.info("Merging the file: "+f)
-                merge_yaml(os.path.join(self.project_root, f), os.path.join(self.unzipped_path, f),os.path.join(self.project_root, f))
+                merged = merge_yaml(os.path.join(self.project_root, f), os.path.join(self.unzipped_path, f))
+                copyfile(merged, os.path.join(self.project_root, f))
             else:
                 os.makedirs(os.path.dirname(f), exist_ok=True)
                 copyfile(os.path.join(self.unzipped_path, f), os.path.join(self.project_root, f))

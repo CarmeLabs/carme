@@ -21,6 +21,7 @@ DATA_DIR = 'data'
 NOTEBOOKS_DIR = 'code/notebooks'
 MERGE_LIST=['./.carmeignore','./docker-compose.yaml', 'config/carme-config.yaml']
 PACKAGE_INDEX='https://raw.githubusercontent.com/CarmeLabs/packages/master/default/config/index.yaml'
+PACKAGE_INDEX_KEY='package_index'
 JUPYTER_IMAGE_KEY='jupyter_image'
 JUPYTER_PORT_KEY='jupyter_port'
 
