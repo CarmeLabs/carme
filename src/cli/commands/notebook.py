@@ -1,5 +1,6 @@
 '''
-Launches an instance of Jupyter notebook.
+Launches default instance of Jupyter notebook. Image used is (1) specified in command, (2) set in <current-project>/config/carme-config.yaml,
+or (3) set in /<home>/.carme/config/carme-config.yaml
 '''
 
 import os
@@ -7,25 +8,33 @@ import logging
 import click
 from shutil import copyfile
 from ...modules.base import *
+from ...modules.notebookwrapper import *
 from ...modules.dockerwrapper import service_create
+from pathlib import Path
 
 # Set up logger
 setup_logger()
 
 @click.command()
-@click.option('--image', default="carme/jupyter:latest", help='The Jupyter docker image (must be based on Jupyter stacks).')
+@click.option('--image', help='The Jupyter docker image (must be based on Jupyter stacks).')
+@click.option('--port', help='The Jupyter docker image (must be based on Jupyter stacks).')
 @click.option('--background', is_flag=True, default=False, help='Run Docker container in the background.')
-def notebook(image, background):
+@click.option('--dryrun', is_flag=True, default=False, help='Only print the command, do not run.')
+def notebook(image, port, background, dryrun):
     """
     Launch Jupyter Notebook (using Docker).
     """
-    if background:
-        flags = '-d'
+    #TODO Clean this up a bit.
+    image,port = get_image_port(image,port)
+    flags = get_flags(background)
+    if image is None:
+        logging.error("Set the key "+JUPYTER_IMAGE_KEY+"in the project or /<home>/.carme/config/"+CONFIG_FILE+" to use this command.")
+        quit()
     else:
-        flags = '-ti --rm'
-    cwd=os.getcwd()
-    #cmd='docker run '+flags+' -p 8888:8888  -v '+ cwd+ ':/home/jovyan/work '+image
-    #bash_command("Launching Jupyter Notebook", cmd)
-    #TODO test this
-    #The ports feild might be wrong? The documentation was strange about this.
-    service_create(image, name="notebook", ports={'8888':8888}, mounts=[cwd+":/home/jovyan/work"])
+        logging.info("Launching the Jupyter Image: "+image)
+    #print("flags", flags, "port",port)
+    cmd='docker run '+flags+' -p '+port+':8888  -v '+CWD+':/home/jovyan/work '+image
+    if dryrun:
+        logging.info("Values: "+ cmd)
+    else:
+        bash_command("Launch Notebook", cmd)

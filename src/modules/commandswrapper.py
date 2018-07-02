@@ -61,9 +61,10 @@ def execute(command, commands, package, project_root, kwargs, docker=False, dryr
     #slightly different if it is docker.
     if docker==True:
         syntax= 'docker run -it -v '+project_root+':/home/'+project_name+' '+kwargs[package+'_image']+' sh -c "'+syntax+'"'
-    logging.info("Values: "+ syntax)
 
-    if not dryrun:
+    if dryrun:
+        logging.info("Values: "+ syntax)
+    else:
         bash_command(command, syntax)
 
 #

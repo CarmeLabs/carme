@@ -51,8 +51,8 @@ def build(force, push, dryrun):
 
                     if dir+'-image' in kwargs:
                         tag=kwargs[dir+'-image']
-                    else:
-                        tag='carme/'+dir
+                else:
+                    tag='carmelabs/'+dir
 
                 logging.info("Building the "+tag+ "image.")
                 cmd='docker build '+docop+'-t '+tag+':'+'latest -t '+tag+':'+hash+'  .'
@@ -61,5 +61,9 @@ def build(force, push, dryrun):
                 if dryrun==False:
                     os.chdir(os.path.join(project_root, DOCKER_DIR,dir))
                     bash_command("Building container: ", cmd)
+                    if push:
+                        logging.info('Pushing the '+tag+ 'image.')
+                        cmd = 'docker push '+tag
+                        bash_command("Pushing container: ", cmd)
                 else:
                     logging.info("Build command: "+cmd)

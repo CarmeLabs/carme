@@ -1,5 +1,5 @@
 '''
-Delete and remove all images.
+Delete and remove all images locally to free up disk space.
 '''
 import os
 import logging
