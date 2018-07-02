@@ -55,21 +55,21 @@ def _install_package(project_root, package):
         Packager(package, project_root).install()
     return package
 
-@package.command()
-@click.argument('package_path')
-def remove(package_path):
-    """
-    Remove a package from the project.
-    """
-    Packager(package_path, get_project_root()).remove()
-
-@package.command()
-@click.argument('package_path')
-def download(package_path):
-    """
-    Download a package and cache it.
-    """
-    Packager(package_path, get_project_root()).download()
+# @package.command()
+# @click.argument('package_path')
+# def remove(package_path):
+#     """
+#     Remove a package from the project.
+#     """
+#     Packager(package_path, get_project_root()).remove()
+#
+# @package.command()
+# @click.argument('package_path')
+# def download(package_path):
+#     """
+#     Download a package and cache it.
+#     """
+#     Packager(package_path, get_project_root()).download()
 
 @package.command()
 @click.option('--index', is_flag=True, default=False, help='Update the default index.')
