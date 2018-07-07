@@ -1,7 +1,14 @@
 New
 ==================
 
-This note will present an overview of how autograd works and records the
-operations. It's not strictly necessary to understand all this, but we recommend
-getting familiar with it, as it will help you write more efficient, cleaner
-programs, and can aid you in debugging.
+The `carme new` command helps with scaffolding your project. By creating a common directory structure for both code, infrastructure, and containers.  Get started by creating a new project with carme new.
+
+Options:
+
+  --package TEXT  Enter the package for initial project scaffold.
+  --git           Initialize a git repository.
+  --help          Show this message and exit.
+
+Carme new will mirror the default package found in the carme index.
+
+`carme new --package jupyter-cpu`

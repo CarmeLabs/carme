@@ -1,0 +1,18 @@
+Package
+==================
+
+The `carme package` helps you install modules, archive, and share your work.  This functionality comes primarily through packages.
+
+Usage: carme package [OPTIONS] COMMAND [ARGS]...
+
+Commands:
+  create    Create a package from the current project.
+  install   Install a package into the project.
+
+Let's get started with carme package install:
+
+`carme package install jupyter-cpu`
+
+This will create a new package, zipping all files and adding those files to a zip file in the /package directory. The entire directory structure can be installed quickly then by others with just the url.
+
+`carme package create`

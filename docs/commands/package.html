@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>About &mdash; Carme 0.01 documentation</title>
+  <title>Package &mdash; Carme 0.01 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Installation" href="../get_started/getting_started.html" />
-    <link rel="prev" title="The Framework for Data Artisans" href="../index.html" /> 
+    <link rel="next" title="New" href="../packages/new.html" />
+    <link rel="prev" title="New" href="new.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,12 +84,12 @@
             
             
               <p class="caption"><span class="caption-text">Project</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">About</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#history">History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#committers">Committers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#resources-and-links">Resources and Links</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#roadmap">Roadmap</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#history">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#committers">Committers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#resources-and-links">Resources and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#roadmap">Roadmap</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
@@ -100,10 +100,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../get_started/getting_started.html#running-tests">Running Tests</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Commands</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../commands/lab.html">Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../commands/new.html">New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../commands/package.html">Package</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lab.html">Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new.html">New</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Packages</span></p>
 <ul>
@@ -153,13 +153,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>About</li>
+      <li>Package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/project/project.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/package.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -172,37 +172,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="about">
-<h1>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h1>
-<p>Carme is framework which enables data scientists to create and deploy artificial intelligence (AI) applications.  Carme attempts to take the pain out projects by facilitating common tasks relevant to the majority of analytics teams, such as:
-- Use Jupyter, Jupyterlab, and Jupyterhub setup in a container-based environment.
-- Simplified version control for data and models for increased reproducibility.
-- Directed acyclic graph (DAG) creation, monitoring, and deployment for data pipelines.
-- Setup of cluster and GPU infrastructure for scaling analyses.
-- Starter notebooks for best-of-class deep learning analyses.
-- Dash and Bokeh data application deployment.About</p>
-</div>
-<div class="section" id="history">
-<h1>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h1>
-<p>records</p>
-</div>
-<div class="section" id="committers">
-<h1>Committers<a class="headerlink" href="#committers" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li>&#64;jkuruzovich (Jason Kuruzovich)</li>
-<li>&#64;   ()</li>
-<li>&#64;rushsteve (Stephen )</li>
-</ul>
-</div>
-<div class="section" id="resources-and-links">
-<h1>Resources and Links<a class="headerlink" href="#resources-and-links" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li>Add a list of Links</li>
-</ul>
-</div>
-<div class="section" id="roadmap">
-<h1>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this headline">¶</a></h1>
-<p>This is the roadmap.</p>
+  <div class="section" id="package">
+<h1>Package<a class="headerlink" href="#package" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>carme package</cite> helps you install modules, archive, and share your work.  This functionality comes primarily through packages.</p>
+<p>Usage: carme package [OPTIONS] COMMAND [ARGS]…</p>
+<dl class="docutils">
+<dt>Commands:</dt>
+<dd>create    Create a package from the current project.
+install   Install a package into the project.</dd>
+</dl>
+<p>Let’s get started with carme package install:</p>
+<p><cite>carme package install jupyter-cpu</cite></p>
+<p>This will create a new package, zipping all files and adding those files to a zip file in the /package directory. The entire directory structure can be installed quickly then by others with just the url.</p>
+<p><cite>carme package create</cite></p>
 </div>
 
 
@@ -213,10 +195,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../get_started/getting_started.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../packages/new.html" class="btn btn-neutral float-right" title="New" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="The Framework for Data Artisans" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="new.html" class="btn btn-neutral" title="New" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

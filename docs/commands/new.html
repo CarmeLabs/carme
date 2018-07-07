@@ -24,13 +24,14 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="New" href="../packages/new.html" />
-    <link rel="prev" title="Installation" href="../get_started/getting_started.html" /> 
+    <link rel="next" title="Package" href="package.html" />
+    <link rel="prev" title="Lab" href="lab.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -100,7 +101,9 @@
 </ul>
 <p class="caption"><span class="caption-text">Commands</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lab.html">Lab</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">Package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Packages</span></p>
 <ul>
@@ -171,10 +174,27 @@
             
   <div class="section" id="new">
 <h1>New<a class="headerlink" href="#new" title="Permalink to this headline">¶</a></h1>
-<p>This note will present an overview of how autograd works and records the
-operations. It’s not strictly necessary to understand all this, but we recommend
-getting familiar with it, as it will help you write more efficient, cleaner
-programs, and can aid you in debugging.</p>
+<p>The <cite>carme new</cite> command helps with scaffolding your project. By creating a common directory structure for both code, infrastructure, and containers.  Get started by creating a new project with carme new.</p>
+<p>Options:</p>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--package <var>TEXT</var></span></kbd></td>
+<td>Enter the package for initial project scaffold.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--git</span></kbd></td>
+<td>Initialize a git repository.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--help</span></kbd></td>
+<td>Show this message and exit.</td></tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Carme new will mirror the default package found in the carme index.</p>
+<p><cite>carme new –package jupyter-cpu</cite></p>
 </div>
 
 
@@ -185,10 +205,10 @@ programs, and can aid you in debugging.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../packages/new.html" class="btn btn-neutral float-right" title="New" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="package.html" class="btn btn-neutral float-right" title="Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../get_started/getting_started.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lab.html" class="btn btn-neutral" title="Lab" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -233,7 +253,10 @@ programs, and can aid you in debugging.</p>
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
   <script type="text/javascript">
       jQuery(function () {
