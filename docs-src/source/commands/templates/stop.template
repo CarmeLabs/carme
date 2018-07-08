@@ -1,0 +1,6 @@
+stop
+==================
+
+The `carme stop` command stop all applications indicated in the docker-compose.yaml file.
+
+## Usage

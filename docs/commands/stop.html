@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Lab &mdash; Carme 0.01 documentation</title>
+  <title>stop &mdash; Carme 0.01 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="New" href="new.html" />
-    <link rel="prev" title="Help" href="help.html" />
+    <link rel="next" title="New" href="../packages/new.html" />
+    <link rel="prev" title="Start" href="start.html" />
  
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -119,13 +119,13 @@
 <li class="toctree-l1"><a class="reference internal" href="cmd.html">Cmd</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">Git</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab.html">Lab</a></li>
 <li class="toctree-l1"><a class="reference internal" href="new.html">New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebook.html">notebook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">Package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="save.html">Save</a></li>
 <li class="toctree-l1"><a class="reference internal" href="start.html">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">stop</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Packages</span></p>
 <ul>
@@ -175,13 +175,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Lab</li>
+      <li>stop</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/commands/lab.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/stop.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -194,21 +194,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lab">
-<h1>Lab<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h1>
-<p>The <cite>carme lab</cite> command mirrors the function of the jupyter lab command, but using Docker containers.</p>
-<p>By default, the <cite>carme lab</cite> command will share the current working directory with the container.</p>
-<p>Information for the port and image can be pulled from 3 different places and are searched for in this order:</p>
-<ol class="arabic simple">
-<li>If an image and/or port is passed as an option, that option is used (top priority).</li>
-<li>If an image and/or port is set in the config/carme-config.yaml file, that option is used (second priority).</li>
-<li>If an image and/or port is set in the (user  home)/.carme/config/carme-config.yaml then  that option will be used (lower priority).</li>
-</ol>
-<p>Option 3 is useful to be able to work on multiple projects at once, as it allows you to launch a carme powered docker container from any directory.</p>
+  <div class="section" id="stop">
+<h1>stop<a class="headerlink" href="#stop" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>carme stop</cite> command stop all applications indicated in the docker-compose.yaml file.</p>
 <p>## Usage</p>
-<p>Usage: carme lab [OPTIONS]</p>
+<p>Usage: carme stop [OPTIONS]</p>
 <blockquote>
-<div>Launch Jupyter Notebook (using Docker).</div></blockquote>
+<div>Stop (and optionally remove, –remove) all containers running in
+background.</div></blockquote>
 <dl class="docutils">
 <dt>Options:</dt>
 <dd><table class="first last docutils option-list" frame="void" rules="none">
@@ -216,17 +209,8 @@
 <col class="description" />
 <tbody valign="top">
 <tr><td class="option-group">
-<kbd><span class="option">--image <var>TEXT</var></span></kbd></td>
-<td>The Jupyter docker image (must be based on Jupyter stacks).</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--port <var>TEXT</var></span></kbd></td>
-<td>The Jupyter docker image (must be based on Jupyter stacks).</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--background</span></kbd></td>
-<td>Run Docker container in the background.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--dryrun</span></kbd></td>
-<td>Only print the command, do not run.</td></tr>
+<kbd><span class="option">--remove</span></kbd></td>
+<td>Remove all images.</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">--help</span></kbd></td>
 <td>Show this message and exit.</td></tr>
@@ -244,10 +228,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="new.html" class="btn btn-neutral float-right" title="New" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../packages/new.html" class="btn btn-neutral float-right" title="New" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="help.html" class="btn btn-neutral" title="Help" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="start.html" class="btn btn-neutral" title="Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

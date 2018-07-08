@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Lab &mdash; Carme 0.01 documentation</title>
+  <title>Build &mdash; Carme 0.01 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="New" href="new.html" />
-    <link rel="prev" title="Help" href="help.html" />
+    <link rel="next" title="Cleanup" href="cleanup.html" />
+    <link rel="prev" title="Installation" href="../get_started/getting_started.html" />
  
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -114,12 +114,12 @@
 </ul>
 <p class="caption"><span class="caption-text">Commands</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="build.html">Build</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cleanup.html">Cleanup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cmd.html">Cmd</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">Git</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab.html">Lab</a></li>
 <li class="toctree-l1"><a class="reference internal" href="new.html">New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebook.html">notebook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">Package</a></li>
@@ -175,13 +175,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Lab</li>
+      <li>Build</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/commands/lab.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/build.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -194,21 +194,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lab">
-<h1>Lab<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h1>
-<p>The <cite>carme lab</cite> command mirrors the function of the jupyter lab command, but using Docker containers.</p>
-<p>By default, the <cite>carme lab</cite> command will share the current working directory with the container.</p>
-<p>Information for the port and image can be pulled from 3 different places and are searched for in this order:</p>
-<ol class="arabic simple">
-<li>If an image and/or port is passed as an option, that option is used (top priority).</li>
-<li>If an image and/or port is set in the config/carme-config.yaml file, that option is used (second priority).</li>
-<li>If an image and/or port is set in the (user  home)/.carme/config/carme-config.yaml then  that option will be used (lower priority).</li>
-</ol>
-<p>Option 3 is useful to be able to work on multiple projects at once, as it allows you to launch a carme powered docker container from any directory.</p>
+  <div class="section" id="build">
+<h1>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>carme build</cite> command will build all images stored locally in the <cite>docker</cite> directory.</p>
 <p>## Usage</p>
-<p>Usage: carme lab [OPTIONS]</p>
+<p>Usage: carme build [OPTIONS]</p>
 <blockquote>
-<div>Launch Jupyter Notebook (using Docker).</div></blockquote>
+<div>Build project docker images.</div></blockquote>
 <dl class="docutils">
 <dt>Options:</dt>
 <dd><table class="first last docutils option-list" frame="void" rules="none">
@@ -216,17 +208,14 @@
 <col class="description" />
 <tbody valign="top">
 <tr><td class="option-group">
-<kbd><span class="option">--image <var>TEXT</var></span></kbd></td>
-<td>The Jupyter docker image (must be based on Jupyter stacks).</td></tr>
+<kbd><span class="option">--force</span></kbd></td>
+<td>Force full rebuild without using cache.</td></tr>
 <tr><td class="option-group">
-<kbd><span class="option">--port <var>TEXT</var></span></kbd></td>
-<td>The Jupyter docker image (must be based on Jupyter stacks).</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--background</span></kbd></td>
-<td>Run Docker container in the background.</td></tr>
+<kbd><span class="option">--push</span></kbd></td>
+<td>Push image to Dockerhub (must be logged-in).</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">--dryrun</span></kbd></td>
-<td>Only print the command, do not run.</td></tr>
+<td>Only list build command and don’t actually build.</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">--help</span></kbd></td>
 <td>Show this message and exit.</td></tr>
@@ -244,10 +233,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="new.html" class="btn btn-neutral float-right" title="New" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cleanup.html" class="btn btn-neutral float-right" title="Cleanup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="help.html" class="btn btn-neutral" title="Help" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../get_started/getting_started.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

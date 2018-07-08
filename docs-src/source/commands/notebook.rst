@@ -1,7 +1,7 @@
-Lab
+notebook
 ==================
 
-The `carme lab` command mirrors the function of the jupyter lab command, but using Docker containers.
+The `carme notebook` command mirrors the function of the jupyter lab command, but using Docker containers.
 
 By default, the `carme lab` command will share the current working directory with the container.
 
@@ -15,7 +15,7 @@ Option 3 is useful to be able to work on multiple projects at once, as it allows
 
 ## Usage
 
-Usage: carme lab [OPTIONS]
+Usage: carme notebook [OPTIONS]
 
   Launch Jupyter Notebook (using Docker).
 

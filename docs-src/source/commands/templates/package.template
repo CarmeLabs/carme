@@ -16,4 +16,3 @@ Let's get started with carme package install:
 This will create a new package, zipping all files and adding those files to a zip file in the /package directory. The entire directory structure can be installed quickly then by others with just the url.
 
 `carme package create`
-
