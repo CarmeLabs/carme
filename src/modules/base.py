@@ -18,7 +18,12 @@ INDEX_FILE='index.yaml'
 DEFAULT_DIR='default'
 APP_DIR= 'apps'
 DATA_DIR = 'data'
-NOTEBOOKS_DIR = 'code/notebooks'
+CODE_DIR = 'code'
+NOTEBOOKS_DIR = os.path.join(CODE_DIR,'notebooks')
+DOCS_DIR='docs'
+SCRIPTS_DIR=os.path.join(CODE_DIR,'scripts')
+
+RST_DIR=os.path.join(DOCS_DIR,'rst')
 MERGE_LIST=['./.carmeignore','./docker-compose.yaml', 'config/carme-config.yaml']
 PACKAGE_INDEX='https://raw.githubusercontent.com/CarmeLabs/packages/master/default/config/index.yaml'
 PACKAGE_INDEX_KEY='package_index'

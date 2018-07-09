@@ -9,3 +9,4 @@ from .cmd import *
 from .start import *
 from .stop import *
 from .cleanup import *
+from .convert import *
