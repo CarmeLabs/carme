@@ -6,3 +6,9 @@ Git belongs in any data science workflow and the `carme git` command helps lower
 Usage
 -----
 
+Usage: carme git [OPTIONS]
+
+  Initializes git and performs initial commit/push to GitHub.
+
+Options:
+  --help  Show this message and exit.

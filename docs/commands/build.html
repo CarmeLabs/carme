@@ -235,6 +235,31 @@
 <p>The <cite>carme build</cite> command will build all images stored locally in the <cite>docker</cite> directory.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Usage: carme build [OPTIONS]</p>
+<blockquote>
+<div>Build project docker images.</div></blockquote>
+<dl class="docutils">
+<dt>Options:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--force</span></kbd></td>
+<td>Force full rebuild without using cache.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--push</span></kbd></td>
+<td>Push image to Dockerhub (must be logged-in).</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--dryrun</span></kbd></td>
+<td>Only list build command and don’t actually build.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--help</span></kbd></td>
+<td>Show this message and exit.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </div>
 </div>
 

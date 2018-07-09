@@ -10,3 +10,12 @@ In the future, the goal is to integrate git using with other options so that, fo
 Usage
 -----
 
+Usage: carme save [OPTIONS]
+
+  A simler alias to git commit and push.
+
+Options:
+  --message TEXT  Use message to record changes made.  This will be stored in
+                  git with the commit.
+  --push          Don't push to the remote repository
+  --help          Show this message and exit.

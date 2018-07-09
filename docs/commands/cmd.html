@@ -235,6 +235,31 @@
 <p>The <cite>carme cmd</cite> will combine the configuration settings in /config/&lt;package&gt;.yaml with a templated comand in /cmd/&lt;package&gt;.yaml.  This makes it easy to get up and running with cloud infrasture, as packages typically come configured with defaults.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Usage: carme cmd [OPTIONS] PACKAGE COMMAND</p>
+<blockquote>
+<div>Runs commands from the commands folder.</div></blockquote>
+<dl class="docutils">
+<dt>Options:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--dryrun</span></kbd></td>
+<td>Only print the command, do not run.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--docker</span></kbd></td>
+<td>Run the command on the Docker container.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--server</span></kbd></td>
+<td>Run the command on a remote server.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--help</span></kbd></td>
+<td>Show this message and exit.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </div>
 </div>
 

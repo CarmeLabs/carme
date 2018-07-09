@@ -6,3 +6,12 @@ The `carme cmd` will combine the configuration settings in /config/<package>.yam
 Usage
 -----
 
+Usage: carme cmd [OPTIONS] PACKAGE COMMAND
+
+  Runs commands from the commands folder.
+
+Options:
+  --dryrun  Only print the command, do not run.
+  --docker  Run the command on the Docker container.
+  --server  Run the command on a remote server.
+  --help    Show this message and exit.

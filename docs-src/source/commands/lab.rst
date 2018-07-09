@@ -16,3 +16,13 @@ Option 3 is useful to be able to work on multiple projects at once, as it allows
 Usage
 -----
 
+Usage: carme lab [OPTIONS]
+
+  Launch Jupyter Notebook (using Docker).
+
+Options:
+  --image TEXT  The Jupyter docker image (must be based on Jupyter stacks).
+  --port TEXT   The Jupyter docker image (must be based on Jupyter stacks).
+  --background  Run Docker container in the background.
+  --dryrun      Only print the command, do not run.
+  --help        Show this message and exit.

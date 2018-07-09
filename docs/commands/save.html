@@ -237,6 +237,29 @@
 <p>In the future, the goal is to integrate git using with other options so that, for example, Carme save would store everythign but the data directory in the remote repository while also storing the data directory in a cloud bucket or using something like Pachyderm that enables versioning of data.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Usage: carme save [OPTIONS]</p>
+<blockquote>
+<div>A simler alias to git commit and push.</div></blockquote>
+<dl class="docutils">
+<dt>Options:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--message <var>TEXT</var></span></kbd></td>
+<td>Use message to record changes made.  This will be stored in
+git with the commit.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--push</span></kbd></td>
+<td>Don’t push to the remote repository</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--help</span></kbd></td>
+<td>Show this message and exit.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </div>
 </div>
 

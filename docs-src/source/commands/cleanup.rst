@@ -8,3 +8,9 @@ WARNING: This will delete all local images, both related to Carme and otherwise.
 Usage
 -----
 
+Usage: carme cleanup [OPTIONS]
+
+  Delete and remove all images.
+
+Options:
+  --help  Show this message and exit.
