@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Git &mdash; Carme 0.01 documentation</title>
+  <title>git &mdash; Carme 0.01 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Help" href="help.html" />
-    <link rel="prev" title="Cmd" href="cmd.html" />
+    <link rel="next" title="help" href="help.html" />
+    <link rel="prev" title="cmd" href="cmd.html" />
  
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -114,18 +114,54 @@
 </ul>
 <p class="caption"><span class="caption-text">Commands</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="build.html">Build</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cleanup.html">Cleanup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cmd.html">Cmd</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Git</a></li>
-<li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab.html">Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="new.html">New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebook.html">notebook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="package.html">Package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="save.html">Save</a></li>
-<li class="toctree-l1"><a class="reference internal" href="start.html">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">build</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cleanup.html">cleanup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cleanup.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cmd.html">cmd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cmd.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">git</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">help</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="help.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lab.html">lab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lab.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="new.html">new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="new.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html">notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebook.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="package.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="save.html">save</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="save.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stop.html#usage">Usage</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Packages</span></p>
 <ul>
@@ -175,7 +211,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Git</li>
+      <li>git</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -195,25 +231,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="git">
-<h1>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h1>
+<h1>git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h1>
 <p>Git belongs in any data science workflow and the <cite>carme git</cite> command helps lower the barriers to entry, particullary with new users.  The git command specificaly will intialialize a git repostory, interactively set a remote repostiory, and perform an initial commit.</p>
-<p>## Usage</p>
-<p>Usage: carme git [OPTIONS]</p>
-<blockquote>
-<div>Initializes git and performs initial commit/push to GitHub.</div></blockquote>
-<dl class="docutils">
-<dt>Options:</dt>
-<dd><table class="first last docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">--help</span></kbd></td>
-<td>Show this message and exit.</td></tr>
-</tbody>
-</table>
-</dd>
-</dl>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -224,10 +246,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="help.html" class="btn btn-neutral float-right" title="Help" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="help.html" class="btn btn-neutral float-right" title="help" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cmd.html" class="btn btn-neutral" title="Cmd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cmd.html" class="btn btn-neutral" title="cmd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

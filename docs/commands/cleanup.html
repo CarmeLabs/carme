@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cleanup &mdash; Carme 0.01 documentation</title>
+  <title>cleanup &mdash; Carme 0.01 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Cmd" href="cmd.html" />
-    <link rel="prev" title="Build" href="build.html" />
+    <link rel="next" title="cmd" href="cmd.html" />
+    <link rel="prev" title="build" href="build.html" />
  
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -114,18 +114,54 @@
 </ul>
 <p class="caption"><span class="caption-text">Commands</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="build.html">Build</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Cleanup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cmd.html">Cmd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="git.html">Git</a></li>
-<li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab.html">Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="new.html">New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebook.html">notebook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="package.html">Package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="save.html">Save</a></li>
-<li class="toctree-l1"><a class="reference internal" href="start.html">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">build</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">cleanup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cmd.html">cmd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cmd.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">git</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="git.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">help</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="help.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lab.html">lab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lab.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="new.html">new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="new.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html">notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebook.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="package.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="save.html">save</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="save.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stop.html#usage">Usage</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Packages</span></p>
 <ul>
@@ -175,7 +211,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Cleanup</li>
+      <li>cleanup</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -195,26 +231,12 @@
            <div itemprop="articleBody">
             
   <div class="section" id="cleanup">
-<h1>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this headline">¶</a></h1>
+<h1>cleanup<a class="headerlink" href="#cleanup" title="Permalink to this headline">¶</a></h1>
 <p>When working with a lot of docker images, they various builds and versions can really utilize a lot of disk space. The <cite>carme cleanup</cite> will delete all images on your local computer.</p>
 <p>WARNING: This will delete all local images, both related to Carme and otherwise. Don’t worry, you can always rebuild images or pull them from the internet, but if you have a very slow internet connection you may want to be more selective in deleting images.</p>
-<p>## Usage</p>
-<p>Usage: carme cleanup [OPTIONS]</p>
-<blockquote>
-<div>Delete and remove all images.</div></blockquote>
-<dl class="docutils">
-<dt>Options:</dt>
-<dd><table class="first last docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">--help</span></kbd></td>
-<td>Show this message and exit.</td></tr>
-</tbody>
-</table>
-</dd>
-</dl>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -225,10 +247,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cmd.html" class="btn btn-neutral float-right" title="Cmd" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cmd.html" class="btn btn-neutral float-right" title="cmd" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="build.html" class="btn btn-neutral" title="Build" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="build.html" class="btn btn-neutral" title="build" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

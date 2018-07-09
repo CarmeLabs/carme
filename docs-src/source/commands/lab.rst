@@ -1,4 +1,4 @@
-Lab
+lab
 ==================
 
 The `carme lab` command mirrors the function of the jupyter lab command, but using Docker containers.
@@ -13,15 +13,6 @@ Information for the port and image can be pulled from 3 different places and are
 
 Option 3 is useful to be able to work on multiple projects at once, as it allows you to launch a carme powered docker container from any directory.
 
-## Usage
+Usage
+-----
 
-Usage: carme lab [OPTIONS]
-
-  Launch Jupyter Notebook (using Docker).
-
-Options:
-  --image TEXT  The Jupyter docker image (must be based on Jupyter stacks).
-  --port TEXT   The Jupyter docker image (must be based on Jupyter stacks).
-  --background  Run Docker container in the background.
-  --dryrun      Only print the command, do not run.
-  --help        Show this message and exit.

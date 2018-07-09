@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Package" href="package.html" />
-    <link rel="prev" title="New" href="new.html" />
+    <link rel="next" title="package" href="package.html" />
+    <link rel="prev" title="new" href="new.html" />
  
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -114,18 +114,54 @@
 </ul>
 <p class="caption"><span class="caption-text">Commands</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="build.html">Build</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cleanup.html">Cleanup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cmd.html">Cmd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="git.html">Git</a></li>
-<li class="toctree-l1"><a class="reference internal" href="help.html">Help</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab.html">Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="new.html">New</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">notebook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="package.html">Package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="save.html">Save</a></li>
-<li class="toctree-l1"><a class="reference internal" href="start.html">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">build</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cleanup.html">cleanup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cleanup.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cmd.html">cmd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cmd.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">git</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="git.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">help</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="help.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lab.html">lab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lab.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="new.html">new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="new.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="package.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="save.html">save</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="save.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stop.html#usage">Usage</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Packages</span></p>
 <ul>
@@ -205,35 +241,9 @@
 <li>If an image and/or port is set in the (user  home)/.carme/config/carme-config.yaml then  that option will be used (lower priority).</li>
 </ol>
 <p>Option 3 is useful to be able to work on multiple projects at once, as it allows you to launch a carme powered docker container from any directory.</p>
-<p>## Usage</p>
-<p>Usage: carme notebook [OPTIONS]</p>
-<blockquote>
-<div>Launch Jupyter Notebook (using Docker).</div></blockquote>
-<dl class="docutils">
-<dt>Options:</dt>
-<dd><table class="first last docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">--image <var>TEXT</var></span></kbd></td>
-<td>The Jupyter docker image (must be based on Jupyter stacks).</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--port <var>TEXT</var></span></kbd></td>
-<td>The Jupyter docker image (must be based on Jupyter stacks).</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--background</span></kbd></td>
-<td>Run Docker container in the background.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--dryrun</span></kbd></td>
-<td>Only print the command, do not run.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--help</span></kbd></td>
-<td>Show this message and exit.</td></tr>
-</tbody>
-</table>
-</dd>
-</dl>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -244,10 +254,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="package.html" class="btn btn-neutral float-right" title="Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="package.html" class="btn btn-neutral float-right" title="package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="new.html" class="btn btn-neutral" title="New" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="new.html" class="btn btn-neutral" title="new" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

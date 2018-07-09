@@ -1,7 +1,8 @@
-Help
+help
 ==================
 
 The `carme --help` command gives a listing of all carme commands.
 
-## Options
+Usage
+-----
 

@@ -1,7 +1,8 @@
-New
+new
 ==================
 
-The `carme new` command helps with scaffolding your project. By creating a common directory structure for both code, infrastructure, and containers.  Get started by creating a new project with carme new to install the default package. 
+The `carme new` command helps with scaffolding your project. By creating a common directory structure for both code, infrastructure, and containers.  Get started by creating a new project with carme new to install the default package.
 
-## Options
+Usage
+-----
 
