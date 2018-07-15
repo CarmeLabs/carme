@@ -16,6 +16,7 @@ idna==2.6
 isclassmethod==0.0.31
 isstaticmethod==0.0.29
 isstring==0.0.31
+nbconvert==5.3.*
 objectname==0.0.26
 ordereddict==1.1
 public==0.0.65

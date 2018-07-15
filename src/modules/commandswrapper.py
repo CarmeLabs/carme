@@ -1,6 +1,7 @@
 import logging
 import sys
 import click
+import os
 from shutil import copyfile
 from .base import *
 import ruamel.yaml
@@ -45,7 +46,7 @@ def sub_keys(template, kwargs):
     command= fmt.format(template, **kwargs)
     return command
 
-def execute(command, commands, package, project_root, kwargs, docker=False, dryrun=False, server =False):
+def execute(command, commands, package, project_root, kwargs, docker=False, dryrun=False, yes=False):
     logging.info("Running the command: "+ command)
     logging.info("Template: "+ commands[command])
     project_name = os.path.basename(project_root)
@@ -62,9 +63,12 @@ def execute(command, commands, package, project_root, kwargs, docker=False, dryr
     if docker==True:
         syntax= 'docker run -it -v '+project_root+':/home/'+project_name+' '+kwargs[package+'_image']+' sh -c "'+syntax+'"'
 
-    if dryrun:
-        logging.info("Values: "+ syntax)
-    else:
-        bash_command(command, syntax)
+    logging.info("Command: "+ syntax)
 
-#
+    #As a security protection, confirm they really want to execute the command.  No confirmation needed for dry run. s
+    if not yes and not dryrun:
+        cont=input("Press 'y' to execute the above command. Enter to quit. ")
+        if cont!='y':
+            quit()
+    if not dryrun:
+        bash_command(command, syntax)

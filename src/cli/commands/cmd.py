@@ -21,10 +21,17 @@ setup_logger()
 @click.option('--dryrun', is_flag=True, default=False, help='Only print the command, do not run.')
 @click.option('--docker', is_flag=True, default=False, help='Run the command on the Docker container.')
 @click.option('--server', is_flag=True, default=False, help='Run the command on a remote server.')
+@click.option('--yes', is_flag=True, default=False, help='Continue multiple commands without waiting.')
 
 #TODO need to add checks for file/commands with nice errors.
-def cmd(package, command, docker, dryrun, server):
+def cmd(package, command, docker, dryrun, server, yes):
     """Runs commands from the commands folder."""
+    #Finds the project root directory.
+    project_root=get_project_root()
+
+    if project_root != CWD:
+        logging.info("All cmd commands issued from project root directory to ensure relative path consistency.")
+        os.chdir(project_root)
     #Finds the project root directory.
     project_root=get_project_root()
     #Loads the configuration in the root directory.
@@ -41,10 +48,11 @@ def cmd(package, command, docker, dryrun, server):
     elif isinstance(commands[command], ruamel.yaml.comments.CommentedSeq):
         logging.info('Executing command block '+command+ ':')
         for x in commands[command]:
-            execute(x, commands, package, project_root, kwargs, docker, dryrun)
+            execute(x, commands, package, project_root, kwargs, docker, dryrun, yes)
+
     #This attempts to execute a single command.
     else:
-        execute(command, commands, package, project_root, kwargs, docker, dryrun)
+        execute(command, commands, package, project_root, kwargs, docker, dryrun, yes)
 
 def validate_command(ctx, param, value):
     """Validates that the desired command is in the commands file.

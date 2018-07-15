@@ -14,6 +14,12 @@ Carme can improve workflows for individuals, teams, as well as data science clas
 
 ## Installation Instructions
 
+### Via Script
+```
+$ curl https://raw.githubusercontent.com/carmelabs/carme/master/scripts/get > get_helm.sh
+$ chmod 700 get_carme.sh
+$ ./get_carme.sh
+```
 ### Install Python
 Install Python3 via [python.org](https://www.python.org/downloads/)` or [Miniconda](https://conda.io/miniconda.html) or [Anaconda](https://www.anaconda.com/download/) and `pip` using the recommended method for your platform.
 
@@ -21,18 +27,10 @@ Install Python3 via [python.org](https://www.python.org/downloads/)` or [Minicon
 ```
 pip install git+https://github.com/CarmeLabs/carme
 ```
-### Update Carme
-We are currently making lots of updates.
-```
-pip install git+https://github.com/CarmeLabs/carme --upgrade
-```
 
 ### Install Docker
 You will also need Docker in order to use Carme.  Here is how you [get Docker](https://www.docker.com/get-docker).
 
-```
-pip install git+https://github.com/CarmeLabs/carme
-```
 
 ## Developer Installation Instructions
 
