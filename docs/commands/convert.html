@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>stop &mdash; Carme 0.01 documentation</title>
+  <title>convert &mdash; Carme 0.01 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="az-cluster (Kubernetes)" href="../packages/az-cluster.html" />
-    <link rel="prev" title="start" href="start.html" />
+    <link rel="next" title="git" href="git.html" />
+    <link rel="prev" title="cmd" href="cmd.html" />
  
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -126,8 +126,8 @@
 <li class="toctree-l2"><a class="reference internal" href="cmd.html#usage">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="convert.html#usage">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">git</a><ul>
@@ -162,8 +162,8 @@
 <li class="toctree-l2"><a class="reference internal" href="start.html#usage">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">stop</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stop.html">stop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stop.html#usage">Usage</a></li>
 </ul>
 </li>
 </ul>
@@ -273,13 +273,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>stop</li>
+      <li>convert</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/commands/stop.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/convert.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -292,15 +292,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="stop">
-<h1>stop<a class="headerlink" href="#stop" title="Permalink to this headline">¶</a></h1>
-<p>The <cite>carme stop</cite> command stop all applications indicated in the docker-compose.yaml file.</p>
+  <div class="section" id="convert">
+<h1>convert<a class="headerlink" href="#convert" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>carme convert</cite> command will convert all notebooks to markdown, restructured text, and scripts.</p>
+<p>The default behavior if issued without flags is to provide all three outputs. However, flags can be added individually to indicate which outputs ones are desired.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Usage: carme stop [OPTIONS]</p>
+<p>Usage: carme convert [OPTIONS]</p>
 <blockquote>
-<div>Stop (and optionally remove, –remove) all containers running in
-background.</div></blockquote>
+<div>Launch Jupyter Notebook (using Docker).</div></blockquote>
 <dl class="docutils">
 <dt>Options:</dt>
 <dd><table class="first last docutils option-list" frame="void" rules="none">
@@ -308,8 +308,14 @@ background.</div></blockquote>
 <col class="description" />
 <tbody valign="top">
 <tr><td class="option-group">
-<kbd><span class="option">--remove</span></kbd></td>
-<td>Remove all images.</td></tr>
+<kbd><span class="option">--script</span></kbd></td>
+<td>Convert the notebook to a python script.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--rst</span></kbd></td>
+<td>Convert the notebooks to a reStructuredText output.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--markdown</span></kbd></td>
+<td>Convert the notebooks to a reStructuredText output.</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">--help</span></kbd></td>
 <td>Show this message and exit.</td></tr>
@@ -328,10 +334,10 @@ background.</div></blockquote>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../packages/az-cluster.html" class="btn btn-neutral float-right" title="az-cluster (Kubernetes)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="git.html" class="btn btn-neutral float-right" title="git" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="start.html" class="btn btn-neutral" title="start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cmd.html" class="btn btn-neutral" title="cmd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

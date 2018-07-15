@@ -1,0 +1,6 @@
+az-cluster (Kubernetes)
+=======================
+
+The cluster package is designed to provide a Kubernetes cluster, useful for providing workgroups and classrooms access to Juypter.
+
+From the notebook included in the package:

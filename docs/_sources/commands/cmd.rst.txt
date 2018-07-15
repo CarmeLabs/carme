@@ -14,4 +14,5 @@ Options:
   --dryrun  Only print the command, do not run.
   --docker  Run the command on the Docker container.
   --server  Run the command on a remote server.
+  --yes     Continue multiple commands without waiting.
   --help    Show this message and exit.

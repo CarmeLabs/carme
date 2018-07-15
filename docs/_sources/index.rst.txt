@@ -48,6 +48,14 @@ Carme can improve workflows for individuals, teams, as well as data science clas
    :caption: Packages
 
    packages/*
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Images
+
+   images/*
+
 .. raw:: html
 
     <div style='clear:both'></div>

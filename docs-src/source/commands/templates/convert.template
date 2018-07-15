@@ -1,0 +1,9 @@
+convert
+==================
+
+The `carme convert` command will convert all notebooks to markdown, restructured text, and scripts.
+
+The default behavior if issued without flags is to provide all three outputs. However, flags can be added individually to indicate which outputs ones are desired.
+
+Usage
+-----

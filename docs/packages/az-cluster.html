@@ -1,0 +1,562 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>az-cluster (Kubernetes) &mdash; Carme 0.01 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="az-server (CPU/GPU)" href="az-server.html" />
+    <link rel="prev" title="stop" href="../commands/stop.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-32817743-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-32817743-5');
+</script>
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Carme
+          
+
+          
+            
+            <img src="../_static/carme.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#history">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#committers">Committers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#resources-and-links">Resources and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project/project.html#roadmap">Roadmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/getting_started.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/getting_started.html#update-carme">Update Carme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/getting_started.html#install-docker">Install Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/getting_started.html#developer-installation-instructions">Developer Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/getting_started.html#running-tests">Running Tests</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Commands</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../commands/build.html">build</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/build.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/cleanup.html">cleanup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/cleanup.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/cmd.html">cmd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/cmd.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/convert.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/git.html">git</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/git.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/help.html">help</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/help.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/lab.html">lab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/lab.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/new.html">new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/new.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/notebook.html">notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/notebook.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/package.html">package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/package.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/save.html">save</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/save.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/start.html">start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/start.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/stop.html">stop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commands/stop.html#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Packages</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">az-cluster (Kubernetes)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#before-you-begin-the-dryrun-option-and-the-yes-option">Before you Begin. The ‘–dryrun’ option and the ‘–yes’ Option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#view-available-commands">View Available Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#view-the-configuration">View the Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-kubernetes-cluster-on-azure">Create Kubernetes Cluster on Azure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#login-to-azure">Login to Azure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list-available-subscription-optional">List Available Subscription (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#print-available-commands">Print Available Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-the-appropriate-subscription-optional">Set the Appropriate Subscription (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-the-resource-group">Create the Resource Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enable-the-cloud-api">Enable the Cloud API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-the-ssh-key">Create the ssh key.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-the-cluster">Create the Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wait-for-a-while">WAIT FOR A WHILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-credentials-for-kubectl">Get Credentials for Kubectl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#helm-installation">Helm Installation.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resize-a-cluster">Resize a Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deleting-a-kubernetes-cluster">Deleting a Kubernetes Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#delete-the-resource-group">Delete the Resource Group</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="az-server.html">az-server (CPU/GPU)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#before-you-begin-the-dryrun-option-and-the-yes-option">Before you Begin. The ‘–dryrun’ option and the ‘–yes’ Option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#manage-a-server-on-azure">Manage a Server on Azure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#print-available-commands">Print Available Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#review-the-package-configuration">Review the Package Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#create-resource-groups">Create Resource Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#create-the-server">Create the Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#wait-for-a-while">WAIT FOR A WHILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#open-ports-on-the-target-machine">Open Ports on the Target Machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#using-and-enhancing-your-server">Using and Enhancing Your Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#stop-the-server">Stop the Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#start-the-server">Start the Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#show-the-server">Show the Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#deleting-the-server">Deleting the Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="az-server.html#delete-the-resource-group">Delete the Resource Group</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="az-z2jh.html">az-z2jh  (Zero to JupyterHub)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="az-z2jh.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jupyterhub.html">jupyterhub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#before-you-begin-the-dryrun-option-and-the-yes-option">Before you Begin. The ‘–dryrun’ option and the ‘–yes’ Option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#jupyterhub-on-kubernetes">Jupyterhub on Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#print-jupyterhub-commmands">Print Jupyterhub Commmands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#initialize-jupyterhub-configuration-file">Initialize Jupyterhub Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#install-jupyterhub">Install Jupyterhub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#check-the-jupyterhub-ip">Check the Jupyterhub IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#update-authorization">Update Authorization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#updata-jupyterhub">Updata Jupyterhub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterhub.html#cleanup-the-installation">Cleanup the Installation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images/base-cpu.html">base-cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-cpu</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Carme</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>az-cluster (Kubernetes)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/packages/az-cluster.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="az-cluster-kubernetes">
+<h1>az-cluster (Kubernetes)<a class="headerlink" href="#az-cluster-kubernetes" title="Permalink to this headline">¶</a></h1>
+<p>The cluster package is designed to provide a Kubernetes cluster, useful for providing workgroups and classrooms access to Juypter.</p>
+<p>From the notebook included in the package:</p>
+<div class="section" id="before-you-begin-the-dryrun-option-and-the-yes-option">
+<h2>Before you Begin. The ‘–dryrun’ option and the ‘–yes’ Option<a class="headerlink" href="#before-you-begin-the-dryrun-option-and-the-yes-option" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Do you want to run the commands or just see them?</div>
+<div class="line">Below we have set the carme option <code class="docutils literal notranslate"><span class="pre">dryrun</span></code> so that commands are
+printed and not executed.</div>
+</div>
+<p>If executing carme commands from the command line, by default the CMD
+command and will print the command and ask you to confirm before
+executing it. In Jupyter notebooks, this interactivity isn’t possible.
+Instead, just add the –yes flag.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#To run for real, just set dryrun=&#39;&#39;</span>
+<span class="c1">#dryrun= &#39;&#39; to run or dryrun=&#39;--dryrun&#39; to print.</span>
+<span class="n">dryrun</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="n">yes</span> <span class="o">=</span> <span class="s1">&#39;--yes&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-available-commands">
+<h2>View Available Commands<a class="headerlink" href="#view-available-commands" title="Permalink to this headline">¶</a></h2>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-the-configuration">
+<h2>View the Configuration<a class="headerlink" href="#view-the-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster show_config $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-kubernetes-cluster-on-azure">
+<h2>Create Kubernetes Cluster on Azure<a class="headerlink" href="#create-kubernetes-cluster-on-azure" title="Permalink to this headline">¶</a></h2>
+<p>This notebook can be used to launch a Kubernetes Cluster using Azure
+CLI. It is designed to be run in an environment in whic the appropriate
+tools (Helm/Azure CLI) are installed.</p>
+<p>This script assumes you have already installed the az-server package and
+logged in using the <code class="docutils literal notranslate"><span class="pre">az</span> <span class="pre">login</span></code> command.</p>
+<p>To install the package use: <code class="docutils literal notranslate"><span class="pre">carme</span> <span class="pre">package</span> <span class="pre">install</span> <span class="pre">az-cluster</span></code></p>
+<p>To log into the Azure CLI: <code class="docutils literal notranslate"><span class="pre">carme</span> <span class="pre">cmd</span> <span class="pre">az-cluser</span> <span class="pre">login</span></code></p>
+<p>You may also have to set the correct subscription.
+<code class="docutils literal notranslate"><span class="pre">az</span> <span class="pre">account</span> <span class="pre">list</span> <span class="pre">--refresh</span> <span class="pre">--output</span> <span class="pre">table</span></code></p>
+<p>Set the appropriate subscription here.
+<code class="docutils literal notranslate"><span class="pre">az</span> <span class="pre">account</span> <span class="pre">set</span> <span class="pre">-s</span> <span class="pre">&lt;YOUR-CHOSEN-SUBSCRIPTION-NAME&gt;</span></code></p>
+</div>
+<div class="section" id="login-to-azure">
+<h2>Login to Azure<a class="headerlink" href="#login-to-azure" title="Permalink to this headline">¶</a></h2>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster login $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-available-subscription-optional">
+<h2>List Available Subscription (Optional)<a class="headerlink" href="#list-available-subscription-optional" title="Permalink to this headline">¶</a></h2>
+<p>You can update the current subscription usine either the ID or the name.</p>
+</div>
+<div class="section" id="print-available-commands">
+<h2>Print Available Commands<a class="headerlink" href="#print-available-commands" title="Permalink to this headline">¶</a></h2>
+<p>Optionally you can print the configuration and common commands for your
+desired cluster. You can use this as a reference and copy and paste into
+the terminal.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#This will list all subscrptions.
+&gt;carme cmd az-cluster list_subscriptions $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-the-appropriate-subscription-optional">
+<h2>Set the Appropriate Subscription (Optional)<a class="headerlink" href="#set-the-appropriate-subscription-optional" title="Permalink to this headline">¶</a></h2>
+<p>You can skip this if you already have the appropriate subscription set.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster set_subscription $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-the-resource-group">
+<h2>Create the Resource Group<a class="headerlink" href="#create-the-resource-group" title="Permalink to this headline">¶</a></h2>
+<p>Google calls them projects. Azure calles them resource groups. Either
+way you need one. This useful to track spending and also ensure you
+delete all resources at the end.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster create_group $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="enable-the-cloud-api">
+<h2>Enable the Cloud API<a class="headerlink" href="#enable-the-cloud-api" title="Permalink to this headline">¶</a></h2>
+<p>The following commands enable various Azure tools that we’ll need in
+creating and managing the JupyterHub.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster register $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-the-ssh-key">
+<h2>Create the ssh key.<a class="headerlink" href="#create-the-ssh-key" title="Permalink to this headline">¶</a></h2>
+<p>This will create the ssh key and put it in the ./config/ssh/servername
+directory.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster create_key $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-the-cluster">
+<h2>Create the Cluster<a class="headerlink" href="#create-the-cluster" title="Permalink to this headline">¶</a></h2>
+<p>This will create your Kubernetes Cluster. You have to wait for about 5
+minutes before this finishes creating.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster create $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="wait-for-a-while">
+<h2>WAIT FOR A WHILE<a class="headerlink" href="#wait-for-a-while" title="Permalink to this headline">¶</a></h2>
+<p>This can take up to 10 minutes.</p>
+<p>If you get an error “.kube/config: No such file or directory” just wait,
+it is likely still booting up.</p>
+</div>
+<div class="section" id="get-credentials-for-kubectl">
+<h2>Get Credentials for Kubectl<a class="headerlink" href="#get-credentials-for-kubectl" title="Permalink to this headline">¶</a></h2>
+<p>We need to add the credentials for Kubectl to work. You need a bit of
+time for your Kubernetes to launch.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#gcloud container clusters get-credentials carme
+&gt;carme cmd az-cluster get_credentials $dryrun $yes
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Check to see if we have Kubectl working.</span>
+<span class="o">&gt;</span><span class="n">kubectl</span> <span class="n">cluster</span><span class="o">-</span><span class="n">info</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Check notes with Kubectl</span>
+<span class="o">&gt;</span><span class="n">kubectl</span> <span class="n">get</span> <span class="n">node</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="helm-installation">
+<h2>Helm Installation.<a class="headerlink" href="#helm-installation" title="Permalink to this headline">¶</a></h2>
+<p>We are going to be utilizing Helm for installations of a variety of
+analytics tools. This command will install Tiller on your cluster. As
+they say, “Happy Helming&gt;”</p>
+<p>A critical factor for Helm is that you have the same version running
+locally and via your machine. If you run helm version and you have the
+right version, then you should be fine.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Client</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">version</span><span class="o">.</span><span class="n">Version</span><span class="p">{</span><span class="n">SemVer</span><span class="p">:</span><span class="s2">&quot;v2.6.2&quot;</span><span class="p">,</span> <span class="n">GitCommit</span><span class="p">:</span><span class="s2">&quot;be3ae4ea91b2960be98c07e8f73754e67e87963c&quot;</span><span class="p">,</span> <span class="n">GitTreeState</span><span class="p">:</span><span class="s2">&quot;clean&quot;</span><span class="p">}</span>
+<span class="n">Server</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">version</span><span class="o">.</span><span class="n">Version</span><span class="p">{</span><span class="n">SemVer</span><span class="p">:</span><span class="s2">&quot;v2.6.2&quot;</span><span class="p">,</span> <span class="n">GitCommit</span><span class="p">:</span><span class="s2">&quot;be3ae4ea91b2960be98c07e8f73754e67e87963c&quot;</span><span class="p">,</span> <span class="n">GitTreeState</span><span class="p">:</span><span class="s2">&quot;clean&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>To install the appropriate version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">&gt;</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">chmod</span> <span class="mi">700</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">RUN</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">version</span> <span class="n">v2</span><span class="o">.</span><span class="mf">6.2</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Setup Serviceaccount</span>
+<span class="o">&gt;</span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span> <span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">create</span> <span class="n">serviceaccount</span> <span class="n">tiller</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Initialize Helm</span>
+<span class="o">&gt;</span><span class="n">helm</span> <span class="n">init</span> <span class="o">--</span><span class="n">service</span><span class="o">-</span><span class="n">account</span> <span class="n">tiller</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#This may need to be run more than once if you get a &quot;cannot connect to server.&quot;</span>
+<span class="o">&gt;</span><span class="n">helm</span> <span class="n">version</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Secure Helm</span>
+<span class="o">&gt;</span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">patch</span> <span class="n">deployment</span> <span class="n">tiller</span><span class="o">-</span><span class="n">deploy</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">json</span> <span class="o">--</span><span class="n">patch</span><span class="o">=</span><span class="s1">&#39;[{&quot;op&quot;: &quot;add&quot;, &quot;path&quot;: &quot;/spec/template/spec/containers/0/command&quot;, &quot;value&quot;: [&quot;/tiller&quot;, &quot;--listen=localhost:44134&quot;]}]&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="resize-a-cluster">
+<h2>Resize a Cluster<a class="headerlink" href="#resize-a-cluster" title="Permalink to this headline">¶</a></h2>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Scale the cluster
+&gt;carme cmd az-cluster class_size $dryrun $yes
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Stop the cluster, effectively setting the size to 0.
+&gt;carme cmd az-cluster stop $dryrun $yes
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Set the cluster to the normal size.</span>
+<span class="o">&gt;</span><span class="n">carme</span> <span class="n">cluster</span> <span class="n">normal_size</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deleting-a-kubernetes-cluster">
+<h2>Deleting a Kubernetes Cluster<a class="headerlink" href="#deleting-a-kubernetes-cluster" title="Permalink to this headline">¶</a></h2>
+<p>This will delete the Kubernetes cluster by deleting the entire project.
+This will prefent any future charges.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Always delete the namespace first.
+&gt;carme cmd az-cluster delete $dryrun $yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-the-resource-group">
+<h2>Delete the Resource Group<a class="headerlink" href="#delete-the-resource-group" title="Permalink to this headline">¶</a></h2>
+<p>To fully clean up everything, go ahead and delete the resource group.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd az-cluster delete_group $dryrun $yes
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="az-server.html" class="btn btn-neutral float-right" title="az-server (CPU/GPU)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../commands/stop.html" class="btn btn-neutral" title="stop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, The Carme Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.01',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

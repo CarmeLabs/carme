@@ -22,3 +22,5 @@ carme save --help > save.tmp && sed -e '/-----/r save.tmp' -e '$G' ./templates/s
 carme start --help > start.tmp && sed -e '/-----/r start.tmp' -e '$G' ./templates/start.template > start.rst && rm start.tmp
 #Generate Carme stop command.
 carme stop --help > stop.tmp && sed -e '/-----/r stop.tmp' -e '$G' ./templates/stop.template > stop.rst && rm stop.tmp
+#Generate Carme stop command.
+carme convert --help > convert.tmp && sed -e '/-----/r convert.tmp' -e '$G' ./templates/convert.template > convert.rst && rm convert.tmp

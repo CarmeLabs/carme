@@ -1,0 +1,7 @@
+az-bucket
+=========
+
+The `carme build` command will build all images stored locally in the `docker` directory.
+
+Usage
+-----
