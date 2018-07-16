@@ -46,7 +46,7 @@ For Conda/Miniconda, then run:
 ```
 conda create --name carme
 source activate carme
-conda install -c -y anaconda pip
+conda install -c anaconda pip
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -58,6 +58,18 @@ source bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 pip install -e .
+```
+
+Exit the Conda/Miniconda environment:
+```
+source deactivate carme
+
+```
+
+Exit the virtualenv environment:
+```
+source bin/deactivate
+
 ```
 
 ### Running Tests
