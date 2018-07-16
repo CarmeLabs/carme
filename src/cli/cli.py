@@ -1,5 +1,5 @@
 import click
-from .commands import new, save, package, git, lab, build, notebook, cmd, start, stop, cleanup, convert
+from .commands import new, save, package, git, lab, build, notebook, cmd, ssh, start, stop, cleanup, convert
 #from .commands.packages import samppack
 
 #create a sample list of packages. Could pull from config.
@@ -20,6 +20,7 @@ carme.add_command(git)
 carme.add_command(build)
 carme.add_command(notebook)
 carme.add_command(cmd)
+carme.add_command(ssh)
 carme.add_command(start)
 carme.add_command(stop)
 carme.add_command(cleanup)
