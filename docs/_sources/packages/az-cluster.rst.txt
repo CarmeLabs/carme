@@ -30,7 +30,7 @@ View Available Commands
 
 .. code:: ipython3
 
-    >carme cmd az-cluster list
+    carme cmd az-cluster list
 
 
 View the Configuration
@@ -38,7 +38,7 @@ View the Configuration
 
 .. code:: ipython3
 
-    >carme cmd az-cluster show_config $yes
+    carme cmd az-cluster show_config $yes
 
 Create Kubernetes Cluster on Azure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,7 +65,7 @@ Login to Azure
 
 .. code:: ipython3
 
-    >carme cmd az-cluster login $dryrun $yes
+    carme cmd az-cluster login $dryrun $yes
 
 List Available Subscription (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,7 +82,7 @@ the terminal.
 .. code:: ipython3
 
     #This will list all subscrptions.
-    >carme cmd az-cluster list_subscriptions $dryrun $yes
+    carme cmd az-cluster list_subscriptions $dryrun $yes
 
 Set the Appropriate Subscription (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -91,7 +91,7 @@ You can skip this if you already have the appropriate subscription set.
 
 .. code:: ipython3
 
-    >carme cmd az-cluster set_subscription $dryrun $yes
+    carme cmd az-cluster set_subscription $dryrun $yes
 
 Create the Resource Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,7 +102,7 @@ delete all resources at the end.
 
 .. code:: ipython3
 
-    >carme cmd az-cluster create_group $dryrun $yes
+    carme cmd az-cluster create_group $dryrun $yes
 
 Enable the Cloud API
 ~~~~~~~~~~~~~~~~~~~~
@@ -112,7 +112,7 @@ creating and managing the JupyterHub.
 
 .. code:: ipython3
 
-    >carme cmd az-cluster register $dryrun $yes
+    carme cmd az-cluster register $dryrun $yes
 
 Create the ssh key.
 ~~~~~~~~~~~~~~~~~~~
@@ -122,7 +122,7 @@ directory.
 
 .. code:: ipython3
 
-    >carme cmd az-cluster create_key $dryrun $yes
+    carme cmd az-cluster create_key $dryrun $yes
 
 Create the Cluster
 ~~~~~~~~~~~~~~~~~~
@@ -132,7 +132,7 @@ minutes before this finishes creating.
 
 .. code:: ipython3
 
-    >carme cmd az-cluster create $dryrun $yes
+    carme cmd az-cluster create $dryrun $yes
 
 WAIT FOR A WHILE
 ~~~~~~~~~~~~~~~~
@@ -151,18 +151,18 @@ time for your Kubernetes to launch.
 .. code:: ipython3
 
     #gcloud container clusters get-credentials carme
-    >carme cmd az-cluster get_credentials $dryrun $yes
+    carme cmd az-cluster get_credentials $dryrun $yes
 
 .. code:: ipython3
 
     #Check to see if we have Kubectl working.
-    >kubectl cluster-info
+    kubectl cluster-info
 
 
 .. code:: ipython3
 
     #Check notes with Kubectl
-    >kubectl get node
+    kubectl get node
 
 
 Helm Installation.
@@ -170,7 +170,7 @@ Helm Installation.
 
 We are going to be utilizing Helm for installations of a variety of
 analytics tools. This command will install Tiller on your cluster. As
-they say, "Happy Helming>"
+they say, "Happy Helming"
 
 A critical factor for Helm is that you have the same version running
 locally and via your machine. If you run helm version and you have the
@@ -192,22 +192,22 @@ To install the appropriate version:
 .. code:: ipython3
 
     #Setup Serviceaccount
-    >kubectl --namespace kube-system create serviceaccount tiller
+    kubectl --namespace kube-system create serviceaccount tiller
 
 .. code:: ipython3
 
     #Initialize Helm
-    >helm init --service-account tiller
+    helm init --service-account tiller
 
 .. code:: ipython3
 
     #This may need to be run more than once if you get a "cannot connect to server."
-    >helm version
+    helm version
 
 .. code:: ipython3
 
     # Secure Helm
-    >kubectl --namespace=kube-system patch deployment tiller-deploy --type=json --patch='[{"op": "add", "path": "/spec/template/spec/containers/0/command", "value": ["/tiller", "--listen=localhost:44134"]}]'
+    kubectl --namespace=kube-system patch deployment tiller-deploy --type=json --patch='[{"op": "add", "path": "/spec/template/spec/containers/0/command", "value": ["/tiller", "--listen=localhost:44134"]}]'
 
 Resize a Cluster
 ~~~~~~~~~~~~~~~~
@@ -215,17 +215,17 @@ Resize a Cluster
 .. code:: ipython3
 
     #Scale the cluster
-    >carme cmd az-cluster class_size $dryrun $yes
+    carme cmd az-cluster class_size $dryrun $yes
 
 .. code:: ipython3
 
     #Stop the cluster, effectively setting the size to 0.
-    >carme cmd az-cluster stop $dryrun $yes
+    carme cmd az-cluster stop $dryrun $yes
 
 .. code:: ipython3
 
     #Set the cluster to the normal size.
-    >carme cluster normal_size
+    carme cluster normal_size
 
 Deleting a Kubernetes Cluster
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -236,7 +236,7 @@ This will prefent any future charges.
 .. code:: ipython3
 
     #Always delete the namespace first.
-    >carme cmd az-cluster delete $dryrun $yes
+    carme cmd az-cluster delete $dryrun $yes
 
 Delete the Resource Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -245,5 +245,5 @@ To fully clean up everything, go ahead and delete the resource group.
 
 .. code:: ipython3
 
-    >carme cmd az-cluster delete_group $dryrun $yes
+    carme cmd az-cluster delete_group $dryrun $yes
  

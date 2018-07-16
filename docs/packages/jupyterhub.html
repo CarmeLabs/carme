@@ -326,7 +326,7 @@ Kubernetes cluster already loaded.</p>
 <p>Optionally you can print the configuration and common commands for your
 desired cluster. You can use this as a reference and copy and paste into
 the terminal.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="nb">list</span>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="nb">list</span>
 </pre></div>
 </div>
 </div>
@@ -335,31 +335,31 @@ the terminal.</p>
 <p>The following will initialize Jupyterhub configuration in the
 /config//config.yaml</p>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Clone the Jupyterhub repo.
-&gt;carme cmd jupyterhub init $dryrun $yes
+carme cmd jupyterhub init $dryrun $yes
 </pre></div>
 </div>
 </div>
 <div class="section" id="install-jupyterhub">
 <h2>Install Jupyterhub<a class="headerlink" href="#install-jupyterhub" title="Permalink to this headline">¶</a></h2>
 <p>This will install the jupyterhub instance.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd jupyterhub install $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd jupyterhub install $dryrun $yes
 </pre></div>
 </div>
 </div>
 <div class="section" id="check-the-jupyterhub-ip">
 <h2>Check the Jupyterhub IP<a class="headerlink" href="#check-the-jupyterhub-ip" title="Permalink to this headline">¶</a></h2>
 <p>This will get the public IP of the Jupyterhub service.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;carme cmd jupyterhub get_ip $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd jupyterhub get_ip $dryrun $yes
 </pre></div>
 </div>
 </div>
 <div class="section" id="update-authorization">
 <h2>Update Authorization<a class="headerlink" href="#update-authorization" title="Permalink to this headline">¶</a></h2>
 <p>TBD</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">carme</span> <span class="n">app</span> <span class="n">jupyter</span> <span class="n">jup_dummy_auth</span>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">app</span> <span class="n">jupyter</span> <span class="n">jup_dummy_auth</span>
 </pre></div>
 </div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">carme</span> <span class="n">app</span> <span class="n">jupyter</span> <span class="n">jup_admin</span>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">app</span> <span class="n">jupyter</span> <span class="n">jup_admin</span>
 </pre></div>
 </div>
 </div>
@@ -367,7 +367,7 @@ the terminal.</p>
 <h2>Updata Jupyterhub<a class="headerlink" href="#updata-jupyterhub" title="Permalink to this headline">¶</a></h2>
 <p>TBD</p>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Upgrading Jupyterhub
-&gt;carme cmd jupyterhub upgrade $dryrun $yes
+carme cmd jupyterhub upgrade $dryrun $yes
 </pre></div>
 </div>
 </div>
@@ -375,7 +375,7 @@ the terminal.</p>
 <h2>Cleanup the Installation<a class="headerlink" href="#cleanup-the-installation" title="Permalink to this headline">¶</a></h2>
 <p>This will cleanup the installation, deleting the instance of Jupyterhub.</p>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Upgrading Jupyterhub
-&gt;carme cmd jupyterhub delete $dryrun $yes
+carme cmd jupyterhub delete $dryrun $yes
 </pre></div>
 </div>
 </div>

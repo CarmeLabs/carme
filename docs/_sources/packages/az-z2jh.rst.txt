@@ -8,8 +8,8 @@ Install the AZ-Z2JH package with:
 
 Usage
 -----
-Create a Kubernetes cluster with the AZ-Cluster.
+Create a Kubernetes cluster with the `AZ-Cluster <https://docs.carme.ai/packages/az-cluster.html>`_ package.
 
-Install JupyterHub with the JupyterHub package.
+Install JupyterHub with the `JupyterHub <https://docs.carme.ai/packages/jupyterhub.html>`_ package.
 
-Customize the singleuser container with the Jupyter-CPU package.
+Customize the single-user container with the Jupyter-CPU package.
