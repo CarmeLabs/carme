@@ -227,7 +227,7 @@
 <p class="caption"><span class="caption-text">Images</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../images/base-cpu.html">base-cpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-gpu</a></li>
 </ul>
 
             
@@ -322,7 +322,7 @@ Instead, just add the –yes flag.</p>
 </div>
 <div class="section" id="view-the-configuration">
 <h2>View the Configuration<a class="headerlink" href="#view-the-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster show_config $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">show_config</span>
 </pre></div>
 </div>
 </div>
@@ -342,7 +342,7 @@ logged in using the <code class="docutils literal notranslate"><span class="pre"
 </div>
 <div class="section" id="login-to-azure">
 <h2>Login to Azure<a class="headerlink" href="#login-to-azure" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster login $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">login</span>
 </pre></div>
 </div>
 </div>
@@ -355,15 +355,15 @@ logged in using the <code class="docutils literal notranslate"><span class="pre"
 <p>Optionally you can print the configuration and common commands for your
 desired cluster. You can use this as a reference and copy and paste into
 the terminal.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#This will list all subscrptions.
-carme cmd az-cluster list_subscriptions $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#This will list all subscrptions.</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">list_subscriptions</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="set-the-appropriate-subscription-optional">
 <h2>Set the Appropriate Subscription (Optional)<a class="headerlink" href="#set-the-appropriate-subscription-optional" title="Permalink to this headline">¶</a></h2>
 <p>You can skip this if you already have the appropriate subscription set.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster set_subscription $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">set_subscription</span>
 </pre></div>
 </div>
 </div>
@@ -372,7 +372,7 @@ carme cmd az-cluster list_subscriptions $dryrun $yes
 <p>Google calls them projects. Azure calles them resource groups. Either
 way you need one. This useful to track spending and also ensure you
 delete all resources at the end.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster create_group $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">create_group</span>
 </pre></div>
 </div>
 </div>
@@ -380,7 +380,7 @@ delete all resources at the end.</p>
 <h2>Enable the Cloud API<a class="headerlink" href="#enable-the-cloud-api" title="Permalink to this headline">¶</a></h2>
 <p>The following commands enable various Azure tools that we’ll need in
 creating and managing the JupyterHub.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster register $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">register</span>
 </pre></div>
 </div>
 </div>
@@ -388,7 +388,7 @@ creating and managing the JupyterHub.</p>
 <h2>Create the ssh key.<a class="headerlink" href="#create-the-ssh-key" title="Permalink to this headline">¶</a></h2>
 <p>This will create the ssh key and put it in the ./config/ssh/servername
 directory.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster create_key $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">create_key</span>
 </pre></div>
 </div>
 </div>
@@ -396,7 +396,7 @@ directory.</p>
 <h2>Create the Cluster<a class="headerlink" href="#create-the-cluster" title="Permalink to this headline">¶</a></h2>
 <p>This will create your Kubernetes Cluster. You have to wait for about 5
 minutes before this finishes creating.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster create $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">create</span>
 </pre></div>
 </div>
 </div>
@@ -410,8 +410,8 @@ it is likely still booting up.</p>
 <h2>Get Credentials for Kubectl<a class="headerlink" href="#get-credentials-for-kubectl" title="Permalink to this headline">¶</a></h2>
 <p>We need to add the credentials for Kubectl to work. You need a bit of
 time for your Kubernetes to launch.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#gcloud container clusters get-credentials carme
-carme cmd az-cluster get_credentials $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#gcloud container clusters get-credentials carme</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">get_credentials</span>
 </pre></div>
 </div>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Check to see if we have Kubectl working.</span>
@@ -460,12 +460,12 @@ right version, then you should be fine.</p>
 </div>
 <div class="section" id="resize-a-cluster">
 <h2>Resize a Cluster<a class="headerlink" href="#resize-a-cluster" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Scale the cluster
-carme cmd az-cluster class_size $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Scale the cluster</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">class_size</span>
 </pre></div>
 </div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Stop the cluster, effectively setting the size to 0.
-carme cmd az-cluster stop $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Stop the cluster, effectively setting the size to 0.</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">stop</span>
 </pre></div>
 </div>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Set the cluster to the normal size.</span>
@@ -477,15 +477,15 @@ carme cmd az-cluster stop $dryrun $yes
 <h2>Deleting a Kubernetes Cluster<a class="headerlink" href="#deleting-a-kubernetes-cluster" title="Permalink to this headline">¶</a></h2>
 <p>This will delete the Kubernetes cluster by deleting the entire project.
 This will prefent any future charges.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Always delete the namespace first.
-carme cmd az-cluster delete $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Always delete the namespace first.</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">delete</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete-the-resource-group">
 <h2>Delete the Resource Group<a class="headerlink" href="#delete-the-resource-group" title="Permalink to this headline">¶</a></h2>
 <p>To fully clean up everything, go ahead and delete the resource group.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster delete_group $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">delete_group</span>
 </pre></div>
 </div>
 </div>

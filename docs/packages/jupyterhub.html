@@ -227,7 +227,7 @@
 <p class="caption"><span class="caption-text">Images</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../images/base-cpu.html">base-cpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-gpu</a></li>
 </ul>
 
             
@@ -334,22 +334,22 @@ the terminal.</p>
 <h2>Initialize Jupyterhub Configuration File<a class="headerlink" href="#initialize-jupyterhub-configuration-file" title="Permalink to this headline">¶</a></h2>
 <p>The following will initialize Jupyterhub configuration in the
 /config//config.yaml</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Clone the Jupyterhub repo.
-carme cmd jupyterhub init $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Clone the Jupyterhub repo.</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">init</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="install-jupyterhub">
 <h2>Install Jupyterhub<a class="headerlink" href="#install-jupyterhub" title="Permalink to this headline">¶</a></h2>
 <p>This will install the jupyterhub instance.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd jupyterhub install $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">install</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="check-the-jupyterhub-ip">
 <h2>Check the Jupyterhub IP<a class="headerlink" href="#check-the-jupyterhub-ip" title="Permalink to this headline">¶</a></h2>
 <p>This will get the public IP of the Jupyterhub service.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd jupyterhub get_ip $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">get_ip</span>
 </pre></div>
 </div>
 </div>
@@ -366,16 +366,16 @@ carme cmd jupyterhub init $dryrun $yes
 <div class="section" id="updata-jupyterhub">
 <h2>Updata Jupyterhub<a class="headerlink" href="#updata-jupyterhub" title="Permalink to this headline">¶</a></h2>
 <p>TBD</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Upgrading Jupyterhub
-carme cmd jupyterhub upgrade $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Upgrading Jupyterhub</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">upgrade</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="cleanup-the-installation">
 <h2>Cleanup the Installation<a class="headerlink" href="#cleanup-the-installation" title="Permalink to this headline">¶</a></h2>
 <p>This will cleanup the installation, deleting the instance of Jupyterhub.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Upgrading Jupyterhub
-carme cmd jupyterhub delete $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Upgrading Jupyterhub</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">delete</span>
 </pre></div>
 </div>
 </div>

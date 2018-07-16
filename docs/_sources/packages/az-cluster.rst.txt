@@ -38,7 +38,7 @@ View the Configuration
 
 .. code:: ipython3
 
-    carme cmd az-cluster show_config $yes
+    carme cmd az-cluster show_config 
 
 Create Kubernetes Cluster on Azure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,7 +65,7 @@ Login to Azure
 
 .. code:: ipython3
 
-    carme cmd az-cluster login $dryrun $yes
+    carme cmd az-cluster login  
 
 List Available Subscription (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,7 +82,7 @@ the terminal.
 .. code:: ipython3
 
     #This will list all subscrptions.
-    carme cmd az-cluster list_subscriptions $dryrun $yes
+    carme cmd az-cluster list_subscriptions  
 
 Set the Appropriate Subscription (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -91,7 +91,7 @@ You can skip this if you already have the appropriate subscription set.
 
 .. code:: ipython3
 
-    carme cmd az-cluster set_subscription $dryrun $yes
+    carme cmd az-cluster set_subscription  
 
 Create the Resource Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,7 +102,7 @@ delete all resources at the end.
 
 .. code:: ipython3
 
-    carme cmd az-cluster create_group $dryrun $yes
+    carme cmd az-cluster create_group  
 
 Enable the Cloud API
 ~~~~~~~~~~~~~~~~~~~~
@@ -112,7 +112,7 @@ creating and managing the JupyterHub.
 
 .. code:: ipython3
 
-    carme cmd az-cluster register $dryrun $yes
+    carme cmd az-cluster register  
 
 Create the ssh key.
 ~~~~~~~~~~~~~~~~~~~
@@ -122,7 +122,7 @@ directory.
 
 .. code:: ipython3
 
-    carme cmd az-cluster create_key $dryrun $yes
+    carme cmd az-cluster create_key  
 
 Create the Cluster
 ~~~~~~~~~~~~~~~~~~
@@ -132,7 +132,7 @@ minutes before this finishes creating.
 
 .. code:: ipython3
 
-    carme cmd az-cluster create $dryrun $yes
+    carme cmd az-cluster create  
 
 WAIT FOR A WHILE
 ~~~~~~~~~~~~~~~~
@@ -151,7 +151,7 @@ time for your Kubernetes to launch.
 .. code:: ipython3
 
     #gcloud container clusters get-credentials carme
-    carme cmd az-cluster get_credentials $dryrun $yes
+    carme cmd az-cluster get_credentials  
 
 .. code:: ipython3
 
@@ -215,12 +215,12 @@ Resize a Cluster
 .. code:: ipython3
 
     #Scale the cluster
-    carme cmd az-cluster class_size $dryrun $yes
+    carme cmd az-cluster class_size  
 
 .. code:: ipython3
 
     #Stop the cluster, effectively setting the size to 0.
-    carme cmd az-cluster stop $dryrun $yes
+    carme cmd az-cluster stop  
 
 .. code:: ipython3
 
@@ -236,7 +236,7 @@ This will prefent any future charges.
 .. code:: ipython3
 
     #Always delete the namespace first.
-    carme cmd az-cluster delete $dryrun $yes
+    carme cmd az-cluster delete  
 
 Delete the Resource Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -245,5 +245,5 @@ To fully clean up everything, go ahead and delete the resource group.
 
 .. code:: ipython3
 
-    carme cmd az-cluster delete_group $dryrun $yes
+    carme cmd az-cluster delete_group  
  

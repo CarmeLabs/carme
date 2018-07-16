@@ -54,7 +54,7 @@ The following will initialize Jupyterhub configuration in the
 .. code:: ipython3
 
     #Clone the Jupyterhub repo.
-    carme cmd jupyterhub init $dryrun $yes
+    carme cmd jupyterhub init  
 
 Install Jupyterhub
 ~~~~~~~~~~~~~~~~~~
@@ -63,7 +63,7 @@ This will install the jupyterhub instance.
 
 .. code:: ipython3
 
-    carme cmd jupyterhub install $dryrun $yes
+    carme cmd jupyterhub install  
 
 
 Check the Jupyterhub IP
@@ -73,7 +73,7 @@ This will get the public IP of the Jupyterhub service.
 
 .. code:: ipython3
 
-    carme cmd jupyterhub get_ip $dryrun $yes
+    carme cmd jupyterhub get_ip  
 
 Update Authorization
 ~~~~~~~~~~~~~~~~~~~~
@@ -97,7 +97,7 @@ TBD
 .. code:: ipython3
 
     #Upgrading Jupyterhub 
-    carme cmd jupyterhub upgrade $dryrun $yes
+    carme cmd jupyterhub upgrade  
 
 Cleanup the Installation
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,4 +107,4 @@ This will cleanup the installation, deleting the instance of Jupyterhub.
 .. code:: ipython3
 
     #Upgrading Jupyterhub 
-    carme cmd jupyterhub delete $dryrun $yes
+    carme cmd jupyterhub delete  

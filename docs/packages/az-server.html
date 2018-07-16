@@ -227,7 +227,7 @@
 <p class="caption"><span class="caption-text">Images</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../images/base-cpu.html">base-cpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-gpu</a></li>
 </ul>
 
             
@@ -327,7 +327,7 @@ logged in using the <code class="docutils literal notranslate"><span class="pre"
 <code class="docutils literal notranslate"><span class="pre">az</span> <span class="pre">account</span> <span class="pre">list</span> <span class="pre">--refresh</span> <span class="pre">--output</span> <span class="pre">table</span></code></p>
 <p>Set the appropriate subscription here.
 <code class="docutils literal notranslate"><span class="pre">az</span> <span class="pre">account</span> <span class="pre">set</span> <span class="pre">-s</span> <span class="pre">&lt;YOUR-CHOSEN-SUBSCRIPTION-NAME&gt;</span></code></p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-server login $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">login</span>
 </pre></div>
 </div>
 </div>
@@ -353,7 +353,7 @@ commands.</p>
 <p>Google calls them projects. Azure calles them resource groups. Either
 way you need one. This useful to track spending and also ensure you
 delete all resources at the end.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-server create_group $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">create_group</span>
 </pre></div>
 </div>
 </div>
@@ -361,7 +361,7 @@ delete all resources at the end.</p>
 <h2>Create the Server<a class="headerlink" href="#create-the-server" title="Permalink to this headline">¶</a></h2>
 <p>This will create the server with an SSH key. This is the easiest way to
 manage it.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-server create $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">create</span>
 </pre></div>
 </div>
 </div>
@@ -372,15 +372,15 @@ manage it.</p>
 <div class="section" id="open-ports-on-the-target-machine">
 <h2>Open Ports on the Target Machine<a class="headerlink" href="#open-ports-on-the-target-machine" title="Permalink to this headline">¶</a></h2>
 <p>There is a need to open ports on the target machine.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#gcloud container clusters get-credentials carme
-carme cmd az-server open_port_8888 $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#gcloud container clusters get-credentials carme</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">open_port_8888</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-and-enhancing-your-server">
 <h2>Using and Enhancing Your Server<a class="headerlink" href="#using-and-enhancing-your-server" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">carme</span> <span class="pre">cmd</span> <span class="pre">az-server</span> <span class="pre">ssh</span> <span class="pre">--dryrun</span></code></p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-server ssh $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">ssh</span>
 </pre></div>
 </div>
 </div>
@@ -388,22 +388,22 @@ carme cmd az-server open_port_8888 $dryrun $yes
 <h2>Stop the Server<a class="headerlink" href="#stop-the-server" title="Permalink to this headline">¶</a></h2>
 <p>The stop command by default deallocates so you won’t be charged untill
 you start it up again.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Scale the cluster
-carme cmd az-server stop $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Scale the cluster</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">stop</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="start-the-server">
 <h2>Start the Server<a class="headerlink" href="#start-the-server" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Stop the cluster, effectively setting the size to 0.
-carme cmd az-server start $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Stop the cluster, effectively setting the size to 0.</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">start</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="show-the-server">
 <h2>Show the Server<a class="headerlink" href="#show-the-server" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Set the cluster to the normal size.
-carme cmd az-server show $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Set the cluster to the normal size.</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">show</span>
 </pre></div>
 </div>
 </div>
@@ -411,15 +411,15 @@ carme cmd az-server show $dryrun $yes
 <h2>Deleting the Server<a class="headerlink" href="#deleting-the-server" title="Permalink to this headline">¶</a></h2>
 <p>This will delete the Kubernetes cluster by deleting the entire project.
 This will prefent any future charges.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Always delete the namespace first.
-carme cmd az-server delete $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Always delete the namespace first.</span>
+<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">delete</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete-the-resource-group">
 <h2>Delete the Resource Group<a class="headerlink" href="#delete-the-resource-group" title="Permalink to this headline">¶</a></h2>
 <p>To fully clean up everything, go ahead and delete the resource group.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-server delete_resource_group $dryrun $yes
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">server</span> <span class="n">delete_resource_group</span>
 </pre></div>
 </div>
 </div>
