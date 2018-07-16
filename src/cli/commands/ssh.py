@@ -1,25 +1,46 @@
 '''
-Spin up docker container and mount current directory.
+Provision a docker container and mount the current working directory inside it
 '''
 import os
-import logging
 import click
+import logging
+from subprocess import call
 from ...modules.base import *
+# from ...modules.dockerwrapper import service_create
+
 # Set up logger
 setup_logger()
 
 @click.command()
-# @click.option('--remove', is_flag=True, default=False, help='Remove all images.')
+@click.argument('image')
+@click.option('--dest', is_flag=False, default='/carme_workspace', help='Absolute path to the directory on the container where the current working directory will be mounted')
+@click.option('--rm', is_flag=True, default=False, help='Whether or not the container will be removed when the user exits')
 
-def ssh():
+def ssh(image, dest, rm):
     """
-    Spin up docker container and mount current directory.
+    Provision a docker container and mount the current working directory inside it
     """
-    # if remove:
-    #     cmd='docker-compose down'
-    # else:
-    #     cmd='docker-compose stop'
-    print('RUN CARME SSH HERE')
-    # project_root=get_project_root()
-    # os.chdir(project_root)
-    # bash_command("Stopping containers", cmd)
+
+    # Debugging
+    # print(image)
+    # print(workdir)
+    # print(dest)
+    # print(volume)
+
+    # Captures the current working directory to be mounted inside the container
+    workdir = os.getcwd()
+
+    # Defines value for the `docker run -v` flag
+    volume = workdir + ':' + dest
+
+    # Starts the docker container
+    if rm:
+        proc = call(["docker", "run", "--rm", "-it", "-v", volume, image])
+    else:
+        proc = call(["docker", "run", "-it", "-v", volume, image])
+
+    # Handles errors
+    if proc.returncode is not 0:
+        logging.error("`docker run` exited with non-zero exit code.")
+        return False
+    return True
