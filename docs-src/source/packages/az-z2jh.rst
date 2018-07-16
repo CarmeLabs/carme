@@ -4,7 +4,10 @@ az-z2jh  (Zero to JupyterHub)
 The Zero to Jupyterhub package facilitiates deployment of JupyterHub on Kubernetes. Installing this package will install the AZ-Cluster, JupyterHub, and Jupyter-CPU packages into your project.
 
 Install the AZ-Z2JH package with:
-`carme package install az-z2jh`
+
+.. code:: ipython3
+
+    carme package install az-z2jh
 
 Usage
 -----
