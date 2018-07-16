@@ -1,7 +1,7 @@
 git clone https://github.com/CarmeLabs/carme
+python3 -m venv carme-env
+source carme-env/bin/activate
 cd carme
-python3 -m venv carme
-source carme/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-pip install -e .
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
+pip3 install -e .

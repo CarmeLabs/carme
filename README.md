@@ -51,14 +51,31 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-For individuals running (pure) Python:
+For individuals running Python on Azure Cloud Shell or Google Cloud:
 ```
 python3 -m venv carme-env
-source bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-pip install -e .
+source carme-env/bin/activate
+cd carme
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
+pip3 install -e .
 ```
+
+Or with a script:
+
+```
+wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme_dev.sh
+bash -x get_carme_dev.sh
+source carme-env/bin/activate
+```
+
+Test that it is working with:
+
+```
+carme --help
+```
+
+
 
 ### Running Tests
 `python setup.py test`
