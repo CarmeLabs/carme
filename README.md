@@ -65,7 +65,6 @@ Or with a script:
 
 ```
 wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme_dev.sh
-wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/activate.sh
 source get_carme_dev.sh
 ```
 
@@ -73,6 +72,12 @@ Test that it is working with:
 
 ```
 carme --help
+```
+
+When you log in the next time just use the script to activate:
+
+```
+source activate.sh
 ```
 
 
