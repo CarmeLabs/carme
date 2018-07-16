@@ -46,7 +46,7 @@ For Conda/Miniconda, then run:
 ```
 conda create --name carme
 source activate carme
-conda install -c anaconda pip
+conda install -c -y anaconda pip
 pip install -r requirements.txt
 pip install -e .
 ```
