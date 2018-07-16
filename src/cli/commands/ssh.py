@@ -14,18 +14,12 @@ setup_logger()
 @click.command()
 @click.argument('image')
 @click.option('--dest', is_flag=False, default='/carme_workspace', help='Absolute path to the directory on the container where the current working directory will be mounted')
-@click.option('--rm', is_flag=True, default=False, help='Whether or not the container will be removed when the user exits')
+@click.option('--rm', is_flag=True, default=True, help='Whether or not the container will be removed when the user exits')
 
 def ssh(image, dest, rm):
     """
     Provision a docker container and mount the current working directory inside it
     """
-
-    # Debugging
-    # print(image)
-    # print(workdir)
-    # print(dest)
-    # print(volume)
 
     # Captures the current working directory to be mounted inside the container
     workdir = os.getcwd()
@@ -39,8 +33,5 @@ def ssh(image, dest, rm):
     else:
         proc = call(["docker", "run", "-it", "-v", volume, image])
 
-    # Handles errors
-    if proc.returncode is not 0:
-        logging.error("`docker run` exited with non-zero exit code.")
-        return False
+    # TODO - we'll likely want to introduce some error handling here
     return True
