@@ -65,8 +65,8 @@ Or with a script:
 
 ```
 wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme_dev.sh
-bash -x get_carme_dev.sh
-source carme-env/bin/activate
+wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/activate.sh
+source get_carme_dev.sh
 ```
 
 Test that it is working with:
