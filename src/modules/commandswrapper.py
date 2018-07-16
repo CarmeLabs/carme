@@ -67,8 +67,13 @@ def execute(command, commands, package, project_root, kwargs, docker=False, dryr
 
     #As a security protection, confirm they really want to execute the command.  No confirmation needed for dry run. s
     if not yes and not dryrun:
-        cont=input("Press 'y' to execute the above command. Enter to quit. ")
-        if cont!='y':
+        cont=input("Press 'y' to execute the above command, 's' to skip, enter to quit. ")
+        if cont=='y':
+            bash_command(command, syntax)
+        elif cont=='s':
+            logging.info("Skipping the above command")
+        else:
+            logging.info("Quitting")
             quit()
-    if not dryrun:
+    elif not dryrun:
         bash_command(command, syntax)
