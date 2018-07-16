@@ -176,7 +176,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#create-kubernetes-cluster-on-azure">Create Kubernetes Cluster on Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#login-to-azure">Login to Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#list-available-subscription-optional">List Available Subscription (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#print-available-commands">Print Available Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-the-appropriate-subscription-optional">Set the Appropriate Subscription (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-the-resource-group">Create the Resource Group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#enable-the-cloud-api">Enable the Cloud API</a></li>
@@ -184,6 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#create-the-cluster">Create the Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#wait-for-a-while">WAIT FOR A WHILE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-credentials-for-kubectl">Get Credentials for Kubectl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-your-cluster">Check your Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#helm-installation">Helm Installation.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#resize-a-cluster">Resize a Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deleting-a-kubernetes-cluster">Deleting a Kubernetes Cluster</a></li>
@@ -295,6 +295,9 @@
   <div class="section" id="az-cluster-kubernetes">
 <h1>az-cluster (Kubernetes)<a class="headerlink" href="#az-cluster-kubernetes" title="Permalink to this headline">¶</a></h1>
 <p>The cluster package is designed to provide a Kubernetes cluster, useful for providing workgroups and classrooms access to Juypter.</p>
+<p>If running on the Azure Cloud Shell, (1) install carme, (2) verify the configuration file, and (3) ensure the correct subscription is set. Then the cluster can be created using one command:</p>
+<p>The above will step through the relevant steps of the notebook below.</p>
+<p>Alternately, the commands can be run directly from the notebook included with the package.</p>
 <p>From the notebook included in the package:</p>
 <div class="section" id="before-you-begin-the-dryrun-option-and-the-yes-option">
 <h2>Before you Begin. The ‘–dryrun’ option and the ‘–yes’ Option<a class="headerlink" href="#before-you-begin-the-dryrun-option-and-the-yes-option" title="Permalink to this headline">¶</a></h2>
@@ -349,12 +352,6 @@ logged in using the <code class="docutils literal notranslate"><span class="pre"
 <div class="section" id="list-available-subscription-optional">
 <h2>List Available Subscription (Optional)<a class="headerlink" href="#list-available-subscription-optional" title="Permalink to this headline">¶</a></h2>
 <p>You can update the current subscription usine either the ID or the name.</p>
-</div>
-<div class="section" id="print-available-commands">
-<h2>Print Available Commands<a class="headerlink" href="#print-available-commands" title="Permalink to this headline">¶</a></h2>
-<p>Optionally you can print the configuration and common commands for your
-desired cluster. You can use this as a reference and copy and paste into
-the terminal.</p>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#This will list all subscrptions.</span>
 <span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">list_subscriptions</span>
 </pre></div>
@@ -410,16 +407,19 @@ it is likely still booting up.</p>
 <h2>Get Credentials for Kubectl<a class="headerlink" href="#get-credentials-for-kubectl" title="Permalink to this headline">¶</a></h2>
 <p>We need to add the credentials for Kubectl to work. You need a bit of
 time for your Kubernetes to launch.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#gcloud container clusters get-credentials carme</span>
-<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">get_credentials</span>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">get_credentials</span>
 </pre></div>
 </div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Check to see if we have Kubectl working.</span>
-<span class="n">kubectl</span> <span class="n">cluster</span><span class="o">-</span><span class="n">info</span>
+</div>
+<div class="section" id="check-your-cluster">
+<h2>Check your Cluster<a class="headerlink" href="#check-your-cluster" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">kubectl</span></code> is the default kubernetes command you can use to check out
+lots of things on your cluster. Go ahead and trying the <code class="docutils literal notranslate"><span class="pre">cluster</span> <span class="pre">info</span></code>
+and <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">node</span></code> commands below.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">cluster</span><span class="o">-</span><span class="n">info</span>
 </pre></div>
 </div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Check notes with Kubectl</span>
-<span class="n">kubectl</span> <span class="n">get</span> <span class="n">node</span>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">get</span> <span class="n">node</span>
 </pre></div>
 </div>
 </div>
@@ -428,31 +428,27 @@ time for your Kubernetes to launch.</p>
 <p>We are going to be utilizing Helm for installations of a variety of
 analytics tools. This command will install Tiller on your cluster. As
 they say, “Happy Helming”</p>
+<p>The command will created the service account, initiate it, and print the
+helm version.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span> <span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">create</span> <span class="n">serviceaccount</span> <span class="n">tiller</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">init</span> <span class="o">--</span><span class="n">service</span><span class="o">-</span><span class="n">account</span> <span class="n">tiller</span>
+</pre></div>
+</div>
 <p>A critical factor for Helm is that you have the same version running
-locally and via your machine. If you run helm version and you have the
-right version, then you should be fine.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Client</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">version</span><span class="o">.</span><span class="n">Version</span><span class="p">{</span><span class="n">SemVer</span><span class="p">:</span><span class="s2">&quot;v2.6.2&quot;</span><span class="p">,</span> <span class="n">GitCommit</span><span class="p">:</span><span class="s2">&quot;be3ae4ea91b2960be98c07e8f73754e67e87963c&quot;</span><span class="p">,</span> <span class="n">GitTreeState</span><span class="p">:</span><span class="s2">&quot;clean&quot;</span><span class="p">}</span>
-<span class="n">Server</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">version</span><span class="o">.</span><span class="n">Version</span><span class="p">{</span><span class="n">SemVer</span><span class="p">:</span><span class="s2">&quot;v2.6.2&quot;</span><span class="p">,</span> <span class="n">GitCommit</span><span class="p">:</span><span class="s2">&quot;be3ae4ea91b2960be98c07e8f73754e67e87963c&quot;</span><span class="p">,</span> <span class="n">GitTreeState</span><span class="p">:</span><span class="s2">&quot;clean&quot;</span><span class="p">}</span>
+locally and via your machine. If you run helm version and you the same
+versions on the client and sever, you should be fine.</p>
+<p><em>Client: &amp;version.Version{SemVer:”v2.6.2”,
+GitCommit:”be3ae4ea91b2960be98c07e8f73754e67e87963c”,
+GitTreeState:”clean”}</em></p>
+<p><em>Server: &amp;version.Version{SemVer:”v2.6.2”,
+GitCommit:”be3ae4ea91b2960be98c07e8f73754e67e87963c”,
+GitTreeState:”clean”}</em></p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">version</span>
 </pre></div>
 </div>
-<p>To install the appropriate version:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">&gt;</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span>
-<span class="n">chmod</span> <span class="mi">700</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span>
-<span class="n">RUN</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">version</span> <span class="n">v2</span><span class="o">.</span><span class="mf">6.2</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Setup Serviceaccount</span>
-<span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span> <span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">create</span> <span class="n">serviceaccount</span> <span class="n">tiller</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Initialize Helm</span>
-<span class="n">helm</span> <span class="n">init</span> <span class="o">--</span><span class="n">service</span><span class="o">-</span><span class="n">account</span> <span class="n">tiller</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#This may need to be run more than once if you get a &quot;cannot connect to server.&quot;</span>
-<span class="n">helm</span> <span class="n">version</span>
-</pre></div>
-</div>
+<p>Secure Helm</p>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Secure Helm</span>
 <span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">patch</span> <span class="n">deployment</span> <span class="n">tiller</span><span class="o">-</span><span class="n">deploy</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">json</span> <span class="o">--</span><span class="n">patch</span><span class="o">=</span><span class="s1">&#39;[{&quot;op&quot;: &quot;add&quot;, &quot;path&quot;: &quot;/spec/template/spec/containers/0/command&quot;, &quot;value&quot;: [&quot;/tiller&quot;, &quot;--listen=localhost:44134&quot;]}]&#39;</span>
 </pre></div>
@@ -460,14 +456,38 @@ right version, then you should be fine.</p>
 </div>
 <div class="section" id="resize-a-cluster">
 <h2>Resize a Cluster<a class="headerlink" href="#resize-a-cluster" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Scale the cluster</span>
-<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">class_size</span>
+<p>The commands below can be used to resize the cluster. For example, you
+man need to scale up for classroom exercises. This is held in the config
+file as the number of servers for class_size.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">class_size</span>
 </pre></div>
 </div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Stop the cluster, effectively setting the size to 0.</span>
-<span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">stop</span>
+<p>Stop the cluster, effectively setting the size to 0.</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="n">stop</span>
 </pre></div>
 </div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span><span class="p">:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">All</span> <span class="n">cmd</span> <span class="n">commands</span> <span class="n">issued</span> <span class="kn">from</span> <span class="nn">project</span> <span class="n">root</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">ensure</span> <span class="n">relative</span> <span class="n">path</span> <span class="n">consistency</span><span class="o">.</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;/anaconda3/envs/carme/bin/carme&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">11</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+    <span class="n">load_entry_point</span><span class="p">(</span><span class="s1">&#39;carme&#39;</span><span class="p">,</span> <span class="s1">&#39;console_scripts&#39;</span><span class="p">,</span> <span class="s1">&#39;carme&#39;</span><span class="p">)()</span>
+  <span class="n">File</span> <span class="s2">&quot;/anaconda3/envs/carme/lib/python3.6/site-packages/click/core.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">722</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__call__</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;/anaconda3/envs/carme/lib/python3.6/site-packages/click/core.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">697</span><span class="p">,</span> <span class="ow">in</span> <span class="n">main</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;/anaconda3/envs/carme/lib/python3.6/site-packages/click/core.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1066</span><span class="p">,</span> <span class="ow">in</span> <span class="n">invoke</span>
+    <span class="k">return</span> <span class="n">_process_result</span><span class="p">(</span><span class="n">sub_ctx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">sub_ctx</span><span class="p">))</span>
+  <span class="n">File</span> <span class="s2">&quot;/anaconda3/envs/carme/lib/python3.6/site-packages/click/core.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">895</span><span class="p">,</span> <span class="ow">in</span> <span class="n">invoke</span>
+    <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">,</span> <span class="o">**</span><span class="n">ctx</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;/anaconda3/envs/carme/lib/python3.6/site-packages/click/core.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">535</span><span class="p">,</span> <span class="ow">in</span> <span class="n">invoke</span>
+    <span class="k">return</span> <span class="n">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;/Users/jasonkuruzovich/githubdesktop/0_class/carme/src/cli/commands/cmd.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">48</span><span class="p">,</span> <span class="ow">in</span> <span class="n">cmd</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">commands</span><span class="p">[</span><span class="n">command</span><span class="p">],</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">CommentedSeq</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;/anaconda3/envs/carme/lib/python3.6/site-packages/ruamel/yaml/comments.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">702</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__getitem__</span>
+    <span class="k">return</span> <span class="n">ordereddict</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+<span class="ne">KeyError</span><span class="p">:</span> <span class="s1">&#39;stop&#39;</span>
+</pre></div>
+</div>
+<p>Set the cluster to the normal size. This is a “non class time” size.</p>
 <div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Set the cluster to the normal size.</span>
 <span class="n">carme</span> <span class="n">cluster</span> <span class="n">normal_size</span>
 </pre></div>
