@@ -1,5 +1,5 @@
 # Carme
-The **C**ontainerized **A**nalytics **R**untime and **M**anagement **E**ngine.
+The **C**ontainerized **A**nalytics **R**untime and **M**anagement **E**ngine.  Carme is also a moon of Jupyter.
 
 ## About
 Carme is framework which enables data scientists to create and deploy AI applications.  Carme attempts to take the pain out projects by facilitating common tasks relevant to the majority of analytics teams, such as:
