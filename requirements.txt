@@ -29,3 +29,4 @@ tolist==0.0.27
 urllib3==1.22
 validators==0.12.1
 websocket-client==0.46.0
+nbconvert==5.3.1
