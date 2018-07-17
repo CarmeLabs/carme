@@ -4,5 +4,5 @@ wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/activa
 wget https://raw.githubusercontent.com/CarmeLabs/carme/master/requirements.txt
 pip3 install --upgrade pip
 pip3 install -r requirements.txt
-pip3 install https://github.com/CarmeLabs/carme/archive/master.zip
+pip3 install git+https://github.com/CarmeLabs/carme.git
 rm requirements.txt

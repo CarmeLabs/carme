@@ -17,6 +17,15 @@ Carme can improve workflows for individuals, teams, as well as data science clas
 ### Install Python
 Install Python3 via [python.org](https://www.python.org/downloads/)` or [Miniconda](https://conda.io/miniconda.html) or [Anaconda](https://www.anaconda.com/download/) and `pip` using the recommended method for your platform.
 
+### Installing Python
+```
+python3 -m venv carme-env
+source carme-env/bin/activate
+wget https://raw.githubusercontent.com/CarmeLabs/carme/master/requirements.txt
+pip install -r requirements.txt
+pip install git+https://github.com/CarmeLabs/carme.git
+```
+
 ### Install Carme via Script
 ```
 wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme.sh
