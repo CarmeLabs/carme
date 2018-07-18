@@ -51,7 +51,7 @@ pip3 install -r requirements.txt
 pip3 install git+https://github.com/CarmeLabs/carme.git
 ```
 
-### Install Docker
+## Install Docker
 You will also need Docker in order to use Carme.  Here is how you [get Docker](https://www.docker.com/get-docker).
 
 ## Developer Installation Instructions
@@ -77,30 +77,5 @@ pip3 install -r requirements.txt
 pip3 install -e .
 ```
 
-### Clone the Repository
-Clone the github repository:
-```
-git clone https://github.com/CarmeLabs/carme
-cd carme
-```
-### Install Carme in Development Mode
-
-
-
-
-Test that it is working with:
-
-```
-carme --help
-```
-
-When you log in the next time just use the script to activate:
-
-```
-source activate.sh
-```
-
-
-
-### Running Tests
+## Running Tests
 `python setup.py test`
