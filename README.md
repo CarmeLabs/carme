@@ -1,3 +1,5 @@
+#THIS IS AN EARLY PROJECT.
+
 # Carme
 The **C**ontainerized **A**nalytics **R**untime and **M**anagement **E**ngine.  Carme is also a moon of Jupyter.
 
@@ -15,23 +17,15 @@ Carme can improve workflows for individuals, teams, as well as data science clas
 ## Installation Instructions
 
 ### Install Python
-Install Python3 via [python.org](https://www.python.org/downloads/)` or [Miniconda](https://conda.io/miniconda.html) or [Anaconda](https://www.anaconda.com/download/) and `pip` using the recommended method for your platform.
+Install Python3 via [python.org](https://www.python.org/downloads/) or [Miniconda](https://conda.io/miniconda.html) or [Anaconda](https://www.anaconda.com/download/) and `pip` using the recommended method for your platform.
 
-### Installing with Python Virtual Environment
-```
-python3 -m venv carme-env
-source carme-env/bin/activate
-wget https://raw.githubusercontent.com/CarmeLabs/carme/master/requirements.txt
-pip3 install -r requirements.txt
-pip3 install git+https://github.com/CarmeLabs/carme.git
-```
-
-### Install Carme with Python Virtual Environment via Script
-```
-wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme.sh
-source get_carme.sh
-```
 ### Install Carme with Conda
+The easiest way to get Carme with conda is with this script.
+```
+wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme_conda.sh
+source get_carme_conda.sh
+```
+Alternately, you can use the following series of commands.
 ```
 conda create --name carme-env --yes
 source activate carme-env
@@ -42,28 +36,25 @@ pip install -r requirements.txt
 pip install git+https://github.com/CarmeLabs/carme.git
 rm requirements.txt
 ```
-
-
-### Install Carme with Conda via Script
+### Installing with Python Virtual Environment
+Alternate, if using pure Python you can use Python virtual environments.  This script will install carme.
 ```
-wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme_conda.sh
-source get_carme_conda.sh
+wget https://raw.githubusercontent.com/CarmeLabs/carme/master/scripts/get/get_carme.sh
+source get_carme.sh
 ```
-
+Alternately, you can enter the commands below.
+```
+python3 -m venv carme-env
+source carme-env/bin/activate
+wget https://raw.githubusercontent.com/CarmeLabs/carme/master/requirements.txt
+pip3 install -r requirements.txt
+pip3 install git+https://github.com/CarmeLabs/carme.git
+```
 
 ### Install Docker
 You will also need Docker in order to use Carme.  Here is how you [get Docker](https://www.docker.com/get-docker).
 
 ## Developer Installation Instructions
-### Installing in Developer Mode with Python Virtual Environment
-```
-git clone https://github.com/CarmeLabs/carme
-cd carme
-python3 -m venv carme-env
-source carme-env/bin/activate
-pip3 install -r requirements.txt
-pip3 install -e .
-```
 
 ### Install Carme in Developer Mode with Conda
 ```
@@ -76,7 +67,15 @@ pip uninstall carme --yes
 pip install -r requirements.txt
 pip install -e .
 ```
-
+### Installing in Developer Mode with Python Virtual Environment
+```
+git clone https://github.com/CarmeLabs/carme
+cd carme
+python3 -m venv carme-env
+source carme-env/bin/activate
+pip3 install -r requirements.txt
+pip3 install -e .
+```
 
 ### Clone the Repository
 Clone the github repository:
