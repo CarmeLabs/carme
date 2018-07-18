@@ -71,7 +71,6 @@ This will install the jupyterhub instance.
 
     carme cmd jupyterhub install  
 
-
 Check the Jupyterhub IP
 ~~~~~~~~~~~~~~~~~~~~~~~
 

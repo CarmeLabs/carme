@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -295,9 +294,6 @@
   <div class="section" id="jupyterhub">
 <h1>jupyterhub<a class="headerlink" href="#jupyterhub" title="Permalink to this headline">¶</a></h1>
 <p>This package is installed along with the z2jh package packages (az-z2jh, gcp-z2jh) and requires a Kubernetes cluster.  To install the jupyterhub package individually you can use:</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">package</span> <span class="n">install</span> <span class="n">jupyterhub</span>
-</pre></div>
-</div>
 <p>The jupyterhub package is designed to install Jupyterhub on any Kubernetes instance.</p>
 <p>From the notebook included in the package:</p>
 <div class="section" id="before-you-begin-the-dryrun-option-and-the-yes-option">
@@ -311,12 +307,6 @@ printed and not executed.</div>
 command and will print the command and ask you to confirm before
 executing it. In Jupyter notebooks, this interactivity isn’t possible.
 Instead, just add the –yes flag.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#To run for real, just set dryrun=&#39;&#39;</span>
-<span class="c1">#dryrun= &#39;&#39; to run or dryrun=&#39;--dryrun&#39; to print.</span>
-<span class="n">dryrun</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-<span class="n">yes</span> <span class="o">=</span> <span class="s1">&#39;--yes&#39;</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="jupyterhub-on-kubernetes">
 <h2>Jupyterhub on Kubernetes<a class="headerlink" href="#jupyterhub-on-kubernetes" title="Permalink to this headline">¶</a></h2>
@@ -330,58 +320,31 @@ Kubernetes cluster already loaded.</p>
 <p>Optionally you can print the configuration and common commands for your
 desired cluster. You can use this as a reference and copy and paste into
 the terminal.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="nb">list</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="initialize-jupyterhub-configuration-file">
 <h2>Initialize Jupyterhub Configuration File<a class="headerlink" href="#initialize-jupyterhub-configuration-file" title="Permalink to this headline">¶</a></h2>
 <p>The following will initialize Jupyterhub configuration in the
 /config//config.yaml</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Clone the Jupyterhub repo.</span>
-<span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">init</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="install-jupyterhub">
 <h2>Install Jupyterhub<a class="headerlink" href="#install-jupyterhub" title="Permalink to this headline">¶</a></h2>
 <p>This will install the jupyterhub instance.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">install</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="check-the-jupyterhub-ip">
 <h2>Check the Jupyterhub IP<a class="headerlink" href="#check-the-jupyterhub-ip" title="Permalink to this headline">¶</a></h2>
 <p>This will get the public IP of the Jupyterhub service.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">get_ip</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="update-authorization">
 <h2>Update Authorization<a class="headerlink" href="#update-authorization" title="Permalink to this headline">¶</a></h2>
 <p>TBD</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">app</span> <span class="n">jupyter</span> <span class="n">jup_dummy_auth</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">app</span> <span class="n">jupyter</span> <span class="n">jup_admin</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="updata-jupyterhub">
 <h2>Updata Jupyterhub<a class="headerlink" href="#updata-jupyterhub" title="Permalink to this headline">¶</a></h2>
 <p>TBD</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Upgrading Jupyterhub</span>
-<span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">upgrade</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="cleanup-the-installation">
 <h2>Cleanup the Installation<a class="headerlink" href="#cleanup-the-installation" title="Permalink to this headline">¶</a></h2>
 <p>This will cleanup the installation, deleting the instance of Jupyterhub.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Upgrading Jupyterhub</span>
-<span class="n">carme</span> <span class="n">cmd</span> <span class="n">jupyterhub</span> <span class="n">delete</span>
-</pre></div>
-</div>
 </div>
 </div>
 
@@ -441,10 +404,7 @@ the terminal.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
