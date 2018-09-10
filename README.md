@@ -77,5 +77,5 @@ pip3 install -r requirements.txt
 pip3 install -e .
 ```
 
-## Running Tests
+### Running Tests
 `python setup.py test`
