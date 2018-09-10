@@ -5,3 +5,5 @@ wget -O file.tmp https://raw.githubusercontent.com/CarmeLabs/packages/master/gcp
 wget -O file.tmp https://raw.githubusercontent.com/CarmeLabs/packages/master/jupyterhub/docs/rst/jupyterhub.rst && sed -e '/From the notebook included in the package:/r file.tmp' -e '$G' ./templates/jupyterhub.template > jupyterhub.rst && rm file.tmp
 #Change the ! to > for clear command line interactions.
 sed -i '' s/\!//g *.rst
+sed -i '' s/\$dryrun//g *.rst
+sed -i '' s/\$yes//g *.rst

@@ -3,4 +3,24 @@ az-cluster (Kubernetes)
 
 The cluster package is designed to provide a Kubernetes cluster, useful for providing workgroups and classrooms access to Juypter.
 
+This package is installed along with the az-z2jh package.  To nstall the az-cluster package individually you can use:
+
+.. code:: ipython3
+
+    carme package install az-cluster
+
+If running on the Azure Cloud Shell, (1) install carme, (2) verify the configuration file, and (3) ensure the correct subscription is set. Then the cluster can be created using one command:
+
+.. code:: ipython3
+
+    carme cmd az-cluster create_all
+
+The above will step through the relevant steps of the notebook below.
+
+.. code:
+
+    carme cmd az-cluster install_helm
+
+Alternately, the commands can be run directly from the notebook included with the package.
+
 From the notebook included in the package:

@@ -10,17 +10,17 @@ Carme is framework which enables data scientists to create and deploy artificial
 
 History
 =======
-records
+TBD.
 
 Committers
 ==========
 - @jkuruzovich (Jason Kuruzovich)
-- @   ()
-- @rushsteve (Stephen )
+- @dmccrevan  (Daniel McCrevan)
+- @rushsteve (Steven vanZyl)
 
 Resources and Links
 ===================
-- Add a list of Links
+- Add a list of links.
 
 Roadmap
 =======

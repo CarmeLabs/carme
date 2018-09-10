@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/carme_theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -176,7 +175,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#create-kubernetes-cluster-on-azure">Create Kubernetes Cluster on Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#login-to-azure">Login to Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#list-available-subscription-optional">List Available Subscription (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#print-available-commands">Print Available Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-the-appropriate-subscription-optional">Set the Appropriate Subscription (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-the-resource-group">Create the Resource Group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#enable-the-cloud-api">Enable the Cloud API</a></li>
@@ -184,6 +182,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#create-the-cluster">Create the Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#wait-for-a-while">WAIT FOR A WHILE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-credentials-for-kubectl">Get Credentials for Kubectl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-your-cluster">Check your Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#helm-installation">Helm Installation.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#resize-a-cluster">Resize a Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deleting-a-kubernetes-cluster">Deleting a Kubernetes Cluster</a></li>
@@ -227,7 +226,7 @@
 <p class="caption"><span class="caption-text">Images</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../images/base-cpu.html">base-cpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/base-gpu.html">base-gpu</a></li>
 </ul>
 
             
@@ -295,6 +294,10 @@
   <div class="section" id="az-cluster-kubernetes">
 <h1>az-cluster (Kubernetes)<a class="headerlink" href="#az-cluster-kubernetes" title="Permalink to this headline">¶</a></h1>
 <p>The cluster package is designed to provide a Kubernetes cluster, useful for providing workgroups and classrooms access to Juypter.</p>
+<p>This package is installed along with the az-z2jh package.  To nstall the az-cluster package individually you can use:</p>
+<p>If running on the Azure Cloud Shell, (1) install carme, (2) verify the configuration file, and (3) ensure the correct subscription is set. Then the cluster can be created using one command:</p>
+<p>The above will step through the relevant steps of the notebook below.</p>
+<p>Alternately, the commands can be run directly from the notebook included with the package.</p>
 <p>From the notebook included in the package:</p>
 <div class="section" id="before-you-begin-the-dryrun-option-and-the-yes-option">
 <h2>Before you Begin. The ‘–dryrun’ option and the ‘–yes’ Option<a class="headerlink" href="#before-you-begin-the-dryrun-option-and-the-yes-option" title="Permalink to this headline">¶</a></h2>
@@ -307,24 +310,12 @@ printed and not executed.</div>
 command and will print the command and ask you to confirm before
 executing it. In Jupyter notebooks, this interactivity isn’t possible.
 Instead, just add the –yes flag.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#To run for real, just set dryrun=&#39;&#39;</span>
-<span class="c1">#dryrun= &#39;&#39; to run or dryrun=&#39;--dryrun&#39; to print.</span>
-<span class="n">dryrun</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-<span class="n">yes</span> <span class="o">=</span> <span class="s1">&#39;--yes&#39;</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="view-available-commands">
 <h2>View Available Commands<a class="headerlink" href="#view-available-commands" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">carme</span> <span class="n">cmd</span> <span class="n">az</span><span class="o">-</span><span class="n">cluster</span> <span class="nb">list</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="view-the-configuration">
 <h2>View the Configuration<a class="headerlink" href="#view-the-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster show_config $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="create-kubernetes-cluster-on-azure">
 <h2>Create Kubernetes Cluster on Azure<a class="headerlink" href="#create-kubernetes-cluster-on-azure" title="Permalink to this headline">¶</a></h2>
@@ -342,63 +333,35 @@ logged in using the <code class="docutils literal notranslate"><span class="pre"
 </div>
 <div class="section" id="login-to-azure">
 <h2>Login to Azure<a class="headerlink" href="#login-to-azure" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster login $dryrun $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="list-available-subscription-optional">
 <h2>List Available Subscription (Optional)<a class="headerlink" href="#list-available-subscription-optional" title="Permalink to this headline">¶</a></h2>
 <p>You can update the current subscription usine either the ID or the name.</p>
 </div>
-<div class="section" id="print-available-commands">
-<h2>Print Available Commands<a class="headerlink" href="#print-available-commands" title="Permalink to this headline">¶</a></h2>
-<p>Optionally you can print the configuration and common commands for your
-desired cluster. You can use this as a reference and copy and paste into
-the terminal.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#This will list all subscrptions.
-carme cmd az-cluster list_subscriptions $dryrun $yes
-</pre></div>
-</div>
-</div>
 <div class="section" id="set-the-appropriate-subscription-optional">
 <h2>Set the Appropriate Subscription (Optional)<a class="headerlink" href="#set-the-appropriate-subscription-optional" title="Permalink to this headline">¶</a></h2>
 <p>You can skip this if you already have the appropriate subscription set.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster set_subscription $dryrun $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="create-the-resource-group">
 <h2>Create the Resource Group<a class="headerlink" href="#create-the-resource-group" title="Permalink to this headline">¶</a></h2>
 <p>Google calls them projects. Azure calles them resource groups. Either
 way you need one. This useful to track spending and also ensure you
 delete all resources at the end.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster create_group $dryrun $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="enable-the-cloud-api">
 <h2>Enable the Cloud API<a class="headerlink" href="#enable-the-cloud-api" title="Permalink to this headline">¶</a></h2>
 <p>The following commands enable various Azure tools that we’ll need in
 creating and managing the JupyterHub.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster register $dryrun $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="create-the-ssh-key">
 <h2>Create the ssh key.<a class="headerlink" href="#create-the-ssh-key" title="Permalink to this headline">¶</a></h2>
 <p>This will create the ssh key and put it in the ./config/ssh/servername
 directory.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster create_key $dryrun $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="create-the-cluster">
 <h2>Create the Cluster<a class="headerlink" href="#create-the-cluster" title="Permalink to this headline">¶</a></h2>
 <p>This will create your Kubernetes Cluster. You have to wait for about 5
 minutes before this finishes creating.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster create $dryrun $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="wait-for-a-while">
 <h2>WAIT FOR A WHILE<a class="headerlink" href="#wait-for-a-while" title="Permalink to this headline">¶</a></h2>
@@ -410,84 +373,53 @@ it is likely still booting up.</p>
 <h2>Get Credentials for Kubectl<a class="headerlink" href="#get-credentials-for-kubectl" title="Permalink to this headline">¶</a></h2>
 <p>We need to add the credentials for Kubectl to work. You need a bit of
 time for your Kubernetes to launch.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#gcloud container clusters get-credentials carme
-carme cmd az-cluster get_credentials $dryrun $yes
-</pre></div>
 </div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Check to see if we have Kubectl working.</span>
-<span class="n">kubectl</span> <span class="n">cluster</span><span class="o">-</span><span class="n">info</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Check notes with Kubectl</span>
-<span class="n">kubectl</span> <span class="n">get</span> <span class="n">node</span>
-</pre></div>
-</div>
+<div class="section" id="check-your-cluster">
+<h2>Check your Cluster<a class="headerlink" href="#check-your-cluster" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">kubectl</span></code> is the default kubernetes command you can use to check out
+lots of things on your cluster. Go ahead and trying the <code class="docutils literal notranslate"><span class="pre">cluster</span> <span class="pre">info</span></code>
+and <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">node</span></code> commands below.</p>
 </div>
 <div class="section" id="helm-installation">
 <h2>Helm Installation.<a class="headerlink" href="#helm-installation" title="Permalink to this headline">¶</a></h2>
 <p>We are going to be utilizing Helm for installations of a variety of
 analytics tools. This command will install Tiller on your cluster. As
 they say, “Happy Helming”</p>
+<p>The command will created the service account, initiate it, and print the
+helm version.</p>
 <p>A critical factor for Helm is that you have the same version running
-locally and via your machine. If you run helm version and you have the
-right version, then you should be fine.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Client</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">version</span><span class="o">.</span><span class="n">Version</span><span class="p">{</span><span class="n">SemVer</span><span class="p">:</span><span class="s2">&quot;v2.6.2&quot;</span><span class="p">,</span> <span class="n">GitCommit</span><span class="p">:</span><span class="s2">&quot;be3ae4ea91b2960be98c07e8f73754e67e87963c&quot;</span><span class="p">,</span> <span class="n">GitTreeState</span><span class="p">:</span><span class="s2">&quot;clean&quot;</span><span class="p">}</span>
-<span class="n">Server</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">version</span><span class="o">.</span><span class="n">Version</span><span class="p">{</span><span class="n">SemVer</span><span class="p">:</span><span class="s2">&quot;v2.6.2&quot;</span><span class="p">,</span> <span class="n">GitCommit</span><span class="p">:</span><span class="s2">&quot;be3ae4ea91b2960be98c07e8f73754e67e87963c&quot;</span><span class="p">,</span> <span class="n">GitTreeState</span><span class="p">:</span><span class="s2">&quot;clean&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>To install the appropriate version:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">&gt;</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span>
-<span class="n">chmod</span> <span class="mi">700</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span>
-<span class="n">RUN</span> <span class="n">get_helm</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">version</span> <span class="n">v2</span><span class="o">.</span><span class="mf">6.2</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Setup Serviceaccount</span>
-<span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span> <span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">create</span> <span class="n">serviceaccount</span> <span class="n">tiller</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Initialize Helm</span>
-<span class="n">helm</span> <span class="n">init</span> <span class="o">--</span><span class="n">service</span><span class="o">-</span><span class="n">account</span> <span class="n">tiller</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#This may need to be run more than once if you get a &quot;cannot connect to server.&quot;</span>
-<span class="n">helm</span> <span class="n">version</span>
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Secure Helm</span>
-<span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">patch</span> <span class="n">deployment</span> <span class="n">tiller</span><span class="o">-</span><span class="n">deploy</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">json</span> <span class="o">--</span><span class="n">patch</span><span class="o">=</span><span class="s1">&#39;[{&quot;op&quot;: &quot;add&quot;, &quot;path&quot;: &quot;/spec/template/spec/containers/0/command&quot;, &quot;value&quot;: [&quot;/tiller&quot;, &quot;--listen=localhost:44134&quot;]}]&#39;</span>
-</pre></div>
-</div>
+locally and via your machine. If you run helm version and you the same
+versions on the client and sever, you should be fine.</p>
+<p><em>Client: &amp;version.Version{SemVer:”v2.6.2”,
+GitCommit:”be3ae4ea91b2960be98c07e8f73754e67e87963c”,
+GitTreeState:”clean”}</em></p>
+<p><em>Server: &amp;version.Version{SemVer:”v2.6.2”,
+GitCommit:”be3ae4ea91b2960be98c07e8f73754e67e87963c”,
+GitTreeState:”clean”}</em></p>
+<p>To install an alternate version, use this:</p>
+<p><em>curl
+https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get &gt;
+get_helm.sh</em></p>
+<p><em>chmod 700 get_helm.sh</em></p>
+<p><em>RUN get_helm.sh –version v2.6.2</em></p>
+<p>Secure Helm</p>
 </div>
 <div class="section" id="resize-a-cluster">
 <h2>Resize a Cluster<a class="headerlink" href="#resize-a-cluster" title="Permalink to this headline">¶</a></h2>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Scale the cluster
-carme cmd az-cluster class_size $dryrun $yes
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Stop the cluster, effectively setting the size to 0.
-carme cmd az-cluster stop $dryrun $yes
-</pre></div>
-</div>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Set the cluster to the normal size.</span>
-<span class="n">carme</span> <span class="n">cluster</span> <span class="n">normal_size</span>
-</pre></div>
-</div>
+<p>The commands below can be used to resize the cluster. For example, you
+man need to scale up for classroom exercises. This is held in the config
+file as the number of servers for class_size.</p>
+<p>Stop the cluster, effectively setting the size to 0.</p>
+<p>Set the cluster to the normal size. This is a “non class time” size.</p>
 </div>
 <div class="section" id="deleting-a-kubernetes-cluster">
 <h2>Deleting a Kubernetes Cluster<a class="headerlink" href="#deleting-a-kubernetes-cluster" title="Permalink to this headline">¶</a></h2>
 <p>This will delete the Kubernetes cluster by deleting the entire project.
 This will prefent any future charges.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>#Always delete the namespace first.
-carme cmd az-cluster delete $dryrun $yes
-</pre></div>
-</div>
 </div>
 <div class="section" id="delete-the-resource-group">
 <h2>Delete the Resource Group<a class="headerlink" href="#delete-the-resource-group" title="Permalink to this headline">¶</a></h2>
 <p>To fully clean up everything, go ahead and delete the resource group.</p>
-<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span>carme cmd az-cluster delete_group $dryrun $yes
-</pre></div>
-</div>
 </div>
 </div>
 
@@ -547,10 +479,7 @@ carme cmd az-cluster delete $dryrun $yes
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {

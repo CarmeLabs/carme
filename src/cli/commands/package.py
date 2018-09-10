@@ -66,7 +66,7 @@ def _install_package(project_root, package):
             logging.info('Multiple packages, installing: '+x)
             x_url=_return_package_url(project_root, str(x))
             print("xurl",x_url)
-            #Packager(x_url, project_root).install()
+            Packager(x_url, project_root).install()
     else:
         logging.info("Downloading from: "+str(package))
         Packager(package, project_root).install()

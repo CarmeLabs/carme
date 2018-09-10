@@ -51,14 +51,19 @@ def execute(command, commands, package, project_root, kwargs, docker=False, dryr
     logging.info("Template: "+ commands[command])
     project_name = os.path.basename(project_root)
     #slighty different if it is a script
-    if commands[command][-3:]=='.sh'or commands[command][0:7]=='script:':
+    if commands[command][0:7]=='script':
         commands[command]=commands[command].replace('script:', '')
-        script_path=os.path.join(project_root, 'commands', 'scripts',commands[command])
-        if remote ==false:
-            syntax= 'bash -x '+script_path
+        script_path=os.path.join('./commands', 'scripts', command+'.sh')
+        #to be implemented later. Ability to execute remotely.
+        remote=False
+        if remote ==False:
+            syntax= 'source '+script_path
+
         else:
             syntax='ssh {server_name}@{ip_address} bash -s > '+script_path
-    syntax=sub_keys(commands[command], kwargs)
+    else:
+        #This will update.
+        syntax=sub_keys(commands[command], kwargs)
     #slightly different if it is docker.
     if docker==True:
         syntax= 'docker run -it -v '+project_root+':/home/'+project_name+' '+kwargs[package+'_image']+' sh -c "'+syntax+'"'
@@ -67,8 +72,13 @@ def execute(command, commands, package, project_root, kwargs, docker=False, dryr
 
     #As a security protection, confirm they really want to execute the command.  No confirmation needed for dry run. s
     if not yes and not dryrun:
-        cont=input("Press 'y' to execute the above command. Enter to quit. ")
-        if cont!='y':
+        cont=input("Press 'y' to execute the above command, 's' to skip, enter to quit. ")
+        if cont=='y':
+            bash_command(command, syntax)
+        elif cont=='s':
+            logging.info("Skipping the above command")
+        else:
+            logging.info("Quitting")
             quit()
-    if not dryrun:
+    elif not dryrun:
         bash_command(command, syntax)

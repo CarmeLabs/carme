@@ -51,7 +51,7 @@ Set the appropriate subscription here.
 
 .. code:: ipython3
 
-    carme cmd az-server login $dryrun $yes 
+    carme cmd az-server login   
 
 Print Available Commands
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +84,7 @@ delete all resources at the end.
 
 .. code:: ipython3
 
-    carme cmd az-server create_group $dryrun $yes
+    carme cmd az-server create_group  
 
 Create the Server
 ~~~~~~~~~~~~~~~~~
@@ -94,7 +94,7 @@ manage it.
 
 .. code:: ipython3
 
-    carme cmd az-server create $dryrun $yes
+    carme cmd az-server create  
 
 WAIT FOR A WHILE
 ~~~~~~~~~~~~~~~~
@@ -109,7 +109,7 @@ There is a need to open ports on the target machine.
 .. code:: ipython3
 
     #gcloud container clusters get-credentials carme
-    carme cmd az-server open_port_8888 $dryrun $yes
+    carme cmd az-server open_port_8888  
 
 Using and Enhancing Your Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,7 +118,7 @@ Using and Enhancing Your Server
 
 .. code:: ipython3
 
-    carme cmd az-server ssh $dryrun $yes
+    carme cmd az-server ssh  
 
 Stop the Server
 ~~~~~~~~~~~~~~~
@@ -129,7 +129,7 @@ you start it up again.
 .. code:: ipython3
 
     #Scale the cluster 
-    carme cmd az-server stop $dryrun $yes
+    carme cmd az-server stop  
 
 Start the Server
 ~~~~~~~~~~~~~~~~
@@ -137,7 +137,7 @@ Start the Server
 .. code:: ipython3
 
     #Stop the cluster, effectively setting the size to 0.
-    carme cmd az-server start $dryrun $yes
+    carme cmd az-server start  
 
 Show the Server
 ~~~~~~~~~~~~~~~
@@ -145,7 +145,7 @@ Show the Server
 .. code:: ipython3
 
     #Set the cluster to the normal size.
-    carme cmd az-server show $dryrun $yes
+    carme cmd az-server show  
 
 Deleting the Server
 ~~~~~~~~~~~~~~~~~~~
@@ -156,7 +156,7 @@ This will prefent any future charges.
 .. code:: ipython3
 
     #Always delete the namespace first. 
-    carme cmd az-server delete $dryrun $yes
+    carme cmd az-server delete  
 
 Delete the Resource Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,4 +165,4 @@ To fully clean up everything, go ahead and delete the resource group.
 
 .. code:: ipython3
 
-    carme cmd az-server delete_resource_group $dryrun $yes
+    carme cmd az-server delete_resource_group  

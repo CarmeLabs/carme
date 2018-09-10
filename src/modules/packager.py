@@ -26,10 +26,15 @@ class Packager:
     """
     Object for managing a package
     """
-    project_root: str = None
-    zip_path: str = None
-    unzipped_path: str = None
-    download_URL: str = None
+    #This specification erroring with Python 3.5. 
+    #project_root: str = None
+    #zip_path: str = None
+    #unzipped_path: str = None
+    #download_URL: str = None
+    project_root = None
+    zip_path = None
+    unzipped_path = None
+    download_URL = None
 
     def __init__(self, package_path: str, project_root: str, create=False):
         """
