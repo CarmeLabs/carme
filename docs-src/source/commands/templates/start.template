@@ -1,7 +1,0 @@
-start
-==================
-
-The `carme start` command launch all applications indicated in the docker-compose.yaml file.
-
-Usage
------
