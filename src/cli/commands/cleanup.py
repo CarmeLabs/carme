@@ -5,6 +5,8 @@ import click
 from ...modules.base import bash_command, setup_logger
 # Set up logger
 setup_logger()
+
+
 @click.command()
 def cleanup():
     """
