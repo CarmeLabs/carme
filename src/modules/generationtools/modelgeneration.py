@@ -16,10 +16,11 @@ def findBestDistribution(df):
         df { DataFrame } -- The data matrix
 
     Returns:
-        (Best Distribution, pvalue, params)
-            - Best Distribution: The name of the best fitted graph
+        (best_dist_name, pvalue, params)
+            - best_dist_name: List of best fitted graph for each column
             - pvalue: The associated Pvalue generated from the KSTest
-            - params: The parameters associated with the best fitted graph (e.g. min&max, alpha&beta)
+            - params: The parameters associated with the best fitted
+                      graph (e.g. min&max, alpha&beta)
     """
 
     dist_names = ['truncnorm', 'beta', 'expon', 'uniform']
@@ -44,4 +45,4 @@ def findBestDistribution(df):
         best_dist_name[col_num] = best_dist
         pvalues[col_num] = best_pv
         params[col_num] = best_param
-    return best_dist, pvalues, params
+    return best_dist_name, pvalues, params
