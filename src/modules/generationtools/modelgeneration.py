@@ -10,6 +10,18 @@ from scipy.stats import expon, truncnorm, beta, uniform
 
 
 def findBestDistribution(df):
+    """Finds the best fit for each column and returns the associated parameters
+
+    Arguments:
+        df { DataFrame } -- The data matrix
+
+    Returns:
+        (Best Distribution, pvalue, params)
+            - Best Distribution: The name of the best fitted graph
+            - pvalue: The associated Pvalue generated from the KSTest
+            - params: The parameters associated with the best fitted graph (e.g. min&max, alpha&beta)
+    """
+
     dist_names = ['truncnorm', 'beta', 'expon', 'uniform']
     best_dist_name = [0] * len(df.columns)
     pvalues = [0] * len(df.columns)
