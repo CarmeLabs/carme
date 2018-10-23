@@ -47,8 +47,8 @@ def findBestDistribution(df):
         params[col_num] = best_param
     return best_dist_name, pvalues, params
 
-def memes():
-    print("ok")
+def findCovariances():
+    print("This function is empty")
 
 # Read data from file 'filename.csv' 
 # (in the same directory that your python process is based)
