@@ -53,7 +53,7 @@ setup(
         ],
     keywords='kubernetes analytics jupyterhub airflow',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=["docker", "click", "ruamel.yaml", "validators", "gitconfig"],
+    install_requires=["docker", "click", "ruamel.yaml", "validators"],
     include_package_data=True,
     extras_require = {
         'test': ['coverage', 'pytest', 'pytest-cov'],
