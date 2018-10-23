@@ -38,14 +38,13 @@ def MissingValues(df):
             df.insert(x, val + '_MissingLogical', logicalMissing)
         x = x + 1
     return df
-'''
-INPUT: a dataframe
-This fuction converts values in a dataframe that
-are in datatime format to EPOCH time format
-'''
 
 
 def DatetimeToEPOCH(df):
+    """
+    INPUT: df is a dataframe
+    Convert values in datatime format to DataFrame
+    """
     for column in df:
         # if the column contains datetimes
         if isinstance(df[column][0], datetime.datetime):
