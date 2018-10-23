@@ -14,8 +14,11 @@ def MissingValues(df):
     with missing data points in a data set.
     It creates a new column in the data identifying
     what points were missing.
-    Args: df , dataframe
-    returns: df without any none values"""
+    Argument:
+        df { DataFrame }: The data matrix
+    Return:
+        df { DataFrame} without any none values
+    """
     df_temp = df
     # It then fills the missing values with random values from the row
     x = 0
@@ -41,8 +44,11 @@ def MissingValues(df):
 def DatetimeToEPOCH(df):
     """
     Convert values in datatime format to DataFrame
-    Args: df is a dataframe
-    Returns df dataframe with datetimes converted to EPOCH
+    Arguments:
+        df is a dataframe
+    Returns:
+        (df)
+            -df: dataframe
     """
     for column in df:
         # if the column contains datetimes
