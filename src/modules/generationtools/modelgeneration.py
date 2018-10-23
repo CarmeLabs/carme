@@ -45,3 +45,20 @@ def findBestDistribution(df):
         pvalues[col_num] = best_pv
         params[col_num] = best_param
     return best_dist, pvalues, params
+
+def memes():
+    print("ok")
+
+# Read data from file 'filename.csv' 
+# (in the same directory that your python process is based)
+# Control delimiters, rows, column names with read_csv (see later)
+data = pd.read_csv("BreadBasket_DMS.csv")
+best_dist, pvalues, params = findBestDistribution(data)
+print(best_dist)
+print(pvalues)
+print(params)
+memes(data)
+# Preview the first 5 lines of the loaded data 
+print(data.head())
+print(data.size)
+print("abc")
