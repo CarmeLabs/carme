@@ -7,12 +7,16 @@ import pandas as pd
 import random
 from scipy import stats
 import matplotlib.pyplot as plt
+
+
 def MissingValues(df):
-    # the point of this function is to deal with missing data points in a data set.
-    # It creates a new column in the data identifying what points were missing.
+    """ the point of this function is to deal
+    with missing data points in a data set.
+    It creates a new column in the data identifying
+    what points were missing.
+    INPUT: a dataframe"""
     df_temp = df
     # It then fills the missing values with random values from the row
-
     x = 0
     for col_num in range(len(df.columns)):
         column = df[df.columns[col_num]]
@@ -29,10 +33,18 @@ def MissingValues(df):
                 return MissingValues(df_temp)
             column.fillna(ran, inplace=True)
             # then fills in a new row indicating which values were missing
-            x = x+1
-            df.insert(x, df.columns[col_num] + '_MissingLogical', logicalMissing)
-        x = x+1
+            x = x + 1
+            val = df.columns[col_num]
+            df.insert(x, val + '_MissingLogical', logicalMissing)
+        x = x + 1
     return df
+'''
+INPUT: a dataframe
+This fuction converts values in a dataframe that
+are in datatime format to EPOCH time format
+'''
+
+
 def DatetimeToEPOCH(df):
     for column in df:
         # if the column contains datetimes
@@ -44,4 +56,3 @@ def DatetimeToEPOCH(df):
             except:
                 continue
     return df
-
