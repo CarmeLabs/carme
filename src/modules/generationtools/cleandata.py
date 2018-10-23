@@ -27,10 +27,7 @@ def MissingValues(df):
             logicalMissing = pd.isnull(column)
             logicalFilled = [not i for i in logicalMissing]
             # and fills them from a random point in the data
-            try:
-                ran = random.choice(column[logicalFilled])
-            except:
-                return MissingValues(df_temp)
+            ran = random.choice(column[logicalFilled].tolist())
             column.fillna(ran, inplace=True)
             # then fills in a new row indicating which values were missing
             x = x + 1
