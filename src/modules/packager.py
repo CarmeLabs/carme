@@ -16,7 +16,7 @@ from pathlib import Path
 from .yamltools import *
 import re
 # A constant for the downloaded package cache
-PKG_CACHE = os.path.userexpand("~/.carme-cache")
+PKG_CACHE = os.path.expanduser("~/.carme-cache")
 
 # Set up logger
 FORMAT = 'carme: [%(levelname)s] %(message)s'
