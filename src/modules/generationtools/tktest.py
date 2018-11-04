@@ -1,2 +1,0 @@
-import Tkinter
-print("abc")
