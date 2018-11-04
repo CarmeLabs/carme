@@ -22,7 +22,6 @@ def findBestDistribution(df):
             - params: The parameters associated with the best fitted
                       graph (e.g. min&max, alpha&beta)
     """
-
     dist_names = ['truncnorm', 'beta', 'expon', 'uniform']
     best_dist_name = [0] * len(df.columns)
     pvalues = [0] * len(df.columns)
@@ -47,19 +46,48 @@ def findBestDistribution(df):
         params[col_num] = best_param
     return best_dist_name, pvalues, params
 
-def findCovariances():
-    print("This function is empty")
+def findCovariances(df, dists, params):
+    """Finds the covariances between columns using a multivariate Gaussian
+    Copula, following these steps:
+    1. Begin with columns 0, ..., n, and corresponding cdfs F_0, ..., F_n.
+    2. Iterate by row vectors, where each row is X = (x_0, ..., x_n)
+    3. Transform each row into a new row Y = invNorm(F_0(x_0)), ...,
+       invNorm(F_n(x_n))
+    4. Compute covariance matrix from new transformed table
 
-# Read data from file 'filename.csv' 
-# (in the same directory that your python process is based)
-# Control delimiters, rows, column names with read_csv (see later)
-data = pd.read_csv("BreadBasket_DMS.csv")
-best_dist, pvalues, params = findBestDistribution(data)
-print(best_dist)
-print(pvalues)
-print(params)
-memes(data)
-# Preview the first 5 lines of the loaded data 
-print(data.head())
-print(data.size)
-print("abc")
+    Arguments:
+        df { DataFrame } -- The data matrix
+        dists { List } -- List of best fit distribution names
+        params { List } -- List of parameter tuples for each distribution
+
+    Returns:
+        covariance matrix of transformed table
+    """
+    transformed_data = []
+    for index, row in df.iterrows():
+        new_row = []
+        for value, dist_name, param in zip(row, dists, params):
+            # for each row, apply transformation
+            dist = getattr(scipy.stats, dist_name)
+            cdf = dist.cdf(value, *param)
+            # prevent extreme or infinite values
+            if cdf < 0.01:
+                cdf = 0.01
+            elif cdf > 0.99:
+                cdf = 0.99
+            print(scipy.stats.norm.ppf(cdf))
+            new_row.append(scipy.stats.norm.ppf(cdf))
+        transformed_data.append(new_row)
+    data = list(map(list, zip(*transformed_data)))
+    print(data)
+    # calculate covariance matrix using numpy.cov
+    cos = np.cov(data)
+    return cos
+
+'''
+Sample use:
+
+data = pd.read_csv("test.csv")
+dists, pvalues, params = findBestDistribution(data)
+cos = findCovariances(data, dists, params)
+'''
