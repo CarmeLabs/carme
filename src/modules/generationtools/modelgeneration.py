@@ -75,20 +75,9 @@ def findCovariances(df, dists, params):
                 cdf = 0.01
             elif cdf > 0.99:
                 cdf = 0.99
-            print(scipy.stats.norm.ppf(cdf))
             new_row.append(scipy.stats.norm.ppf(cdf))
         transformed_data.append(new_row)
     data = list(map(list, zip(*transformed_data)))
-    print(data)
     # calculate covariance matrix using numpy.cov
     cos = np.cov(data)
     return cos
-
-def main():
-    iris = pd.read_csv('Iris.csv')
-    iris = iris.drop(columns=['Species'])
-    b, pv, p = findBestDistribution(iris)
-    print(b)
-
-if __name__ == '__main__':
-    main()
