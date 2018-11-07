@@ -84,10 +84,11 @@ def findCovariances(df, dists, params):
     cos = np.cov(data)
     return cos
 
-'''
-Sample use:
+def main():
+    iris = pd.read_csv('Iris.csv')
+    iris = iris.drop(columns=['Species'])
+    b, pv, p = findBestDistribution(iris)
+    print(b)
 
-data = pd.read_csv("test.csv")
-dists, pvalues, params = findBestDistribution(data)
-cos = findCovariances(data, dists, params)
-'''
+if __name__ == '__main__':
+    main()
