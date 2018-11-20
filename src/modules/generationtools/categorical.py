@@ -28,6 +28,15 @@ def identify(col):
     return not float_found # True if all ints, false if atleast one float found
 
 def rank_categories(col):
+    """Ranks the column values in most frequent descending order
+    
+    Arguments:
+        col {Dataframe Column} -- The column to sort
+    
+    Returns:
+        [List] -- List of tuples of the value and percentage it occurs
+    """
+
     categories = {}
     # Count the occurances
     for item in col:
@@ -42,6 +51,15 @@ def rank_categories(col):
     return categories
 
 def categorical_convert(col):
+    """Encodes categorical data into ML-usable data
+    
+    Arguments:
+        col {Dataframe column} -- The column to encode
+    
+    Returns:
+        Dataframe column -- An encoded column
+    """
+
     categories = rank_categories(col)
     distributions = {}
     limits = {}
@@ -58,11 +76,12 @@ def categorical_convert(col):
     # sample from the distributions and return that value
     return col.apply(lambda x: distributions[x].rvs()), limits
 
+
+"""Example usage
+
 def main():
     data = pd.read_csv('test.csv')
     for col in data:
         if identify(data[col]):
             print(categorical_convert(data[col]))
-
-if __name__ == "__main__":
-    main()
+"""
