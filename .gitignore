@@ -13,3 +13,4 @@ build
 *.swp
 .vscode
 .idea
+/carme-env
