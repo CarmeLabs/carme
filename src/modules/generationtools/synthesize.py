@@ -1,6 +1,6 @@
 """Module to synthesize the data
 """
-import .modelgeneration as mg
+import modelgeneration as mg
 import scipy
 import scipy.stats
 import matplotlib
@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from scipy.stats import expon, truncnorm, beta, uniform, norm
-from .cleandata import MissingValues, DatetimeToEPOCH
-from .categorical import identify, categorical_convert
+from cleandata import MissingValues, DatetimeToEPOCH
+from categorical import identify, categorical_convert
 
 def sample(f, sigma):
     '''
@@ -79,3 +79,7 @@ def synthesize_table(file_in, file_out, lines = 0):
     for k in range(lines):
         new_df.loc[k] = sample(f, sigma)
     new_df.to_csv(file_out, index = False)
+
+
+if __name__ == "__main__":
+    synthesize_table("test.csv", "s_test.csv")
