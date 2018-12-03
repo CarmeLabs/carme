@@ -1,6 +1,6 @@
 """Module to synthesize the data
 """
-import modelgeneration as mg
+import .modelgeneration as mg
 import scipy
 import scipy.stats
 import matplotlib
@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from scipy.stats import expon, truncnorm, beta, uniform, norm
+from .cleandata import MissingValues, DatetimeToEPOCH
+from .categorical import identify, categorical_convert
 
 def sample(f, sigma):
     '''
@@ -51,6 +53,19 @@ def synthesize_table(file_in, file_out, lines = 0):
         print(e)
         return
 
+    # Fix missing values in the DF & Change datetimes
+    df = MissingValues(df)
+    df = DatetimeToEPOCH(df)
+
+    limits = {}
+    counter = 0
+    for col in df:
+        if(identify(df[col])):
+            new_col, limit = categorical_convert(df[col])
+            limits[counter] = limit
+            counter += 1
+            df[col] = new_col
+    
     # calculate distributions and covariances using tools in model_generation.py
     dists, pvalues, params = mg.findBestDistribution(df)
     f = (dists, params)

@@ -76,12 +76,3 @@ def categorical_convert(col):
     # sample from the distributions and return that value
     return col.apply(lambda x: distributions[x].rvs()), limits
 
-
-"""Example usage
-
-def main():
-    data = pd.read_csv('test.csv')
-    for col in data:
-        if identify(data[col]):
-            print(categorical_convert(data[col]))
-"""
