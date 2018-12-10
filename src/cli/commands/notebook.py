@@ -9,7 +9,6 @@ import click
 from shutil import copyfile
 from ...modules.base import setup_logger, JUPYTER_IMAGE_KEY, CONFIG_FILE, CWD, bash_command
 from ...modules.notebookwrapper import get_flags, get_image_port
-from ...modules.dockerwrapper import service_create
 from pathlib import Path
 
 # Set up logger

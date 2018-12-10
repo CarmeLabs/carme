@@ -13,6 +13,29 @@ from subprocess import DEVNULL, Popen
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 
+def permcheck(func):
+    """
+    Decorator to check if Git is installed, and if the user has permissions for it.
+    """
+    def inner(*args, **kwargs):
+        path = os.getenv('PATH')
+        found = False
+        for p in path.split(os.path.pathsep):
+            if found:
+                break
+            p = os.path.join(p, 'git')
+            if os.path.exists(p):
+                found = True
+                if os.access(p, os.X_OK):
+                    func(*args, **kwargs)
+                else:
+                    logging.error(
+                        "You do not have permisison to manage git")
+                    raise PermissionError
+        if not found:
+            logging.error("Git binary not found on PATH")
+            raise FileNotFoundError
+    return inner
 
 class Git():
     """
@@ -20,30 +43,6 @@ class Git():
 
     Commands supported: git init, git add, git commit, git push, git remote add
     """
-
-    def permcheck(self, func):
-        """
-        Decorator to check if Git is installed, and if the user has permissions for it.
-        """
-        def inner(*args, **kwargs):
-            path = os.getenv('PATH')
-            found = False
-            for p in path.split(os.path.pathsep):
-                if found:
-                    break
-                p = os.path.join(p, 'git')
-                if os.path.exists(p):
-                    found = True
-                    if os.access(p, os.X_OK):
-                        func(*args, **kwargs)
-                    else:
-                        logging.error(
-                            "You do not have permisison to manage git")
-                        raise PermissionError
-            if not found:
-                logging.error("Git binary not found on PATH")
-                raise FileNotFoundError
-        return inner
 
     @staticmethod
     @permcheck
