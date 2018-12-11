@@ -19,3 +19,6 @@ testpath==0.4.2
 traitlets==4.3.2
 validators==0.12.3
 webencodings==0.5.1
+pandas==0.23.4
+scipy==1.1.0
+matplotlib==3.0.0

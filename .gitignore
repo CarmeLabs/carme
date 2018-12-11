@@ -13,6 +13,7 @@ build
 *.swp
 .vscode
 .idea
+/carme-env
 
 # Other
 .DS_Store
