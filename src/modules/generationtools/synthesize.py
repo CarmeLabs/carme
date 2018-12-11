@@ -1,6 +1,6 @@
 """Module to synthesize the data
 """
-import modelgeneration as mg
+from .modelgeneration import ModelGenerator as mg
 import scipy
 import scipy.stats
 import matplotlib
@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from scipy.stats import expon, truncnorm, beta, uniform, norm
-from cleandata import MissingValues, DatetimeToEPOCH
-from categorical import identify, categorical_convert
+from .cleandata import MissingValues, DatetimeToEPOCH
+from .categorical import identify, categorical_convert
 
 def sample(f, sigma):
     '''
