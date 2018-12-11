@@ -7,26 +7,25 @@ import click
 from shutil import copyfile, copytree
 from .package import _install_package
 from ...modules.packager import Packager
-from ...modules.base import *
-from ...modules.yamltools import *
+from ...modules.base import setup_logger, CONFIG_FILE, CONFIG_DIR, update_key
 from .git import _git
 
 # Set up logger
 setup_logger()
 
+
 @click.command()
 @click.argument('project_dir', type=click.Path())
 @click.option('--package', default="default", help='Enter the package for initial project scaffold.')
 @click.option('--git', is_flag=True, default=False, help='Initialize a git repository.')
-
 def new(project_dir, package, git):
     """
     Creates a new carme project in project_dir or the given folder.
     """
     project_name = os.path.basename(project_dir)
     project_dir = os.path.abspath(project_dir)
-    cwd=os.getcwd()
-    #If running in the current directory, no need to cd.
+    cwd = os.getcwd()
+    # If running in the current directory, no need to cd.
     if project_name != '.':
         if os.path.exists(project_dir):
             logging.warning(project_dir + " already exists!")
@@ -37,20 +36,21 @@ def new(project_dir, package, git):
         if os.path.exists(os.path.join(cwd, ".carmeignore")):
             logging.warning("Camre project already exists here!")
             return
-        project_name=os.path.basename(os.path.dirname(os.getcwd()))
+        project_name = os.path.basename(os.path.dirname(os.getcwd()))
 
     logging.info("Installing using package: "+package)
 
-    #Update the package short name to url using index.
+    # Update the package short name to url using index.
     _install_package(project_dir, package)
 
-    config_path=os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE)
+    config_path = os.path.join(project_dir, CONFIG_DIR, CONFIG_FILE)
     if os.path.exists(config_path):
         update_key('project_name', project_name, config_path)
 
-    #The git flag will connect a github repository.
+    # The git flag will connect a github repository.
     if git:
         _git()
     else:
-        logging.info("Git repository not set. Changes will only be saved locally.")
+        logging.info(
+            "Git repository not set. Changes will only be saved locally.")
         logging.info("To connect to git repository, run `carme git`")

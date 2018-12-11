@@ -1,5 +1,5 @@
+# Python
 *.pyc
-.DS_Store
 .cache
 .coverage
 *.egg-info
@@ -8,9 +8,14 @@ build
 *.ipynb_checkpoints/*
 *checkpoint*
 /tests/tmp/*
-*.notes
-.directory
+
+# IDEs and editors
 *.swp
 .vscode
 .idea
 /carme-env
+
+# Other
+.DS_Store
+*.notes
+.directory

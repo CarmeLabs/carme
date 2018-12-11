@@ -1,17 +1,21 @@
-import os,sys, subprocess, ruamel.yaml,  urllib.request
+import os
+import sys
+import subprocess
+import ruamel.yaml
+import urllib.request
 import logging
 from glob import glob
 from ruamel.yaml import YAML
 from tempfile import NamedTemporaryFile
 from random import randint
-from .base import *
 from pathlib import Path
 
 # set up logging
 FORMAT = 'carme: [%(levelname)s] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stderr)
 
-def merge_yaml(file1:str, file2:str, outpath=None, master=False):
+
+def merge_yaml(file1: str, file2: str, outpath=None, master=False):
     """
     Merges 2 yaml files returning the path to the merged file.
 
@@ -37,12 +41,11 @@ def merge_yaml(file1:str, file2:str, outpath=None, master=False):
         outpath = NamedTemporaryFile(delete=False, mode="w").name
     outfile = None
 
-    ### JNK.  Currently when merging A with B and putting back to A this results in duplicate keys.
+    # JNK.  Currently when merging A with B and putting back to A this results in duplicate keys.
     if os.path.exists(outpath):
         outfile = open(outpath, "a+")
     else:
         outfile = open(outpath, "w+")
-    
 
     logging.debug("Outputting to " + outfile.name)
 
@@ -60,7 +63,8 @@ def merge_yaml(file1:str, file2:str, outpath=None, master=False):
     # get the path, close the file, and return
     return outfile.name
 
-def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
+
+def folder_merge_yaml(folderpath: str, pattern='*.compose.yaml', outpath=None):
     """
     Merges all the YAML files in a directory and its subdirs matching the *.compose.yaml format.
 
@@ -77,12 +81,14 @@ def folder_merge_yaml(folderpath:str, pattern='*.compose.yaml', outpath=None):
     if outpath == None:
         outpath = NamedTemporaryFile(delete=False, mode="w").name
     outfile = open(outpath, "w+")
-    files = [y for x in os.walk(folderpath) for y in glob(os.path.join(x[0], pattern))]
+    files = [y for x in os.walk(folderpath)
+             for y in glob(os.path.join(x[0], pattern))]
     for _file in files:
         merge_yaml(outfile.name, _file, outfile.name, True)
 
     # get the path, close the file, and return
     return outfile.name
+
 
 def load_yaml_file(file):
     """
@@ -91,11 +97,12 @@ def load_yaml_file(file):
     """
     try:
         with open(file, 'r') as yaml:
-            kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
+            kwargs = ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
         return kwargs
     except subprocess.CalledProcessError as e:
         print("error")
     return(e.output.decode("utf-8"))
+
 
 def load_yaml_url(url):
     """
@@ -104,12 +111,13 @@ def load_yaml_url(url):
     """
     try:
         response = urllib.request.urlopen(url)
-        yaml=response.read().decode('utf-8')
-        kwargs=ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
+        yaml = response.read().decode('utf-8')
+        kwargs = ruamel.yaml.round_trip_load(yaml, preserve_quotes=True)
         return kwargs
     except subprocess.CalledProcessError as e:
         print("Error loading", url)
     return(e.output.decode("utf-8"))
+
 
 def update_yaml_file(file, kwargs):
     """
@@ -120,21 +128,21 @@ def update_yaml_file(file, kwargs):
     try:
         ruamel.yaml.round_trip_dump(kwargs, open(file, 'w'))
     except subprocess.CalledProcessError as e:
-        print("error")
+        print("error: " + e)
+
 
 def update_key(key, value, file):
     """
     Updates a yaml file.
     @param kwargs dictionary.
     """
-    kwargs=load_yaml_file(file)
-    kwargs[key]=value
+    kwargs = load_yaml_file(file)
+    kwargs[key] = value
     update_yaml_file(file, kwargs)
     return kwargs
 
 
-
-#def add_key(base, key, value, file):
+# def add_key(base, key, value, file):
 #    """
 #    Updates a yaml file.
 #    @param kwargs dictionary.
@@ -143,7 +151,6 @@ def update_key(key, value, file):
 #    kwargs[base][key]=value
 #    update_yaml_file(file, kwargs)
 #    return kwargs
-
 
 
 # def append_config(carme_config,file):

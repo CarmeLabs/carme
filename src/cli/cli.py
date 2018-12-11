@@ -2,13 +2,15 @@ import click
 from .commands import new, save, package, git, lab, build, notebook, cmd, ssh, start, stop, cleanup, convert, generate
 #from .commands.packages import samppack
 
-#create a sample list of packages. Could pull from config.
-packages=['samppack']
+# create a sample list of packages. Could pull from config.
+packages = ['samppack']
+
 
 @click.group()
 @click.version_option()
 def carme():
     pass
+
 
 # commands from external files ie the commands folder must be manually
 # imported then added to the group.
