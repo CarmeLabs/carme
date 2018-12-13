@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from scipy.stats import expon, truncnorm, beta, uniform, norm
 from .cleandata import MissingValues, DatetimeToEPOCH
-from .categorical import identify, categorical_convert
+from .categorical import identify, categorical_convert, undo_cat
 
 def sample(f, sigma):
     '''
@@ -57,15 +57,13 @@ def synthesize_table(file_in, file_out, lines = 0):
     df = MissingValues(df)
     df = DatetimeToEPOCH(df)
 
+    cat_cols = {}
     limits = {}
-    counter = 0
     for col in df:
         if(identify(df[col])):
             new_col, limit = categorical_convert(df[col])
-            limits[counter] = limit
-            counter += 1
+            limits[col] = limit
             df[col] = new_col
-    
     # calculate distributions and covariances using tools in model_generation.py
     dists, pvalues, params = mg.findBestDistribution(df)
     f = (dists, params)
@@ -78,8 +76,9 @@ def synthesize_table(file_in, file_out, lines = 0):
     new_df = pd.DataFrame(columns = list(df))
     for k in range(lines):
         new_df.loc[k] = sample(f, sigma)
+
+    for col in new_df.columns:
+        if col in limits:
+            new_df[col] = undo_cat(new_df[col], limits[col])
+
     new_df.to_csv(file_out, index = False)
-
-
-if __name__ == "__main__":
-    synthesize_table("test.csv", "s_test.csv")

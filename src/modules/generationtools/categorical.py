@@ -76,3 +76,22 @@ def categorical_convert(col):
     # sample from the distributions and return that value
     return col.apply(lambda x: distributions[x].rvs()), limits
 
+
+def undo_cat(col, lim):
+    """Convert the categorical column to normalized valus
+    
+    Arguments:
+        col {Column} -- The dataframe's column
+        lim {Dict} -- The dictionary containing the limits per catergorical column
+    
+    Returns:
+        Column -- The new column
+    """
+
+
+    def cat_decode(x, limits):
+        for k, v in limits.items():
+            if x < k:
+                return v
+
+    return col.apply(lambda x: cat_decode(x, lim))
